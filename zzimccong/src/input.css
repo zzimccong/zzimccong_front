@@ -1,0 +1,526 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+input {
+  outline: none;
+  box-shadow: none;
+  caret-color: #ff3d00;
+}
+input:active {
+  border-color: transparent;
+}
+
+.icon {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+em {
+  font-style: normal;
+}
+#root > div {
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: #fff;
+  width: auto;
+  position: relative;
+  height: 100vh;
+  overflow: auto;
+  min-height: 100%;
+  box-shadow: 0 0 20px #0000000d;
+  -ms-overflow-style: none;
+}
+#root > div::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+}
+
+header {
+  max-width: 480px;
+  margin: 0 auto;
+  width: auto;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  top: 0;
+
+  background-color: #fff;
+}
+.tab-menu {
+  display: flex;
+
+  z-index: 99;
+  background-color: #fff;
+  height: 48px;
+}
+.tab-menu > li {
+  cursor: pointer;
+  color: rgb(170, 170, 170);
+}
+.tab-menu > li.active {
+  color: #000;
+  font-weight: 700;
+  border-bottom: 2px solid #000;
+  box-sizing: border-box;
+}
+.container {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.how-to > div span {
+  position: relative;
+}
+.how-to > div span::after {
+  background: url("/src/assets/icons/arrow-right-20.svg") 50% 50% no-repeat;
+  /* background: url('/public/img/icons/arrow-right-20.svg') 50% 50% no-repeat; */
+  display: block;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+.btn-sort {
+  position: relative;
+  width: fit-content;
+  padding-right: 20px;
+}
+
+.btn-sort::after {
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("/src/assets/icons/sort.svg") 50% 50% no-repeat;
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
+.btn-sort.active::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+/* header */
+.header-wrapper {
+  background: #fff;
+  border-bottom: 1px solid #fff;
+  height: 48px;
+}
+.bg-main {
+  background: url("/src/assets/icons/logo.png") 50% 50% no-repeat;
+  background-size: 30px;
+  width: 30px;
+  height: 30px;
+  padding: 1px 0 0 1px;
+  margin: 0 8px 0 -1px;
+}
+
+.bg-bookmark {
+  background: url("/src/assets/icons/header-mark.svg") 50% 50% no-repeat;
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-left: 8px;
+}
+
+.bg-alert {
+  background: url("/src/assets/icons/icon_notice_line_reguler_nor (1).webp") 50%
+    50% no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  margin-left: 4px;
+}
+
+.keyword-search {
+  flex: 1;
+}
+
+.keyword-search > input {
+  padding: 0 44px;
+  background: #f1f1f1 url("/src/assets/icons/search-gray.svg") 12px 50%
+    no-repeat;
+  border-radius: 18px;
+  height: 36px;
+  width: 100%;
+  font-size: 13px;
+}
+
+.myArea {
+  position: sticky;
+  top: 48px;
+  height: 48px;
+  padding: 0 20px;
+  z-index: 10;
+  border-top: 1px solid #f4f4f4;
+  background-color: #fff;
+  transition: top 0.3s;
+}
+
+.myArea button {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.myArea i {
+  overflow: hidden;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("/src/assets/icons/dock-location.svg") 50% 50% no-repeat;
+  text-indent: -999em;
+}
+
+.myArea span {
+  padding: 0 8px 0 4px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.myArea button:after {
+  content: url("/src/assets/icons/arrow-down.svg");
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.bg-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  background-color: #0006;
+}
+
+/* 캐러셀 */
+.gap {
+  display: flex;
+  gap: 15px;
+  padding: 0 20px;
+  margin-bottom: 26px;
+}
+
+/* ShortCut */
+.shortcut-list {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+.shortcut-list > .list-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 20%;
+  position: relative;
+  max-width: 20%;
+}
+.shortcut-list > .list-item > .icon-wrap {
+  width: 48px;
+  height: 48px;
+}
+.shortcut-list > .list-item > .icon-wrap > img {
+  width: 100%;
+  heigth: 100%;
+  border-radius: 4px;
+}
+.shortcut-list > .list-item .title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  margin-top: 7px;
+  text-align: center;
+}
+.shortcut-gap {
+  height: 10px;
+  width: 100%;
+  background-color: #f9f9f9;
+  margin-bottom: 24px;
+}
+
+/* section */
+.section-header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.section-header > h3 {
+  width: 78%;
+  letter-spacing: -0.5px;
+  font-size: 20px;
+}
+.section-header > p {
+  color: rgb(98, 98, 98);
+  font-size: 14px;
+  line-heigth: 16px;
+  margin-top: 4px;
+}
+.section-body .v-scroll {
+  /* margin : 0 -20px; */
+  /* padding : 0 20px; */
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.v-scroll-inner {
+  display: inline-block;
+}
+.section .section-header-v {
+  display: block;
+}
+
+.section .btn-more {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  margin-left: auto;
+  font-size: 12px;
+}
+.section .btn-more::after {
+  content: "";
+  background: url("/src/assets/icons/arrow-right-g.svg") 50% 50% no-repeat;
+  background-size: cover;
+  display: block;
+  width: 16px;
+  height: 16px;
+  text-indent: -999em;
+  overflow: hidden;
+  margin-left: 4px;
+}
+
+/* quick search */
+.quick-search {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.quick-search a {
+  display: block;
+  min-width: 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: 50% 50% no-repeat;
+  background-size: cover;
+  position: relative;
+  margin-right: 15px;
+  white-space: pre-wrap;
+}
+.quick-search a:first-child {
+  text-indent: -999em;
+  overflow: hidden;
+}
+.quick-search a:not(:first-child)::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  mix-blend-mode: normal;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.quick-search a > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  font-weight: 700;
+  width: 90%;
+  color: #fff;
+  line-height: 18px;
+}
+
+/* restaurant-list */
+.restaurant-list {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.restaurant-list .restaurant-list-item {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.restaurant-list .restaurant-list-item .tb {
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #f4f4f4;
+  overflow: hidden;
+  margin-bottom: 8px;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  position: relative;
+}
+.restaurant-list .restaurant-list-item .tb img {
+  width: 200px;
+  heigth: 200px;
+  border-radius: 8px;
+}
+.restaurant-list .restaurant-list-item .detail {
+  position: relative;
+}
+.restaurant-list .restaurant-list-item .detail .btn-bookmark {
+  position: absolute;
+  top: 8px;
+  right: 0;
+}
+.btn-bookmark {
+  display: block;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  background: #fff url("/src/assets/icons/bookmark.svg") 50% 50% no-repeat;
+  border-radius: 50%;
+}
+.more-btn {
+  position: relative;
+}
+.more-btn::after {
+  position: absolute;
+  content: "";
+  background: url("/src/assets/icons/arrow-right-g.svg") 50% 50% no-repeat;
+  background-size: cover;
+  display: block;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+}
+.recommend-box {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 2px;
+}
+.recommend-box > div {
+  height: calc((100vw - 40px) / 2);
+  position: relative;
+  overflow: hidden;
+}
+.recommend-box > div img {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+}
+.recommend-box > div span {
+  position: absolute;
+}
+.recommend-box > div span:nth-of-type(1) {
+  left: 10px;
+  bottom: 30px;
+}
+
+.recommend-box > div span:nth-of-type(2) {
+  left: 10px;
+  bottom: 10px;
+}
+.recommend-box > div span:nth-of-type(3) {
+  right: 10px;
+  bottom: 10px;
+}
+.recommend-box > div:last-child span {
+  backdrop-filter: brightness(50%);
+  position: unset;
+}
+.score {
+  position: relative;
+}
+.score::after {
+  position: absolute;
+  content: "";
+  background: url("/src/assets/icons/star.png") 50% 50% no-repeat;
+  background-size: cover;
+  display: block;
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: -22px;
+  transform: translateY(-50%);
+}
+.read-icon {
+  position: relative;
+}
+.read-icon::after {
+  content: "";
+  width: 11px;
+  height: 11px;
+  background-color: #ff3d00;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: -9px;
+  transform: translateY(-50%);
+}
+.drawer-box {
+  border-radius: 20px 20px 0 0;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.drawer-box-body {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.react-calendar__tile {
+  color: #333 !important;
+  font-size: 16px !important;
+  border-radius: 5px !important;
+  padding: 0 !important;
+  height: 50px !important;
+}
+.react-calendar__tile > * {
+  width: 35px;
+  height: 35px;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 35px;
+  /* background-color: #ff3d00; */
+  border-radius: 50%;
+}
+.react-calendar__month-view {
+  border-bottom: #e6e6e6 solid 1px;
+}
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+}
+.react-calendar__tile:disabled {
+  background-color: transparent;
+  color: #333;
+  opacity: 0.2;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  opacity: 0.5;
+}
+.react-calendar__month-view__weekdays__weekday {
+  color: #666;
+  font-weight: 400;
+}
+.react-calendar__tile--active > * {
+  color: #fff;
+  background-color: #ff3d00 !important;
+}
+.react-calendar__tile--active {
+  background-color: transparent !important;
+}
+
+.text-num {
+  line-height: calc((100vw - 40px) / 2);
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: transparent !important;
+}
