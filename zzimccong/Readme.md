@@ -8,4 +8,15 @@
 
 ## npm install tailwindcss postcss autoprefixer 설치
 
-## npm install jwt-decode 설치
+
+## 챗봇
+
+## cd chatbot-server
+
+## npm init -y
+
+## npm install express body-parser dialogflow
+
+## npm install cors --save
+
+## 터미널에서 챗봇 서버 실행 node index.js
