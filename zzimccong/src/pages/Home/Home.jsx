@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Carousel from './Carousel';
-
+import ChatBot from '../../components/chatbot/ChatBot';
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -184,6 +184,7 @@ export default function Home() {
       <section>
         푸터
       </section>
+      <ChatBot/>
     </main>
   );
 }

@@ -7,6 +7,7 @@ import logo from '../../assets/icons/logo.png';
 import '../../assets/css/style.css';
 import { KAKAO_AUTH_URL } from '../../api/KakaoLoginAPI';
 import MyPage from "./MyPage";
+import ChatBot from '../../components/chatbot/ChatBot';
 
 function Account() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -97,6 +98,7 @@ function Account() {
             회원가입
           </span>
         </div>
+        <ChatBot/>
       </section>
     );
   } else {
