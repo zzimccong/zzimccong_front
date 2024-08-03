@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Carousel from './Carousel';
 import ChatBot from '../../components/chatbot/ChatBot';
+import ShortCut from './shortCut';
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -22,7 +23,7 @@ export default function Home() {
       <Carousel />
       <section className='gap'></section>
       {/* 숏컷 */}
-      {/* <ShortCut /> */}
+      <ShortCut /> 
       <section className='gap shortcut-gap'></section>
       {/* 어디로 가시나요? */}
       <section className='section pb-[45px]'>
