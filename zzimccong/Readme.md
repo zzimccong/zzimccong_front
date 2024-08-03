@@ -6,7 +6,15 @@
 
 ## npm install styled-components 설치
 
+## npm install tailwindcss
+
+## npx tailwindcss init -p
+
 ## npm install tailwindcss postcss autoprefixer 설치
+
+## npm inseall axios 설치
+
+## npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
 
 ## 챗봇
