@@ -1,24 +1,72 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Navbar from './components/Navbar';
+import Header from './components/Header.jsx';
+import Navbar from './components/Navbar.jsx';
+import Home from './pages/Home/Home.jsx';
+import Account from './pages/MyPage/Account.jsx';
+import Login from './components/login/Login.jsx';
+import Register from './components/register/Register.jsx';
+import MyPage from './pages/MyPage/MyPage.jsx';
+import CorpEdit from './pages/MyPage/corp/CorpEdit .jsx';
+import UserEdit from './pages/MyPage/user/UserEdit .jsx';
+import ChangePassword from './components/login/changePassword/ChangePassword.jsx';
+import KakaoCallBack from './components/login/kakao/KakaoCallBack.jsx';
+import KakaoUser from './pages/MyPage/kakao/KakaoUser.jsx';
+import FindId from './components/login/find/FindId.jsx';
+import FindPassword from './components/login/find/FindPassword.jsx';
+import { AuthProvider } from './context/AuthContext.js';
+import ReservationCalendar from './pages/Calendar/ReservationCalendar';
+import Restaurants from './pages/Restaurant/Restaurants';
+import RestaurantDetail from './pages/Restaurant/RestaurantDetail';
 
 function App() {
   return (
     <div>
+      <AuthProvider>
+        <Router>
+          <Header />
+          <Routes>
 
-      <Router>
-      <Header />
-        <Routes>
-        
-          <Route path="/" element={<Home />} />
+            {/* 메인화면 */}
+            <Route path="/" element={<Home />} />
+
+            {/* 계정 */}
+            <Route path="/account" element={<Account />} />
+
+            {/* 로그인 */}
+            <Route path="/login" element={<Login />} />
+
+            {/* 회원가입 */}
+            <Route path="/register" element={<Register />} />
+
+            {/* 마이페이지 */}
+            <Route path="/myPage" element={<MyPage />} />
+
+            {/* 내 정보 수정 */}
+            <Route path="/corporation/edit" element={<CorpEdit />} />
+            <Route path="/users/edit" element={<UserEdit />} />
+
+            {/* 비밀번호 변경 */}
+            <Route path="/change-password" element={<ChangePassword />} />
           
-        </Routes>
-        <Navbar />
-      </Router>
+            <Route path="/oauth2/callback/kakao" element={<KakaoCallBack />} />
+            <Route path="/kakao-user" element={<KakaoUser />} />
+
+            <Route path="/find-id" element={<FindId />} />
+            <Route path="/find-password" element={<FindPassword />} />
+
+            <Route path="/reservationCalendar" element={<ReservationCalendar/>} />
+
+            <Route path="/restaurants" element={<Restaurants/>} />
+            <Route path="/restaurant/:id" element={<RestaurantDetail />} /> 
+
+          </Routes>
+          <Navbar />
+        </Router>
+      </AuthProvider>
 
     </div>
   );
