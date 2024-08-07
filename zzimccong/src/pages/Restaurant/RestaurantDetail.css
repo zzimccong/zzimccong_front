@@ -1,0 +1,151 @@
+.restaurant-detail-container {
+  padding: 20px;
+}
+
+.carousel .slide {
+  background: none;
+}
+
+.carousel .slide img {
+  width: 100%;  /* 이미지 너비를 슬라이드의 100%로 설정 */
+  height: 500px;  /* 고정된 높이 설정 */
+  object-fit: cover;  /* 이미지 비율을 유지하며 슬라이드에 맞게 조정 */
+}
+
+.rating {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.name {
+ font-size: 30px;
+ font-weight: bold;
+}
+
+.location, .operation-time {
+  font-size: 14px;
+  color: gray;
+}
+
+.facilities-section, .menu-section {
+  margin-top: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.menu-item-info {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.menu-item-image img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.menu-item-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.menu-item-description {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.menu-item-price {
+  font-size: 16px;
+  color: red;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.reservation-section {
+  margin-top: 20px;
+}
+
+.reservation {
+  background-color: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-modal {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* 추가된 스타일 */
+.facility-svg, .parking-svg {
+  width: 50px;  /* 원하는 너비 설정 */
+  height: 50px;  /* 원하는 높이 설정 */
+}
+
+.detail-info .closed {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-info .open {
+  white-space: normal;
+}
+
+.show-all-hours-btn {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.all-business-hours {
+  margin-top: 10px;
+}
