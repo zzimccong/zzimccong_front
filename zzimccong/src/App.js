@@ -18,6 +18,9 @@ import KakaoUser from './pages/MyPage/kakao/KakaoUser.jsx';
 import FindId from './components/login/find/FindId.jsx';
 import FindPassword from './components/login/find/FindPassword.jsx';
 import { AuthProvider } from './context/AuthContext.js';
+import ReservationCalendar from './pages/Calendar/ReservationCalendar';
+import Restaurants from './pages/Restaurant/Restaurants';
+import RestaurantDetail from './pages/Restaurant/RestaurantDetail';
 
 function App() {
   return (
@@ -49,13 +52,16 @@ function App() {
             {/* 비밀번호 변경 */}
             <Route path="/change-password" element={<ChangePassword />} />
           
-
-        
             <Route path="/oauth2/callback/kakao" element={<KakaoCallBack />} />
             <Route path="/kakao-user" element={<KakaoUser />} />
 
             <Route path="/find-id" element={<FindId />} />
             <Route path="/find-password" element={<FindPassword />} />
+
+            <Route path="/reservationCalendar" element={<ReservationCalendar/>} />
+
+            <Route path="/restaurants" element={<Restaurants/>} />
+            <Route path="/restaurant/:id" element={<RestaurantDetail />} /> 
 
           </Routes>
           <Navbar />
