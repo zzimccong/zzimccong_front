@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MyPage() {
   const [loading, setLoading] = useState(true);
@@ -95,7 +95,7 @@ export default function MyPage() {
               <button onClick={handleEdit}>내 정보 수정</button>
             </li>
             <li>나의 찜 리스트</li>
-            <li>쿠폰</li>
+            <li><Link to="/user/coupon">쿠폰</Link></li>
             <li>1:1 문의</li>
             <li>
               <button onClick={handleLogout} className="btn-logout">
