@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../../../utils/axiosConfig';
-import '../../assets/css/style.css';
+import '../../../assets/css/style.css';
 
 const ChangePassword = ({ userId, userType, closeModal }) => {
     const [formData, setFormData] = useState({

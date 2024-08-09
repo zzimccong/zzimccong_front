@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../../utils/axiosConfig';
 import { AuthContext } from '../../../context/AuthContext';
 import '../../../assets/css/style.css';
-import ChangePasswordModal from '../../../components/register/ChangePasswordModal';
+import ChangePasswordModal from '../../../components/login/changePassword/ChangePasswordModal';
 import DeleteCorpModal from './DeleteCorpModal';
 
 

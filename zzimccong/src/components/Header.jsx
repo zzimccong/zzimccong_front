@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"; // AuthContext import
+import SearchComponent from "../pages/Search/Searchcomponent";
 
 const Header = () => {
   const location = useLocation().pathname;
@@ -69,6 +70,7 @@ displayName = (user && (user.corpName || user.name)) || displayName
             <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
               검색하기
             </h1>
+            <SearchComponent/>
           </div>
         );
       case "/dialog":

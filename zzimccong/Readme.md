@@ -12,9 +12,15 @@
 
 ## npm install tailwindcss postcss autoprefixer 설치
 
-## npm inseall axios 설치
+## npm install axios 설치
 
 ## npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+## npm install react-modal
+
+## npm install react-calendar
+
+## npm install react-responsive-carousel
 
 
 ## 챗봇
