@@ -629,3 +629,116 @@
     border: none;
     outline: none;
   }
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 20px;  
+    background-color: #fff; 
+    border-bottom: 2px solid #f0f0f0; 
+}
+  
+.logo {
+    width: 10px; 
+    height: 10px; 
+}
+  
+.title {
+    font-size: 20px;
+    font-weight: bold; 
+    color: #FF8E4F;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_coupon {
+    background-color: white; 
+    color: rgb(170, 170, 170); 
+    padding: 6px 16px; 
+    font-size: 25px;
+    width: 160px; 
+    margin: 6px 4px; 
+    margin-right: 10px;
+}
+
+.button_coupon.active {
+    color: black; 
+    font-weight: bold;
+}
+
+.button_pay  {
+    width: 90px;
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: #FF8D4E; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none
+  };
+
+  .coupon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .coupon-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 8px 0;
+  }
+  
+  .coupon-text {
+    flex: 1; 
+    padding-left: 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-option {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+  }
+  
+  .menu-option .arrow {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+
+  .hr-border {
+    border-top: 5px solid #f0f0f0;
+    padding-bottom: 10px;
+  }
+
+
+  .divider {
+    height: 30px;  
+    width: 2px;  
+    background-color: #000; 
+    margin: auto 0;  
+}

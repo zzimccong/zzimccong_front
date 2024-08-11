@@ -1,33 +1,28 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
-import axios from '../../../../utils/axiosConfig'; // axios 인스턴스 설정
+import axios from '../../../../utils/axiosConfig';
+import '../../../../assets/css/style.css';
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "j6Grr3qHuH_b6nF-SwQKU";
 
-export function Payment({ Amount }) {
+// const clientKey = process.env.REACT_APP_TOSS_CLIENT_KEY;
+// const customerKey = process.env.REACT_APP_TOSS_CUSTOMER_KEY;
+
+export function Payment({ Amount, CouponType }) {
   const [amount, setAmount] = useState({
     currency: "KRW",
     value: Number(Amount),
   });
+
+  console.log(CouponType);
 
   const [ready, setReady] = useState(false);
   const [tossPayments, setTossPayments] = useState(null);
   const [widgets, setWidgets] = useState(null);
 
   useEffect(() => {
-    // // TossPayments 초기화
-    // const initializeTossPayments = async () => {
-    //   try {
-    //     const toss = await loadTossPayments(clientKey);
-    //     setTossPayments(toss);
-    //   } catch (error) {
-    //     console.error("TossPayments initialization failed:", error);
-    //   }
-    // };
-
-    // initializeTossPayments();
     async function fetchPaymentWidget() {
       const tossPayments = await loadTossPayments(clientKey);
       const widgets = tossPayments.widgets({
@@ -82,9 +77,9 @@ export function Payment({ Amount }) {
       payType: 'CARD',
       amount: amount.value,
       userId: user.id,
-      orderName: '예약권 1매',
-      yourSuccessUrl: `http://localhost:3000/success`,
-      yourFailUrl: `http://localhost:3000/fail`,
+      orderName: CouponType,
+      yourSuccessUrl: `http://localhost:3000/payment/success`,
+      yourFailUrl: `http://localhost:3000/payment/fail`,
     };
 
     console.log("전송 객체 ",body);
@@ -99,7 +94,7 @@ export function Payment({ Amount }) {
 
       console.log("받은 객체 ", data);
 
-      console.log("amount ", typeof(data.payType));
+      //console.log("amount ", typeof(data.payType));
 
       await widgets.requestPayment({
         //amount: data.amount,
@@ -133,7 +128,7 @@ export function Payment({ Amount }) {
         <div id="agreement" />
 
         <div>
-          <button onClick={payment} disabled={!ready}>
+          <button onClick={payment} disabled={!ready} className="button">
             결제하기
           </button>
         </div>

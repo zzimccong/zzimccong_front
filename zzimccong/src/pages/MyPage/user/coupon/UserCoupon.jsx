@@ -1,33 +1,54 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React,{useState} from 'react';
+import '../../../../assets/css/style.css';
+import logoImage from '../../../../assets/icons/logo.png'; 
+import ReservationCoupon from './ReservationCoupon';
+import LotteryCoupon from './LotteryCoupon';
 
-const UserCoupon = ({setAmount}) => {
+function UserCoupon({ setAmount, setCouponType }) {
 
-  const navigate = useNavigate();
+  
+  const [show, setShow] = useState('reservation');
 
-  const handleButtonClick = (event) => {
-    const value = Number(event.target.value);
-    setAmount(value);
-    navigate('/payment');
+  const getButtonClass = (buttonType) => {
+    return `button_coupon ${show === buttonType ? 'active' : ''}`;
   };
 
-
   return (
-    <button style={buttonStyle} onClick={handleButtonClick} value={1_000}>
-      1000원
-    </button>
-  );
-};
+    <div>
+      <div className="header">
+        {/* <img src={logoImage} className="logo" /> */}
+        <div className="title">쿠폰</div>
+      </div>
 
-const buttonStyle = {
-  padding: '10px 20px',
-  fontSize: '16px',
-  backgroundColor: '#FF8D4E', 
-  color: 'white', 
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  outline: 'none'
-};
+      <div className="buttons">
+        <button onClick={() => setShow('reservation')} className={getButtonClass('reservation')}>
+          예약쿠폰
+        </button>
+        <span className="divider"></span>
+        <button onClick={() => setShow('lottery')} className={getButtonClass('lottery')}>
+          추첨권
+        </button>
+      </div>
+
+
+      <div className="info">
+        {show === 'reservation' && (
+          <div className="coupon-info">
+            <ReservationCoupon setAmount={setAmount} setCouponType={setCouponType}/>
+          </div>
+        )}
+        {show === 'lottery' && (
+          <div className="coupon-info">
+            <LotteryCoupon setAmount={setAmount} setCouponType={setCouponType}/>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    
+  );
+  
+}
+
 
 export default UserCoupon;
