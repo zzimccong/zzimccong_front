@@ -31,6 +31,10 @@ export default function MyPage() {
     setLoading(false); // 로딩 상태를 false로 설정
   }, [navigate]);
 
+  const handleCouponClick = useCallback(() => {
+    navigate('/user/coupon');
+  }, [navigate]);
+
   const handleLogout = useCallback(() => {
     window.localStorage.removeItem('profile');
     window.localStorage.removeItem('user');
@@ -95,7 +99,9 @@ export default function MyPage() {
               <button onClick={handleEdit}>내 정보 수정</button>
             </li>
             <li>나의 찜 리스트</li>
-            <li><Link to="/user/coupon">쿠폰</Link></li>
+            <li>
+              <button onClick={handleCouponClick}>쿠폰</button>
+            </li>
             <li>1:1 문의</li>
             <li>
               <button onClick={handleLogout} className="btn-logout">

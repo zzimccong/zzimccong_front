@@ -28,6 +28,7 @@ import { AuthProvider } from './context/AuthContext.js';
 import ReservationCalendar from './pages/Calendar/ReservationCalendar';
 import Restaurants from './pages/Restaurant/Restaurants';
 import RestaurantDetail from './pages/Restaurant/RestaurantDetail';
+import DiscountCoupon from './pages/MyPage/user/coupon/DiscountCoupon.jsx';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
             <Route path="/user/coupon" element={<UserCoupon setAmount={setAmount} setCouponType={setCouponType}/>} />
             <Route path="/user/coupon/reservation" element={<ReservationCoupon />} />
             <Route path="/user/coupon/lottery" element={<LotteryCoupon />} />
+            <Route path="/user/coupon/discount" element={<DiscountCoupon />} />
 
 
             {/* 결제 */}

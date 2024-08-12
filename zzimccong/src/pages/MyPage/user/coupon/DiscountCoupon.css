@@ -1,0 +1,65 @@
+/* 컨테이너 스타일링 */
+.coupon-container {
+    padding: 20px;
+  }
+  
+  /* 제목 스타일링 */
+  h1 {
+    font-size: 20px !important; 
+    font-weight: bold !important;
+    color: #333;
+    margin-bottom: 20px !important;
+    text-align: center;
+  }
+  
+  /* 보유 쿠폰 개수 텍스트 스타일링 */
+  p {
+    font-size: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* 개별 쿠폰 카드 스타일링 */
+  .coupon-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* 할인 금액 텍스트 스타일링 */
+  .coupon-price {
+    font-size: 24px !important;
+    color: #ff7f50 !important;
+    font-weight: bold ;
+    margin-bottom: 10px;
+  }
+  
+  /* 각 쿠폰의 설명 텍스트 스타일링 */
+  .coupon-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* 노트 섹션 스타일링 */
+  .coupon-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* 노트 섹션 안의 리스트 스타일링 */
+  .coupon-note ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .coupon-note li {
+    margin-bottom: 5px;
+  }
+  
