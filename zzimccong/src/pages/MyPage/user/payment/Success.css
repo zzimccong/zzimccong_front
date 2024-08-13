@@ -1,0 +1,30 @@
+.success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    text-align: center; 
+    margin-top: -50px;
+  }
+  
+  .pay-success-img {
+    width: 150px;
+  }
+  
+  .pay-success-text {
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .pay-success-btn {
+    margin-top: 20px;
+    padding: 8px 20px 8px;
+    border: 1px solid #FF8D4E;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #FF8D4E;
+  
+  }

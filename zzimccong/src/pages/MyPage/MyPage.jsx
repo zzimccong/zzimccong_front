@@ -1,114 +1,139 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가
 
 export default function MyPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false); // 드롭다운 상태
   const navigate = useNavigate();
 
   useEffect(() => {
     const profile = localStorage.getItem('profile');
     const userString = localStorage.getItem('user');
-    let parsedUser;
 
     if (!profile && !userString) {
-      navigate('/account');
-      return;
-    }
-
-    if (userString) {
+      setShouldRedirect(true);
+      setLoading(false);
+    } else if (userString) {
       try {
-        parsedUser = JSON.parse(userString);
-        console.log("Parsed user from localStorage:", parsedUser); // user 객체 로그 출력
+        const parsedUser = JSON.parse(userString);
         setUser(parsedUser);
+        setLoading(false);
       } catch (error) {
         console.error("Failed to parse user from localStorage", error);
-        navigate('/account');
-        return;
+        setShouldRedirect(true);
+        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
+  }, []);
 
-    setLoading(false); // 로딩 상태를 false로 설정
-  }, [navigate]);
-
-  const handleCouponClick = useCallback(() => {
-    navigate('/user/coupon');
-  }, [navigate]);
+  useEffect(() => {
+    if (shouldRedirect) {
+      window.location.href = '/account';
+    }
+  }, [shouldRedirect]);
 
   const handleLogout = useCallback(() => {
-    window.localStorage.removeItem('profile');
-    window.localStorage.removeItem('user');
-    navigate('/account');
-  }, [navigate]);
+    localStorage.clear();
+    window.location.href = '/account';
+  }, []);
 
   const handleEdit = useCallback(() => {
     const profile = localStorage.getItem('profile');
     const userString = localStorage.getItem('user');
-    let parsedUser;
 
     if (profile) {
-      navigate('/kakao-user');
-      return;
-    }
-
-    if (userString) {
-      try {
-        parsedUser = JSON.parse(userString);
-      } catch (error) {
-        console.error("Failed to parse user from localStorage", error);
-        return;
-      }
-      
+      window.location.href = '/kakao-user';
+    } else if (userString) {
+      const parsedUser = JSON.parse(userString);
       if (parsedUser.corpId) {
-        navigate('/corporation/edit');
+        window.location.href = '/corporation/edit';
       } else if (parsedUser.loginId) {
-        navigate('/users/edit');
-      } else {
-        console.error('User ID not found');
+        window.location.href = '/users/edit';
       }
     }
-  }, [navigate]);
+  }, []);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown); // 드롭다운 상태 토글
+  };
+
+    // 쿠폰 페이지로 이동하는 함수
+    const handleCouponClick = useCallback(() => {
+      navigate('/user/coupon');
+    }, [navigate]);
+  
 
   if (loading) {
     return <div>로딩 중...</div>;
   }
 
-  console.log("Current user:", user); // 추가된 로그 출력
-
   return (
     <div className="main mt-[100px]">
-      {user?.role === 'admin' ? (
+      {user?.role === 'ADMIN' ? (
         <div>
           <h1>관리자 페이지</h1>
-          <ul>
-            <li>유저 관리</li>
-            <li>콘텐츠 관리</li>
-            <li>통계</li>
-            <li>
-              <button onClick={handleLogout} className="btn-logout">
+          <div className="menu-container">
+            <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
+                사용자 관리
+              <span className="arrow">&gt;</span>
+              
+              {showDropdown && (
+                    <div className="dropdown-menu">
+                      <br/>
+                      <div><Link to="/user-management">&gt; 유저 관리</Link></div>
+                      <div><Link to="/corp-management">&gt; 기업 관리</Link></div>
+                      <div><Link to="/store-management">&gt; 점주 관리</Link></div>
+                    </div>
+              )}
+            </button>
+            <hr/>
+            <button className="menu-option" >
+                쿠폰 관리
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option">
+                통계
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option btn-logout" onClick={handleLogout} >
                 로그아웃
-              </button>
-            </li>
-          </ul>
+            </button>
+          </div>
         </div>
       ) : (
         <div>
           <h1>내 정보 수정 페이지</h1>
-          <ul>
-            <li>
-              <button onClick={handleEdit}>내 정보 수정</button>
-            </li>
-            <li>나의 찜 리스트</li>
-            <li>
-              <button onClick={handleCouponClick}>쿠폰</button>
-            </li>
-            <li>1:1 문의</li>
-            <li>
-              <button onClick={handleLogout} className="btn-logout">
+          <div className="menu-container">
+            <button className="menu-option" onClick={handleEdit}>
+                내 정보 수정
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" >
+                나의 찜 리스트
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleCouponClick}>
+                쿠폰
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" >
+                1:1 문의
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option btn-logout" onClick={handleLogout} >
                 로그아웃
-              </button>
-            </li>
-          </ul>
+            </button>
+          </div>
         </div>
       )}
     </div>

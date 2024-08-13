@@ -1,12 +1,14 @@
-
 import React, { useState } from 'react';
 import axios from '../../utils/axiosConfig';
+import { useNavigate } from 'react-router-dom'
 
 const SearchComponent = () => {
   const [searchWord, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchPerformed, setSearchPerformed] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -16,6 +18,7 @@ const SearchComponent = () => {
     event.preventDefault();
     setLoading(true);
     setError(null);
+    setSearchPerformed(true);
 
     try {
       const response = await axios.post('api/search', { searchWord }, {
@@ -41,22 +44,37 @@ const SearchComponent = () => {
       return <p className="error-message">{error}</p>;
     }
 
-    if (results.length === 0) {
+    if (searchPerformed && results.length === 0) {
       return <p>검색 결과가 없습니다.</p>;
     }
 
+    const navigateToStoreDetails = (storeId) => {
+      navigate(`/restaurant/${storeId}`);  
+    };
+
+    //주소 파싱                                      
+    const getShortAddress = (address) => {
+      const parts = address.split(' ');  
+      return parts.slice(0, 2).join(' ');  
+    };
+
+    
     return results.map((store) => (
-      <div key={store.id} className="store-item border p-4 mb-4 rounded-lg">
-        <h3 className="text-xl font-bold mb-2">{store.name}</h3>
-        <p className="mb-2">영업시간: {store.businessHours}</p>
-        <p className="mb-2">도로명 주소: {store.roadAddress}</p>
-        <p className="mb-2">지번 주소: {store.numberAddress}</p>
-        <p className="mb-2">전화 번호: {store.phoneNumber}</p>
-        <p className="mb-2">좌석 형태: {store.seats}</p>
-        <img src={store.photo1Url} alt={`${store.name} 사진`} className="mb-2" width={200}/>
-        
+      <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
+                          onClick={() => navigateToStoreDetails(store.id)}>
+          <div style={{ display: 'flex', alignItems: 'center'}}>  
+            <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '10px', width: '120px', height: '120px' }} />
+            <div style={{ flexGrow: 1 }}>
+              <h3 className="text-xl font-bold">{store.name}</h3>
+              <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
+            </div>
+          </div>
+        <hr style={{ width: '435px', margin: 'auto'}}/>
       </div>
+      
+      
     ));
+    
   };
 
   return (
