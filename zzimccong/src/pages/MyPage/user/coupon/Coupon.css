@@ -1,0 +1,20 @@
+.coupon-header {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #f5f5f5 !important; 
+    padding: 10px 15px !important;
+    border-radius: 10px !important; 
+    margin-bottom: 20px !important; 
+    width: 450px;
+    margin: 0 auto;
+    margin-bottom: 20px; 
+  }
+  
+  .coupon-title {
+    color: #ff7e36; 
+  }
+  
+  .coupon-count {
+    color: #ff7e36; 
+  }

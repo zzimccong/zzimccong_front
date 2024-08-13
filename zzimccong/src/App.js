@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,6 +12,13 @@ import Register from './components/register/Register.jsx';
 import MyPage from './pages/MyPage/MyPage.jsx';
 import CorpEdit from './pages/MyPage/corp/CorpEdit .jsx';
 import UserEdit from './pages/MyPage/user/UserEdit .jsx';
+import UserCoupon from './pages/MyPage/user/coupon/UserCoupon.jsx';
+import ReservationCoupon from './pages/MyPage/user/coupon/ReservationCoupon.jsx';
+import LotteryCoupon from './pages/MyPage/user/coupon/LotteryCoupon.jsx';
+import Payment from './pages/MyPage/user/payment/Payment.jsx';
+import Success from './pages/MyPage/user/payment/Success.jsx';
+import Fail from './pages/MyPage/user/payment/Fail.jsx';
+import PaymentHistory from './pages/MyPage/user/payment/PaymentHistory.jsx';
 import ChangePassword from './components/login/changePassword/ChangePassword.jsx';
 import KakaoCallBack from './components/login/kakao/KakaoCallBack.jsx';
 import KakaoUser from './pages/MyPage/kakao/KakaoUser.jsx';
@@ -21,9 +28,14 @@ import { AuthProvider } from './context/AuthContext.js';
 import ReservationCalendar from './pages/Calendar/ReservationCalendar';
 import Restaurants from './pages/Restaurant/Restaurants';
 import RestaurantDetail from './pages/Restaurant/RestaurantDetail';
+import DiscountCoupon from './pages/MyPage/user/coupon/DiscountCoupon.jsx';
 
 
 function App() {
+
+  const [Amount, setAmount] = useState(0);
+  const [CouponType, setCouponType] = useState("");
+
   return (
     <div>
       <AuthProvider>
@@ -52,7 +64,23 @@ function App() {
 
             {/* 비밀번호 변경 */}
             <Route path="/change-password" element={<ChangePassword />} />
-        
+
+
+            {/* 쿠폰 */}
+            <Route path="/user/coupon" element={<UserCoupon setAmount={setAmount} setCouponType={setCouponType}/>} />
+            <Route path="/user/coupon/reservation" element={<ReservationCoupon />} />
+            <Route path="/user/coupon/lottery" element={<LotteryCoupon />} />
+            <Route path="/user/coupon/discount" element={<DiscountCoupon />} />
+
+
+            {/* 결제 */}
+            <Route path="/payment" element={<Payment Amount={Amount} CouponType={CouponType}/>} />
+            <Route path="/payment/success" element={<Success/>} />
+            <Route path="/payment/fail" element={<Fail/>} />
+            <Route path="/paymenthistory" element={<PaymentHistory/>} />
+
+
+
             <Route path="/oauth2/callback/kakao" element={<KakaoCallBack />} />
             <Route path="/kakao-user" element={<KakaoUser />} />
 
