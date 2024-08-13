@@ -7,6 +7,7 @@ import Header from './components/Header.jsx';
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home/Home.jsx';
 import Account from './pages/MyPage/Account.jsx';
+import Search from './pages/Search/Searchcomponent.jsx';
 import Login from './components/login/Login.jsx';
 import Register from './components/register/Register.jsx';
 import MyPage from './pages/MyPage/MyPage.jsx';
@@ -65,6 +66,8 @@ function App() {
             {/* 비밀번호 변경 */}
             <Route path="/change-password" element={<ChangePassword />} />
 
+            {/* 검색 */}
+            <Route path="/search" element={<Search/>} />
 
             {/* 쿠폰 */}
             <Route path="/user/coupon" element={<UserCoupon setAmount={setAmount} setCouponType={setCouponType}/>} />

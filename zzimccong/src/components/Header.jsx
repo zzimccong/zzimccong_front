@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"; // AuthContext import
+import Search from "../pages/Search/Searchcomponent";
 
 const Header = () => {
+  const navigate = useNavigate();
   const location = useLocation().pathname;
   const { isLoggedIn, user } = useContext(AuthContext); // AuthContext에서 user 정보 가져오기
 
@@ -40,6 +42,7 @@ displayName = (user && (user.corpName || user.name)) || displayName
                 className="pl-[44px] pr-[15px] text-xs h-[30px]"
                 type="text"
                 placeholder="지역, 음식, 매장명 검색"
+                onClick={() => navigate("/search")}
               ></input>
             </form>
             <div className="header-right flex">
@@ -69,6 +72,7 @@ displayName = (user && (user.corpName || user.name)) || displayName
             <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
               검색하기
             </h1>
+            <Search />
           </div>
         );
       case "/dialog":
