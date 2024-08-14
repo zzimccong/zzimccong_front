@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
-import './Restaurant.css';
+import './Restaurants.css';
 
 function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
@@ -27,9 +27,9 @@ function Restaurants() {
   };
 
   return (
-    <div className="container">
-      <h1 className="heading">Restaurant Gallery</h1>
-      <div className="swiper-container-wrapper">
+  
+    <div className="restaurants-container">
+      <div className="swiper-container-wrappers">
         <Swiper
           grabCursor={true}
           centeredSlides={false}
@@ -39,7 +39,7 @@ function Restaurants() {
           pagination={{ clickable: true, el: '.swiper-pagination' }}
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           modules={[Pagination, Navigation]}
-          className="swiper_container"
+          className="swiper_containers"
         >
           {restaurants.map(restaurant => (
             <SwiperSlide key={restaurant.id}>
@@ -59,6 +59,7 @@ function Restaurants() {
           <div className="swiper-button-next"></div>
         </div>
     </div>
+    
   );
 }
 

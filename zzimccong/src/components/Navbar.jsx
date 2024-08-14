@@ -31,7 +31,7 @@ const navItem = [
   {
     id: 3,
     name: "mydining",
-    to: "/mydining/my",
+    to: "/myReservation",
     image: "dock-mydining",
     imageOn: "dock-mydining-on",
     selectItem: false,
@@ -85,6 +85,7 @@ export default Navbar;
 const NavbarContents = styled.div`
   position: fixed;
   bottom: 0;
+  z-index: 1;
   right: 0;
   border-top: 1px solid #f9f9f9;
   margin: 0 auto;

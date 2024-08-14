@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "./../../utils/axiosConfig";
 import "./ReservationCalendar.css";
+import { AuthContext } from "./../../context/AuthContext"; // AuthContext 가져오기
 
 function ReservationCalendar({ restaurantId }) {
+  const { user } = useContext(AuthContext); // 현재 로그인한 사용자 정보 가져오기
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [count, setCount] = useState(2);
@@ -36,10 +38,17 @@ function ReservationCalendar({ restaurantId }) {
       return;
     }
 
+    const token = localStorage.getItem("token"); // JWT 토큰 가져오기
+    if (!token) {
+      alert("로그인이 필요합니다."); // 토큰이 없을 경우 로그인 요청
+      return;
+    }
+
     const reservationTime = new Date(date);
     const [hours, minutes] = selectedTime.split(":");
     reservationTime.setHours(parseInt(hours, 10));
     reservationTime.setMinutes(parseInt(minutes, 10));
+    reservationTime.setSeconds(0, 0); // 초와 밀리초를 0으로 설정
 
     const reservationRegistrationTime = new Date();
 
@@ -54,6 +63,7 @@ function ReservationCalendar({ restaurantId }) {
 
     const reservation = {
       restaurant: { id: restaurantId }, // restaurantId 포함
+      user: { id: user.id }, // UserId 포함
       reservationTime: utcReservationTime,
       reservationRegistrationTime: utcReservationRegistrationTime,
       count: count,
@@ -62,7 +72,12 @@ function ReservationCalendar({ restaurantId }) {
     };
 
     axios
-      .post("/api/reservations", reservation)
+      .post("/api/reservations", reservation, {
+        headers: {
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
+          'Content-Type': 'application/json', // Content-Type 헤더 추가
+        },
+      })
       .then((response) => {
         alert(`예약 성공: ${response.data}`);
       })

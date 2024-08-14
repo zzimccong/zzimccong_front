@@ -40,7 +40,7 @@ function Account() {
   }, [navigate]);
 
   const zzimkongButtonStyle = {
-    backgroundColor: '#FF8E4F',
+    backgroundColor: '#f55a5a',
     color: 'white',
     width: '100%',
     height: '3rem',

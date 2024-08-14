@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../../assets/icons/logo.png';
-import '../../../assets/css/style.css';
+import './CorpRegister.css';
 
 const CorpRegister = () => {
     const navigate = useNavigate();
