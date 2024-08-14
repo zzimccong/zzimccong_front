@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal';
-import axios from './../../utils/axiosConfig';
+import axios from '../../utils/axiosConfig';
 import './RestaurantDetail.css';
-import ReservationCalendar from '../Calendar/ReservationCalendar'; // 추가
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // 스타일 추가
+import ReservationCalendar from '../Calendar/ReservationCalendar';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import { AuthContext } from '../../context/AuthContext'; // AuthContext 추가
 
-Modal.setAppElement('#root'); // AppElement 설정
+Modal.setAppElement('#root');
 
 function RestaurantDetail() {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태 추가
-  const [isDetailInfoOpen, setIsDetailInfoOpen] = useState(false); // 상세 정보 접기 상태 추가
-  const [todayBusinessHours, setTodayBusinessHours] = useState(''); // 오늘의 영업 시간 상태 추가
-  const [allBusinessHours, setAllBusinessHours] = useState(''); // 모든 영업 시간 상태 추가
-  const [showAllBusinessHours, setShowAllBusinessHours] = useState(false); // 모든 영업 시간 표시 상태 추가
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isDetailInfoOpen, setIsDetailInfoOpen] = useState(false);
+  const [todayBusinessHours, setTodayBusinessHours] = useState('');
+  const [allBusinessHours, setAllBusinessHours] = useState('');
+  const [showAllBusinessHours, setShowAllBusinessHours] = useState(false);
+
+  const { isLoggedIn } = useContext(AuthContext); // 로그인 상태 확인
 
   useEffect(() => {
     axios.get(`/api/restaurant/${id}`)
@@ -30,7 +33,6 @@ function RestaurantDetail() {
         };
         setRestaurant(modifiedData);
 
-        // 영업 시간 객체 생성
         const businessHours = {
           '일': '',
           '월': '',
@@ -59,7 +61,6 @@ function RestaurantDetail() {
         const businessHoursParsed = parseBusinessHours(response.data.businessHours);
         setAllBusinessHours(businessHoursParsed);
 
-        // 현재 요일 계산
         const days = ['일', '월', '화', '수', '목', '금', '토'];
         const today = days[new Date().getDay()];
         setTodayBusinessHours(`${today}: ${businessHoursParsed[today] || businessHoursParsed['매일'] || businessHoursParsed['기타']}`);
@@ -76,8 +77,16 @@ function RestaurantDetail() {
     setShowAllBusinessHours(!showAllBusinessHours);
   };
 
+  const handleReservationClick = () => {
+    if (isLoggedIn) {
+      setModalIsOpen(true);
+    } else {
+      alert('로그인 이후 예약 이용 부탁드립니다.');
+    }
+  };
+
   return (
-    <div className="restaurant-detail-container">
+    <div className="restaurant-detail-container mb-[30px]">
       <Carousel showThumbs={false}>
         {restaurant.photo1Url && <div><img src={restaurant.photo1Url} alt={restaurant.name} /></div>}
         {restaurant.photo2Url && <div><img src={restaurant.photo2Url} alt={restaurant.name} /></div>}
@@ -147,7 +156,7 @@ function RestaurantDetail() {
       </div>
 
       <div className="reservation-section">
-        <button onClick={() => setModalIsOpen(true)} className="reservation">
+        <button onClick={handleReservationClick} className="reservation">
           예약하기
         </button>
       </div>

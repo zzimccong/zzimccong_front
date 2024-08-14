@@ -11,23 +11,23 @@ const Header = () => {
   const onClickBack = () => {
     window.history.back();
   };
-  
-// 로컬 스토리지에서 'profile' 키의 값 가져오기
-const profileData = window.localStorage.getItem('profile');
-let displayName = 'Guest'; // 기본값 설정
 
-// 프로필 데이터가 있을 경우 파싱하고 닉네임 추출하기
-if (profileData) {
-  try {
-    const profile = JSON.parse(profileData);
-    displayName = profile.nickname || displayName; // 프로필에서 nickname 추출
-  } catch (error) {
-    console.error('프로필 데이터를 로컬 스토리지에서 파싱하는 데 실패했습니다.', error);
+  // 로컬 스토리지에서 'profile' 키의 값 가져오기
+  const profileData = window.localStorage.getItem('profile');
+  let displayName = 'Guest'; // 기본값 설정
+
+  // 프로필 데이터가 있을 경우 파싱하고 닉네임 추출하기
+  if (profileData) {
+    try {
+      const profile = JSON.parse(profileData);
+      displayName = profile.nickname || displayName; // 프로필에서 nickname 추출
+    } catch (error) {
+      console.error('프로필 데이터를 로컬 스토리지에서 파싱하는 데 실패했습니다.', error);
+    }
   }
-}
 
-// user 정보가 있을 경우 닉네임을 우선적으로 설정 (기본값으로 설정)
-displayName = (user && (user.corpName || user.name)) || displayName
+  // user 정보가 있을 경우 닉네임을 우선적으로 설정 (기본값으로 설정)
+  displayName = (user && (user.corpName || user.name)) || displayName
 
   const headerContent = () => {
     switch (location) {
@@ -105,6 +105,48 @@ displayName = (user && (user.corpName || user.name)) || displayName
             </div>
           </div>
         );
+      case "/event-list":
+        return (
+          <div className="header-wrapper flex px-[20px]">
+            <div className="header-left flex items-center">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+                추첨 이벤트 목록
+              </h1>
+            </div>
+            <div className="header-right flex items-center ml-auto">
+              <button type="button" className="btn-icon alarm"></button>
+              <button type="button" className="btn-icon setting"></button>
+            </div>
+          </div>
+        );
+      case "/restaurants":
+        return (
+          <div className="header-wrapper flex px-[20px]">
+            <div className="header-left flex items-center">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+                가게 목록
+              </h1>
+            </div>
+            <div className="header-right flex items-center ml-auto">
+              <button type="button" className="btn-icon alarm"></button>
+              <button type="button" className="btn-icon setting"></button>
+            </div>
+          </div>
+        );
+        case "/myReservation":
+        return (
+          <div className="header-wrapper flex px-[20px]">
+            <div className="header-left flex items-center">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+                가게 목록
+              </h1>
+            </div>
+            <div className="header-right flex items-center ml-auto">
+              <button type="button" className="btn-icon alarm"></button>
+              <button type="button" className="btn-icon setting"></button>
+            </div>
+          </div>
+        );
       case "/account":
         return isLoggedIn ? (
           <div className="header-wrapper flex px-[20px]">
@@ -122,24 +164,24 @@ displayName = (user && (user.corpName || user.name)) || displayName
             </div>
           </div>
         ) : null;
-        case "/corporation/edit":
-          case "/users/edit":
-            return isLoggedIn ? (
-              <div className="header-wrapper flex px-[20px]">
-                <div className="header-left flex items-center">
-                  <button className="back header-icon mr-[8px]" onClick={onClickBack}>
-                    뒤로
-                  </button>
-                  <h1 className="text-xl h-[47px] leading-[47px] font-bold">
-                    {displayName} 님의 내 정보 보기
-                  </h1>
-                </div>
-                <div className="header-right flex items-center ml-auto">
-                  <button type="button" className="btn-icon alarm"></button>
-                  <button type="button" className="btn-icon setting"></button>
-                </div>
-              </div>
-            ) : null;
+      case "/corporation/edit":
+      case "/users/edit":
+        return isLoggedIn ? (
+          <div className="header-wrapper flex px-[20px]">
+            <div className="header-left flex items-center">
+              <button className="back header-icon mr-[8px]" onClick={onClickBack}>
+                뒤로
+              </button>
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold  pb-[45px]">
+                {displayName} 님의 내 정보 보기
+              </h1>
+            </div>
+            <div className="header-right flex items-center ml-auto">
+              <button type="button" className="btn-icon alarm"></button>
+              <button type="button" className="btn-icon setting"></button>
+            </div>
+          </div>
+        ) : null;
       case "/register":
         return (
           <div className="header-wrapper flex justify-between w-full px-[20px] items-center">

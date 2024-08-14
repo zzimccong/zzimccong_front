@@ -65,19 +65,19 @@ const ReservationCoupon = ({setAmount, setCouponType}) => {
         <div className="coupon-item">
           <span className="coupon-text">예약권 1개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={1_000} value2="예약권 1개">
-            1000원
+            1,000원
           </button>
         </div>
         <div className="coupon-item">
           <span className="coupon-text">예약권 5개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="예약권 5개">
-            5000원
+            5,000원
           </button>
         </div>
         <div className="coupon-item">
           <span className="coupon-text">예약권 10개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="예약권 10개">
-            10000원
+            10,000원
           </button>
         </div>
       </div>

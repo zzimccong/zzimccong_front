@@ -68,13 +68,13 @@ const LotteryCoupon = ({setAmount, setCouponType}) => {
         <div className="coupon-item">
           <span className="coupon-text">추첨권 11개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="추첨권 11개">
-            5000원
+            5,000원
           </button>
         </div>
         <div className="coupon-item">
           <span className="coupon-text">추첨권 22개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="추첨권 22개">
-            10000원
+            10,000원
           </button>
         </div>
       </div>

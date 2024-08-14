@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import FindPasswordModal from './find/FindPasswordModal'; 
 import logo2 from '../../assets/icons/logo2.png';
 import logo from '../../assets/icons/logo.png';
-import '../../assets/css/style.css';
+import './Login.css';
 import FindIdModal from './find/FindIdModal ';
 
 const Login = () => {
@@ -128,7 +128,9 @@ const Login = () => {
                 </form>
                 <div className="links-container">
                     <span className="link" onClick={() => navigate('/register')}>회원가입</span>
+                    <span className="separator">|</span>
                     <div className="right-links">
+        
                         <span className="link" onClick={openIdModal}>아이디 찾기</span>
                         <span className="separator">|</span>
                         <span className="link" onClick={openPasswordModal}>비밀번호 찾기</span>

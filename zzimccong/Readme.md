@@ -8,10 +8,6 @@
 
 ## npm install tailwindcss
 
-## npx tailwindcss init -p
-
-## npm install tailwindcss postcss autoprefixer 설치
-
 ## npm install axios 설치
 
 ## npm install --save-dev @babel/plugin-proposal-private-property-in-object

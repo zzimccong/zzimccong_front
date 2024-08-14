@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import bannerImage from '../../assets/icons/banner.png';
 
 const slideItem = [
   {
@@ -22,6 +23,10 @@ const slideItem = [
     id: 3,
     url: "https://d3kzx7mqemhf0.cloudfront.net/common_img/comm_2422211081434326.webp",
   },
+  {
+    id: 4,
+    url: bannerImage // 로컬 이미지 파일의 경로 사용
+  }
 ];
 
 export default function Carousel() {
@@ -40,7 +45,7 @@ export default function Carousel() {
           return (
             <SwiperSlide key={item.id}>
               <a>
-                <img src={item.url}></img>
+                <img src={item.url} ></img>
               </a>
             </SwiperSlide>
           );

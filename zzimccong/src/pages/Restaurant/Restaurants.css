@@ -1,4 +1,4 @@
-.container {
+.restaurants-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -13,7 +13,7 @@
   margin-bottom: 20px;
 }
 
-.swiper-container-wrapper {
+.swiper-container-wrappers {
   width: 80%;
   height: 450px; /* 높이를 조정하여 네비게이션 버튼을 포함 */
   position: relative;

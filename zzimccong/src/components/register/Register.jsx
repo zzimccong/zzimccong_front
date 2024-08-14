@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserRegister from './user/UserRegister';
 import CorpRegister from './corp/CorpRegister';
-import '../../assets/css/style.css';
+import './Register.css';
 
 const Register = () => {
     const [selectedButton, setSelectedButton] = useState('회원가입');

@@ -75,7 +75,7 @@ export default function MyPage() {
     <div className="main mt-[100px]">
       {user?.role === 'ADMIN' ? (
         <div>
-          <h1>관리자 페이지</h1>
+          
           <div className="menu-container">
             <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
                 사용자 관리
@@ -108,7 +108,7 @@ export default function MyPage() {
         </div>
       ) : (
         <div>
-          <h1>내 정보 수정 페이지</h1>
+          
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
                 내 정보 수정

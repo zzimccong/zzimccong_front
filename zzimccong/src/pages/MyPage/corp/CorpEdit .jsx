@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../utils/axiosConfig';
 import { AuthContext } from '../../../context/AuthContext';
-import '../../../assets/css/style.css';
+import './CorpEdit.css';
 import ChangePasswordModal from '../../../components/login/changePassword/ChangePasswordModal';
 import DeleteCorpModal from './DeleteCorpModal';
 
@@ -113,33 +113,33 @@ const CorpEdit = () => {
 
     return (
         <div className="edit-container">
-            <h2>Edit Corporation Information</h2>
+    
             <form onSubmit={handleSubmit}>
                 <div className="form-item">
-                    <label>Corporation ID</label>
+                    <label>아이디</label>
                     <input type="text" name="corpId" value={formData.corpId} disabled />
                 </div>
                 <div className="form-item">
-                    <label>Corporation Name</label>
+                    <label>회사명</label>
                     <input type="text" name="corpName" value={formData.corpName} onChange={handleChange} />
                 </div>
                 <div className="form-item">
-                    <label>Corporation Department</label>
+                    <label>부서명</label>
                     <input type="text" name="corpDept" value={formData.corpDept} onChange={handleChange} />
                 </div>
                 <div className="form-item">
-                    <label>Corporation Email</label>
+                    <label>회사 이메일</label>
                     <input type="email" name="corpEmail" value={formData.corpEmail} onChange={handleChange} />
                 </div>
                 <div className="form-item">
-                    <label>Corporation Address</label>
+                    <label>회사 주소</label>
                     <input type="text" name="corpAddress" value={formData.corpAddress} onChange={handleChange} />
                 </div>
                 <div className="form-item password-item">
                     <label>Password</label>
                     <div className="password-input">
                         <input type="password" name="password" value={password} onChange={handlePasswordChange} />
-                        <button type="button" onClick={openChangePasswordModal} className="change-password-button">Change Password</button>
+                        <button type="button" onClick={openChangePasswordModal} className="change-password-button">비밀번호 변경</button>
                     </div>
                 </div>
                 <div className="form-item">
@@ -147,8 +147,8 @@ const CorpEdit = () => {
                     <input type="password" name="passwordConfirm" value={passwordConfirm} onChange={handlePasswordConfirmChange} />
                 </div>
                 <div className="button-group">
-                    <button type="submit" className="update-button">Update Information</button>
-                    <button type="button" onClick={openDeleteAccountModal} className="delete-account-button">Delete Account</button>
+                    <button type="submit" className="update-button">정보 수정</button>
+                    <button type="button" onClick={openDeleteAccountModal} className="delete-account-button">회원 탈퇴</button>
                 </div>
             </form>
 
