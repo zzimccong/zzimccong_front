@@ -1,0 +1,42 @@
+footer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    font-size: 12px; /* 글자 크기 줄임 */
+    color: #333;
+    text-align: left;
+    line-height: 1.6; /* 줄 간격 추가 */
+    margin-bottom: 50px;
+}
+
+.footer-content {
+    margin-bottom: 10px;
+}
+
+.footer-content p {
+    margin: 5px 0; /* 줄 간격을 좀 더 늘림 */
+}
+
+.footer-links {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.footer-links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 10px; /* 링크 사이의 간격을 균일하게 설정 */
+}
+
+.footer-links a::after {
+    content: "|"; /* 각 링크 뒤에 | 추가 */
+    margin-left: 10px; /* | 과 다음 글자 사이의 간격 설정 */
+}
+
+.footer-links a:last-child::after {
+    content: ""; /* 마지막 링크 뒤에는 |를 추가하지 않음 */
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}

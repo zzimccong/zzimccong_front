@@ -1,6 +1,6 @@
 import React from "react";
 import ChangePassword from "./ChangePassword";
-import '../../../assets/css/style.css';
+import './ChangePassword.css';
 
 const ChangePasswordModal = ({ showModal, onClose, userId, userType }) => {
     if (!showModal) {

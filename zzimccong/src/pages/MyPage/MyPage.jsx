@@ -65,6 +65,14 @@ export default function MyPage() {
     const handleCouponClick = useCallback(() => {
       navigate('/user/coupon');
     }, [navigate]);
+
+    const handleVisited = useCallback(() => {
+      navigate('/visited');
+    }, [navigate]);
+  
+    const handleReview = useCallback(() => {
+      navigate('/reviewList');
+    }, [navigate]);
   
 
   if (loading) {
@@ -72,10 +80,10 @@ export default function MyPage() {
   }
 
   return (
-    <div className="main mt-[100px]">
+    <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
-          <h1>관리자 페이지</h1>
+          
           <div className="menu-container">
             <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
                 사용자 관리
@@ -84,21 +92,21 @@ export default function MyPage() {
               {showDropdown && (
                     <div className="dropdown-menu">
                       <br/>
-                      <div><Link to="/user-management">&gt; 유저 관리</Link></div>
-                      <div><Link to="/corp-management">&gt; 기업 관리</Link></div>
-                      <div><Link to="/store-management">&gt; 점주 관리</Link></div>
+                      <div><Link to="/user-management">유저 관리</Link></div>
+                      <div><Link to="/corp-management">기업 관리</Link></div>
+                      <div><Link to="/store-management">점주 관리</Link></div>
                     </div>
               )}
             </button>
             <hr/>
             <button className="menu-option" >
                 쿠폰 관리
-              <span className="arrow">&gt;</span>
+              <span className="arrow"></span>
             </button>
             <hr/>
             <button className="menu-option">
                 통계
-              <span className="arrow">&gt;</span>
+              <span className="arrow"></span>
             </button>
             <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
@@ -108,7 +116,7 @@ export default function MyPage() {
         </div>
       ) : (
         <div>
-          <h1>내 정보 수정 페이지</h1>
+        
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
                 내 정보 수정
@@ -122,6 +130,18 @@ export default function MyPage() {
             <hr/>
             <button className="menu-option" onClick={handleCouponClick}>
                 쿠폰
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            
+            <button className="menu-option" onClick={handleVisited}>
+              방문내역
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            
+            <button className="menu-option" onClick={handleReview}>
+              리뷰관리
               <span className="arrow">&gt;</span>
             </button>
             <hr/>

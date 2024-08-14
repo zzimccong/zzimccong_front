@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "./Login"; // Login 컴포넌트 import
-import '../../assets/css/style.css';
+import Login from "./Login";
+import './Login.css';
 
 const LoginModal = ({ showModal, onClose }) => {
     if (!showModal) {
@@ -10,14 +10,11 @@ const LoginModal = ({ showModal, onClose }) => {
     return (
       <div className="modal-overlay">
         <div className="modal-content">
-        
-          <button className="modal-close" onClick={onClose}>
-            &times;
-          </button>
-          <Login /> 
+          <button className="modal-close" onClick={onClose}>&times;</button>
+          <Login />
         </div>
       </div>
     );
-  };
-  
-  export default LoginModal;
+};
+
+export default LoginModal;

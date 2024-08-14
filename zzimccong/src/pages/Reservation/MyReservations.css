@@ -1,0 +1,99 @@
+.my-reservations-container {
+  padding: 20px;
+}
+
+.main-tabs {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.main-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-tabs .active {
+  border-bottom: 2px solid black;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  border-bottom: 2px solid black;
+}
+
+.content {
+  min-height: 200px;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.empty-state p {
+  margin: 10px 0;
+}
+
+.explore-restaurants {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.reservation-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.reservation-text {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.cta-section {
+  margin-top: 20px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}

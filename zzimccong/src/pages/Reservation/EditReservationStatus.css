@@ -1,0 +1,38 @@
+.edit-reservation-status-container {
+    padding: 20px;
+  }
+  
+  .reservations-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .reservation-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reservation-card.selected {
+    border-color: blue;
+  }
+  
+  .update-status {
+    margin-top: 20px;
+  }
+  
+  .update-status select {
+    margin-right: 10px;
+  }
+  
+  .update-status button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
