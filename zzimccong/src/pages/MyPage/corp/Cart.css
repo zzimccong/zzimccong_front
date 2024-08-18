@@ -1,0 +1,41 @@
+.title {
+    color: #f55a5a;
+}
+.cart-items {
+    padding-bottom: 80px; /* 네비게이션 바와 버튼 공간을 확보하기 위해 추가 */
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 20px;
+    background-color: white;
+    position: fixed;
+    bottom: 60px; /* 네비게이션 바 바로 위에 위치하도록 설정 */
+    width: 480px;
+    /* box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1); */
+    z-index: 1000; /* 네비게이션 바보다 앞에 오도록 설정 */
+}
+
+.reserve-button, .cancel-button {
+    width: 200px;
+    padding: 10px;
+    background-color: #f55a5a; /* 버튼 색상 */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}sss
+
+/* 네비게이션 바와 간섭되지 않도록 추가 패딩을 적용 */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* 네비게이션 바의 높이 */
+    background-color: white; /* 네비게이션 바 배경색 */
+    z-index: 999; /* 푸터보다 낮게 설정 */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+

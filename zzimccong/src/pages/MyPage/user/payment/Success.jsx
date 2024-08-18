@@ -17,26 +17,26 @@ export function Success() {
 
     };
 
-    async function confirm() {
-      const response = await fetch("/api/pay/success", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+    // async function confirm() {
+    //   const response = await fetch("/api/pay/success", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(requestData),
+    //   });
 
-      const json = await response.json();
+    //   const json = await response.json();
 
-      if (!response.ok) {
+    //   if (!response.ok) {
         
-        navigate(`/fail?message=${json.message}&code=${json.code}`);
-        return;
-      }
+    //     navigate(`/fail?message=${json.message}&code=${json.code}`);
+    //     return;
+    //   }
 
       
-    }
-    confirm();
+    // }
+    // confirm();
   }, []);
 
   return (

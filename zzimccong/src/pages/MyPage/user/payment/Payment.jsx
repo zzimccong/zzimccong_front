@@ -71,6 +71,8 @@ export function Payment({ Amount, CouponType }) {
 
   //현재 로그인된 정보
   const user = useCurrentUser();
+  const isLocalhost = window.location.hostname === 'localhost';
+  const baseUrl = isLocalhost ? 'http://localhost:3000' : 'http://10.10.10.35:3000';
 
   const payment = async () => {
     const body = {
@@ -78,14 +80,16 @@ export function Payment({ Amount, CouponType }) {
       amount: amount.value,
       userId: user.id,
       orderName: CouponType,
-      yourSuccessUrl: `http://localhost:3000/payment/success`,
-      yourFailUrl: `http://localhost:3000/payment/fail`,
+      yourSuccessUrl: `${baseUrl}/payment/success`,
+      yourFailUrl: `${baseUrl}/payment/fail`,
+      // yourSuccessUrl: `http://localhost:3000/payment/success`,
+      // yourFailUrl: `http://localhost:3000/payment/fail`,
     };
 
     console.log("전송 객체 ",body);
 
     try {
-      const res = await axios.post('/api/pay', body, {
+      const res = await axios.post(`/api/pay`, body, {
         headers: {
           'Content-Type': 'application/json',
         },
