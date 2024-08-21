@@ -44,6 +44,36 @@ function ReservationCalendar({ restaurantId }) {
       return;
     }
 
+    // role이 'USER'인 경우에만 예약권 쿠폰 정보 확인
+    if (user.role === "USER") {
+      axios
+        .get(`/api/coupons/${user.id}/reservation/cnt`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
+          },
+        })
+        .then((response) => {
+          const couponCnt = response.data;
+
+          if (couponCnt < 2 || couponCnt == 0) {
+            alert("예약권이 부족하여 예약이 불가합니다.");
+            return; // 예약 진행 중단
+          }
+
+          proceedReservation(token);
+        })
+        .catch((error) => {
+          console.error("예약 실패", error);
+          alert("예약 중 오류가 발생했습니다.");
+        });
+    } else if (user.role === "CORP") {
+      // role이 'CORP'인 경우 바로 예약 진행
+      proceedReservation(token);
+    }
+  };
+
+  const proceedReservation = (token) => {
+    // 예약 시간 설정
     const reservationTime = new Date(date);
     const [hours, minutes] = selectedTime.split(":");
     reservationTime.setHours(parseInt(hours, 10));
@@ -61,21 +91,38 @@ function ReservationCalendar({ restaurantId }) {
         reservationRegistrationTime.getTimezoneOffset() * 60000
     );
 
-    const reservation = {
-      restaurant: { id: restaurantId }, // restaurantId 포함
-      user: { id: user.id }, // UserId 포함
-      reservationTime: utcReservationTime,
-      reservationRegistrationTime: utcReservationRegistrationTime,
-      count: count,
-      state: "예약 대기",
-      request: request,
-    };
-
+    // 유저 타입에 따른 예약 정보 설정
+    let reservation;
+    if (user.role === "USER") {
+      reservation = {
+        restaurant: { id: restaurantId }, // restaurantId 포함
+        user: { id: user.id }, // UserId 포함
+        corporation: null, // corporationId는 null로 설정
+        reservationTime: utcReservationTime,
+        reservationRegistrationTime: utcReservationRegistrationTime,
+        count: count,
+        state: "예약 대기",
+        request: request,
+      };
+    } else if (user.role === "CORP") {
+      reservation = {
+        restaurant: { id: restaurantId }, // restaurantId 포함
+        user: null, // userId는 null로 설정
+        corporation: { id: user.Id }, // CorporationId 포함
+        reservationTime: utcReservationTime,
+        reservationRegistrationTime: utcReservationRegistrationTime,
+        count: count,
+        state: "예약 대기",
+        request: request,
+      };
+    }
+    console.log(reservation);
+    // 예약 요청
     axios
-      .post("/api/reservations", reservation, {
+      .post("/api/reservations", JSON.stringify(reservation), {
         headers: {
           Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
-          'Content-Type': 'application/json', // Content-Type 헤더 추가
+          "Content-Type": "application/json", // Content-Type 헤더 추가
         },
       })
       .then((response) => {
@@ -83,6 +130,7 @@ function ReservationCalendar({ restaurantId }) {
       })
       .catch((error) => {
         console.error("예약 실패", error);
+        alert("예약 중 오류가 발생했습니다.");
       });
   };
 

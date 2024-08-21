@@ -1,0 +1,49 @@
+.title {
+  color: #f55a5a;
+}
+
+.payment-history-container {
+  padding: 20px;
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+
+/* .payment-list {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
+} */
+
+.payment-item {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.payment-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-name {
+  padding-left: 15px;
+  font-size: 18px;
+  color: #000000;
+}
+
+.payment-date {
+  padding-left: 15px;
+  font-size: 16px;
+  color: #a0a0a0;
+  margin-top: 5px;
+}
+
+.payment-amount {
+  padding-right: 15px;
+  font-size: 18px;
+  color: #f55a5a;
+  font-weight: bold;
+  text-align: right;
+}
