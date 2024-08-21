@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import axios from '../../utils/axiosConfig';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const SearchComponent = () => {
   const [searchWord, setQuery] = useState('');
@@ -9,6 +9,13 @@ const SearchComponent = () => {
   const [error, setError] = useState(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (searchPerformed && searchWord) {
+      handleSubmit(); 
+    }
+  }, []);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
