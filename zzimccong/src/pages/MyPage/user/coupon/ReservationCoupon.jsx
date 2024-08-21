@@ -4,6 +4,7 @@ import '../../../../assets/css/style.css';
 import './Coupon.css';
 import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
+import CouponMenu from './CouponMenu.jsx';
 
 const ReservationCoupon = ({setAmount, setCouponType}) => {
 
@@ -43,11 +44,15 @@ const ReservationCoupon = ({setAmount, setCouponType}) => {
   }, []);
 
   const handleButtonClick = (event) => {
-    const amount = Number(event.target.getAttribute('value1'));
-    const type = String(event.target.getAttribute('value2'));
-    setAmount(amount);
-    setCouponType(type);
-    navigate('/payment');
+    if(reservationCount < 10) {
+      const amount = Number(event.target.getAttribute('value1'));
+      const type = String(event.target.getAttribute('value2'));
+      setAmount(amount);
+      setCouponType(type);
+      navigate('/payment');
+    } else{
+      alert("예약쿠폰은 10개 이상 보유할 수 없습니다.");
+    }
   };
 
   const handleCouponClick = useCallback(() => {
@@ -63,42 +68,26 @@ const ReservationCoupon = ({setAmount, setCouponType}) => {
           <span className="coupon-count">{reservationCount} 개</span>
         </div>
         <div className="coupon-item">
-          <span className="coupon-text">예약권 1개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={1_000} value2="예약권 1개">
-            1000원
+          <span className="coupon-text">예약쿠폰 1개</span>
+          <button className='button_pay' onClick={handleButtonClick} value1={1_000} value2="예약쿠폰 1개">
+            1,000원
           </button>
         </div>
         <div className="coupon-item">
-          <span className="coupon-text">예약권 5개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="예약권 5개">
-            5000원
+          <span className="coupon-text">예약쿠폰 5개</span>
+          <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="예약쿠폰 5개">
+            5,000원
           </button>
         </div>
         <div className="coupon-item">
-          <span className="coupon-text">예약권 10개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="예약권 10개">
-            10000원
+          <span className="coupon-text">예약쿠폰 10개</span>
+          <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="예약쿠폰 10개">
+            10,000원
           </button>
         </div>
       </div>
       <br/>
-      <hr className="hr-border"/>
-      <div className="menu-container">
-        <button className="menu-option" onClick={handleCouponClick}>
-          할인 쿠폰
-          <span className="arrow">&gt;</span>
-        </button>
-        <hr/>
-        <button className="menu-option" >
-          쿠폰 사용 내역
-          <span className="arrow">&gt;</span>
-        </button>
-        <hr/>
-        <button className="menu-option" onClick={() => navigate('/paymenthistory')}>
-          쿠폰 결제 내역
-          <span className="arrow">&gt;</span>
-        </button>
-      </div>
+      <CouponMenu/>
     </div>
     
     

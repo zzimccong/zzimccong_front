@@ -11,6 +11,7 @@ const customerKey = "j6Grr3qHuH_b6nF-SwQKU";
 // const customerKey = process.env.REACT_APP_TOSS_CUSTOMER_KEY;
 
 export function Payment({ Amount, CouponType }) {
+  console.log("Payment 컴포넌트 렌더링");
   const [amount, setAmount] = useState({
     currency: "KRW",
     value: Number(Amount),
@@ -21,8 +22,10 @@ export function Payment({ Amount, CouponType }) {
   const [ready, setReady] = useState(false);
   const [tossPayments, setTossPayments] = useState(null);
   const [widgets, setWidgets] = useState(null);
+  
 
   useEffect(() => {
+    console.log("fetchPaymentWidget useEffect 실행");
     async function fetchPaymentWidget() {
       const tossPayments = await loadTossPayments(clientKey);
       const widgets = tossPayments.widgets({
@@ -36,8 +39,10 @@ export function Payment({ Amount, CouponType }) {
   }, [clientKey]);
 
   useEffect(() => {
+    console.log("renderPaymentWidgets useEffect 실행");
     async function renderPaymentWidgets() {
       if (widgets == null){
+        console.log("widgets가 null임");
         return;
       }
       // ------ 주문의 결제 금액 설정 ------
@@ -71,21 +76,28 @@ export function Payment({ Amount, CouponType }) {
 
   //현재 로그인된 정보
   const user = useCurrentUser();
+  const isLocalhost = window.location.hostname === 'localhost';
+  const baseUrl = isLocalhost ? 'http://localhost:3000' : 'http://10.10.10.227:3000';
 
   const payment = async () => {
+    console.log("결제 버튼 클릭");
+    console.log("Axios 요청 전송 준비");
+    
     const body = {
       payType: 'CARD',
       amount: amount.value,
       userId: user.id,
       orderName: CouponType,
-      yourSuccessUrl: `http://localhost:3000/payment/success`,
-      yourFailUrl: `http://localhost:3000/payment/fail`,
+      yourSuccessUrl: `${baseUrl}/payment/success`,
+      yourFailUrl: `${baseUrl}/payment/fail`,
+      // yourSuccessUrl: `http://localhost:3000/payment/success`,
+      // yourFailUrl: `http://localhost:3000/payment/fail`,
     };
 
     console.log("전송 객체 ",body);
 
     try {
-      const res = await axios.post('/api/pay', body, {
+      const res = await axios.post(`/api/pay`, body, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -94,7 +106,7 @@ export function Payment({ Amount, CouponType }) {
 
       console.log("받은 객체 ", data);
 
-      //console.log("amount ", typeof(data.payType));
+      localStorage.setItem('paymentData', JSON.stringify(data));
 
       await widgets.requestPayment({
         //amount: data.amount,
@@ -115,7 +127,7 @@ export function Payment({ Amount, CouponType }) {
         console.error("Error in setting up request:", error.message);
       }
       console.error("Error config:", error.config);
-    }
+    } 
   };
 
   return (

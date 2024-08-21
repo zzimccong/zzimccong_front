@@ -1,31 +1,48 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
 import axios from "../../utils/axiosConfig";
 import "./MyReservations.css";
-import { AuthContext } from "../../context/AuthContext";  // AuthContext를 가져옵니다.
+import { AuthContext } from "../../context/AuthContext";
 
 function MyReservations() {
-  const { user } = useContext(AuthContext); // 로그인된 사용자 정보를 가져옵니다.
+  const { user } = useContext(AuthContext);
   const [reservations, setReservations] = useState([]);
   const [restaurantDetails, setRestaurantDetails] = useState({});
-  const [tab, setTab] = useState("upcoming"); // Default tab
-  const [activeMainTab, setActiveMainTab] = useState("reservations"); // Default main tab
+  const [reviewedReservations, setReviewedReservations] = useState([]); // 이미 리뷰된 예약 목록
+  const [tab, setTab] = useState("upcoming");
+  const [activeMainTab, setActiveMainTab] = useState("reservations");
+
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     if (user) {
-      // Fetch reservations data for the logged-in user by userId
+      const token = localStorage.getItem("token"); // JWT 토큰 가져오기
+      const userString = localStorage.getItem("user");
+      const user=JSON.parse(userString);
+      let userId=user.id;
+      let userType=user.role;
+
+      if (!token || !userId) {
+        console.error("JWT 토큰이나 User ID가 설정되어 있지 않습니다.");
+        return;
+      }
+
+      // 백엔드로 userId를 params로 전달
       axios
-        .get(`/api/reservations/user/${user.id}`, {
+        .get("/api/reservations/user", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
+          },
+          params: {
+            userId: userId, // userId를 params로 전달
+            userType: userType
           },
         })
         .then((response) => {
           setReservations(response.data);
           response.data.forEach((reservation) => {
-            console.log(reservation);
-            console.log("Fetched restaurantId:", reservation.restaurantId);  // 확인용 로그
-            console.log("Fetched userId:", reservation.userId);  // 확인용 로그
             fetchRestaurantDetails(reservation.restaurantId);
+            checkIfReviewed(reservation.id); // 예약마다 리뷰 존재 여부 확인
           });
         })
         .catch((error) => {
@@ -50,6 +67,19 @@ function MyReservations() {
     }
   };
 
+  const checkIfReviewed = (reservationId) => {
+    axios
+      .get(`/api/reviews/reservation/${reservationId}`) // 리뷰가 있는지 확인하는 API 호출
+      .then((response) => {
+        if (response.data.reviewExists) { // 리뷰가 있으면 상태 업데이트
+          setReviewedReservations((prevReviewed) => [...prevReviewed, reservationId]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking review status:", error);
+      });
+  };
+
   const formatReservationTime = (time) => {
     const options = {
       year: "numeric",
@@ -65,6 +95,10 @@ function MyReservations() {
     if (!address) return "";
     const parts = address.split(" ");
     return parts.length > 2 ? `${parts[0]} ${parts[1]}` : address;
+  };
+
+  const handleWriteReviewClick = (reservationId) => {
+    navigate(`/review/create?reservationId=${reservationId}`);
   };
 
   const renderReservations = (status) => {
@@ -92,8 +126,7 @@ function MyReservations() {
     }
 
     return (
-       
-      <div className="reservations-list ">
+      <div className="reservations-list">
         {filteredReservations.map((reservation) => (
           <div key={reservation.id} className="reservation-card">
             <img
@@ -115,10 +148,25 @@ function MyReservations() {
             </p>
             <p className="reservation-text">인원 수: {reservation.count}명</p>
             <p className="reservation-text">{reservation.state}</p>
+
+            {/* 예약이 '방문 완료' 상태일 때 리뷰 버튼 표시 */}
+            {status === "completed" && (
+              reviewedReservations.includes(reservation.id) ? (
+                <button className="review-completed-button" disabled>
+                  리뷰 등록 완료
+                </button>
+              ) : (
+                <button
+                  className="write-review-button"
+                  onClick={() => handleWriteReviewClick(reservation.id)}
+                >
+                  리뷰 작성
+                </button>
+              )
+            )}
           </div>
         ))}
       </div>
-    
     );
   };
 
@@ -126,7 +174,6 @@ function MyReservations() {
     if (activeMainTab === "reservations") {
       return (
         <>
-        
           <div className="tabs">
             <button
               className={tab === "upcoming" ? "active" : ""}
@@ -162,24 +209,24 @@ function MyReservations() {
 
   return (
     <div className="main mt-[100px]">
-    <div className="my-reservations-container">
-      <div className="main-tabs">
-        <button
-          className={activeMainTab === "reservations" ? "active" : ""}
-          onClick={() => setActiveMainTab("reservations")}
-        >
-          나의 예약
-        </button>
-        <button
-          className={activeMainTab === "notifications" ? "active" : ""}
-          onClick={() => setActiveMainTab("notifications")}
-        >
-          나의 알림
-        </button>
+      <div className="my-reservations-container">
+        <div className="main-tabs">
+          <button
+            className={activeMainTab === "reservations" ? "active" : ""}
+            onClick={() => setActiveMainTab("reservations")}
+          >
+            나의 예약
+          </button>
+          <button
+            className={activeMainTab === "notifications" ? "active" : ""}
+            onClick={() => setActiveMainTab("notifications")}
+          >
+            나의 알림
+          </button>
+        </div>
+        <hr />
+        {renderContent()}
       </div>
-      <hr />
-      {renderContent()}
-    </div>
     </div>
   );
 }

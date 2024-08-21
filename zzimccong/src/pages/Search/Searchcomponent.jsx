@@ -21,11 +21,7 @@ const SearchComponent = () => {
     setSearchPerformed(true);
 
     try {
-      const response = await axios.post('api/search', { searchWord }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await axios.get(`api/search/${searchWord}`);
       setResults(response.data);
     } catch (err) {
       console.error('검색 결과를 가져오는 중 오류 발생:', err);

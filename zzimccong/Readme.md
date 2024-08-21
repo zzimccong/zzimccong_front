@@ -18,6 +18,8 @@
 
 ## npm install react-responsive-carousel
 
+## npm install @tosspayments/tosspayments-sdk --save
+
 
 ## 챗봇
 

@@ -85,6 +85,39 @@ function RestaurantDetail() {
     }
   };
 
+  //장바구니
+  const handleAddToCart = async () => {
+    const userString = localStorage.getItem('user');
+    const user = JSON.parse(userString);
+    console.log("user  ", user);
+    if (isLoggedIn) {
+      const cartItem = {
+        userId: user.id,
+        restaurantId: id,
+      };
+      console.log("전송객체: ", cartItem);
+  
+      try {
+        const response = await axios.post('api/cart/add', cartItem, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (response.status === 200) {
+          alert('장바구니에 추가되었습니다.');
+        } else {
+          alert('장바구니 추가 중 문제가 발생했습니다.');
+        }
+      } catch (err) {
+        console.error('장바구니 추가 중 오류 발생: ', err);
+        alert('장바구니 추가 중 오류가 발생했습니다.');
+      }
+    } else {
+      alert('로그인 후 장바구니를 이용해 주세요.');
+    }
+  };
+
   return (
     <div className="restaurant-detail-container mb-[30px]">
       <Carousel showThumbs={false}>
@@ -97,7 +130,8 @@ function RestaurantDetail() {
       <p className="category">{restaurant.category}</p>
       <div className="name">{restaurant.name}</div>
       <br/>
-      <p>{restaurant.phoneNumber} 전화버튼 </p>
+      {/* <p>{restaurant.phoneNumber} 전화버튼 </p> */}
+      <a href={`tel:${restaurant.phoneNumber}`}>{restaurant.phoneNumber}</a>
       <p className="rating">★ {restaurant.rating}</p>
       <br/>
       <p>{restaurant.description}</p>
@@ -159,6 +193,12 @@ function RestaurantDetail() {
         <button onClick={handleReservationClick} className="reservation">
           예약하기
         </button>
+        
+        {isLoggedIn && JSON.parse(localStorage.getItem('user')).role === 'CORP' && (
+          <button onClick={handleAddToCart} className="reservation">
+            장바구니
+          </button>
+        )}
       </div>
 
       <Modal

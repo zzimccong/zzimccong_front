@@ -66,12 +66,8 @@ export default function MyPage() {
       navigate('/user/coupon');
     }, [navigate]);
 
-    const handleVisited = useCallback(() => {
-      navigate('/visited');
-    }, [navigate]);
-  
-    const handleReview = useCallback(() => {
-      navigate('/reviewList');
+    const handleCartClick = useCallback(() => {
+      navigate('/corp/cart');
     }, [navigate]);
   
 
@@ -80,7 +76,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className="main mt-[120px]">
+    <div className="main mt-[100px]">
       {user?.role === 'ADMIN' ? (
         <div>
           
@@ -92,21 +88,21 @@ export default function MyPage() {
               {showDropdown && (
                     <div className="dropdown-menu">
                       <br/>
-                      <div><Link to="/user-management">유저 관리</Link></div>
-                      <div><Link to="/corp-management">기업 관리</Link></div>
-                      <div><Link to="/store-management">점주 관리</Link></div>
+                      <div><Link to="/user-management">&gt; 유저 관리</Link></div>
+                      <div><Link to="/corp-management">&gt; 기업 관리</Link></div>
+                      <div><Link to="/store-management">&gt; 점주 관리</Link></div>
                     </div>
               )}
             </button>
             <hr/>
             <button className="menu-option" >
                 쿠폰 관리
-              <span className="arrow"></span>
+              <span className="arrow">&gt;</span>
             </button>
             <hr/>
             <button className="menu-option">
                 통계
-              <span className="arrow"></span>
+              <span className="arrow">&gt;</span>
             </button>
             <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
@@ -114,9 +110,9 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-      ) : (
+      ) : user?.role === 'CORP' ? (
         <div>
-        
+          
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
                 내 정보 수정
@@ -128,20 +124,8 @@ export default function MyPage() {
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
-            <button className="menu-option" onClick={handleCouponClick}>
-                쿠폰
-              <span className="arrow">&gt;</span>
-            </button>
-            <hr/>
-            
-            <button className="menu-option" onClick={handleVisited}>
-              방문내역
-              <span className="arrow">&gt;</span>
-            </button>
-            <hr/>
-            
-            <button className="menu-option" onClick={handleReview}>
-              리뷰관리
+            <button className="menu-option" onClick={handleCartClick}>
+              장바구니
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
@@ -155,7 +139,35 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-      )}
+      ) : ( <div>
+          
+        <div className="menu-container">
+          <button className="menu-option" onClick={handleEdit}>
+              내 정보 수정
+            <span className="arrow">&gt;</span>
+          </button>
+          <hr/>
+          <button className="menu-option" >
+              나의 찜 리스트
+            <span className="arrow">&gt;</span>
+          </button>
+          <hr/>
+          <button className="menu-option" onClick={handleCouponClick}>
+              쿠폰
+            <span className="arrow">&gt;</span>
+          </button>
+          <hr/>
+          <button className="menu-option" >
+              1:1 문의
+            <span className="arrow">&gt;</span>
+          </button>
+          <hr/>
+          <button className="menu-option btn-logout" onClick={handleLogout} >
+              로그아웃
+          </button>
+        </div>
+      </div>
+    )}
     </div>
   );
 }

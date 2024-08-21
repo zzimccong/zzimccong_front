@@ -1,0 +1,25 @@
+.menu-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-option {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+}
+
+.menu-option .arrow {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.hr-border {
+    border-top: 5px solid #f0f0f0;
+    padding-bottom: 10px;
+}

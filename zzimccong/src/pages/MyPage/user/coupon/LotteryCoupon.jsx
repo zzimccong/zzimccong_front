@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../../../assets/css/style.css';
 import './Coupon.css';
 import axios from 'axios';
+import CouponMenu from './CouponMenu.jsx';
 
 const LotteryCoupon = ({setAmount, setCouponType}) => {
 
@@ -56,7 +57,7 @@ const LotteryCoupon = ({setAmount, setCouponType}) => {
       
       <div className="coupon-container">
         <div className="coupon-header">
-          <span className="coupon-title">현재 보유중인 추첨 쿠폰</span>
+          <span className="coupon-title">현재 보유중인 추첨권</span>
           <span className="coupon-count">{lotteryCount} 개</span>
         </div>
         <div className="coupon-item">
@@ -68,29 +69,18 @@ const LotteryCoupon = ({setAmount, setCouponType}) => {
         <div className="coupon-item">
           <span className="coupon-text">추첨권 11개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="추첨권 11개">
-            5000원
+            5,000원
           </button>
         </div>
         <div className="coupon-item">
           <span className="coupon-text">추첨권 22개</span>
           <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="추첨권 22개">
-            10000원
+            10,000원
           </button>
         </div>
       </div>
       <br/>
-      <hr className="hr-border"/>
-      <div className="menu-container">
-        <button className="menu-option" >
-          추첨권 사용 내역
-          <span className="arrow">&gt;</span>
-        </button>
-        <hr/>
-        <button className="menu-option" onClick={() => navigate('/paymenthistory')}>
-          추첨권 결제 내역
-          <span className="arrow">&gt;</span>
-        </button>
-      </div>
+      <CouponMenu/>
     </div>
     
     

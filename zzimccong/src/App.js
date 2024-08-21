@@ -12,6 +12,7 @@ import Login from './components/login/Login.jsx';
 import Register from './components/register/Register.jsx';
 import MyPage from './pages/MyPage/MyPage.jsx';
 import CorpEdit from './pages/MyPage/corp/CorpEdit .jsx';
+import Cart from './pages/MyPage/corp/Cart.jsx';
 import UserEdit from './pages/MyPage/user/UserEdit .jsx';
 import UserCoupon from './pages/MyPage/user/coupon/UserCoupon.jsx';
 import ReservationCoupon from './pages/MyPage/user/coupon/ReservationCoupon.jsx';
@@ -87,6 +88,9 @@ function App() {
             <Route path="/user/coupon/reservation" element={<ReservationCoupon />} />
             <Route path="/user/coupon/lottery" element={<LotteryCoupon />} />
             <Route path="/user/coupon/discount" element={<DiscountCoupon />} />
+
+            {/* 장바구니 */}
+            <Route path="/corp/cart" element={<Cart />} />
 
 
             {/* 결제 */}
