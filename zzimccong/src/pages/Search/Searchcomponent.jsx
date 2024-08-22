@@ -1,6 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import axios from '../../utils/axiosConfig';
-import { useNavigate } from 'react-router-dom';
+import SearchResults from './SearchResults';
 
 const SearchComponent = () => {
   const [searchWord, setQuery] = useState('');
@@ -8,7 +8,7 @@ const SearchComponent = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
-  const navigate = useNavigate();
+
 
 
   useEffect(() => {
@@ -38,47 +38,6 @@ const SearchComponent = () => {
     }
   };
 
-  const renderResults = () => {
-    if (loading) {
-      return <p>로딩 중...</p>;
-    }
-
-    if (error) {
-      return <p className="error-message">{error}</p>;
-    }
-
-    if (searchPerformed && results.length === 0) {
-      return <p>검색 결과가 없습니다.</p>;
-    }
-
-    const navigateToStoreDetails = (storeId) => {
-      navigate(`/restaurant/${storeId}`);  
-    };
-
-    //주소 파싱                                      
-    const getShortAddress = (address) => {
-      const parts = address.split(' ');  
-      return parts.slice(0, 2).join(' ');  
-    };
-
-    
-    return results.map((store) => (
-      <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
-                          onClick={() => navigateToStoreDetails(store.id)}>
-          <div style={{ display: 'flex', alignItems: 'center'}}>  
-            <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '10px', width: '120px', height: '120px' }} />
-            <div style={{ flexGrow: 1 }}>
-              <h3 className="text-xl font-bold">{store.name}</h3>
-              <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
-            </div>
-          </div>
-        <hr style={{ width: '435px', margin: 'auto'}}/>
-      </div>
-      
-      
-    ));
-    
-  };
 
   return (
     <div className="search-component w-full">
@@ -101,7 +60,12 @@ const SearchComponent = () => {
       </form>
       <div style={{ overflow: 'auto', height: '600px' }}>
         <div className="search-results h-96">
-          {renderResults()}
+        <SearchResults
+            results={results}
+            loading={loading}
+            error={error}
+            searchPerformed={searchPerformed}
+          />
         </div>
       </div>
     </div>
