@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axiosConfig';
 import fiter from '../../assets/icons/fiter.png';
+import grade from '../../assets/icons/grade.png';
 import './SearchResults.css';
 import Modal from 'react-modal';
 import SearchFilter from './SearchFilter';
 
-const SearchResults = ({results, loading, error, searchPerformed}) => {
+
+const SearchResults = ({searchWord, results, loading, error, searchPerformed}) => {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState(results);
   const [selectedFilters, setSelectedFilters] = useState([]);
+
+  useEffect(() => {  // results가 변경될 때마다 filteredResults를 초기화
+    setFilteredResults(results);  
+  }, [results]);
 
   const navigateToStoreDetails = (storeId) => {
     navigate(`/restaurant/${storeId}`);  
@@ -29,11 +36,28 @@ const SearchResults = ({results, loading, error, searchPerformed}) => {
     setModalIsOpen(false);
   };
 
-  const handleApplyFilters = (filters) => {
+  const handleApplyFilters = async (filters) => {
     setSelectedFilters(filters); // 필터를 저장
     closeModal(); // 모달 닫기
-    // 여기에서 필터를 적용하여 백엔드에서 데이터를 가져오는 로직을 추가할 수 있습니다.
     console.log('Selected Filters:', filters);
+
+    const filtersWithSearchWord = {
+      ...filters,
+      searchWord: searchWord, 
+    };
+
+    try {
+      const response = await axios.post(`api/search/filter`, filtersWithSearchWord, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setFilteredResults(response.data);
+    } catch (err) {
+      console.error('검색 결과를 가져오는 중 오류 발생:', err);
+      // setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
+    } 
+
   };
 
   if (loading) {
@@ -48,7 +72,7 @@ const SearchResults = ({results, loading, error, searchPerformed}) => {
     return <p>검색 결과가 없습니다.</p>;
   }
  
-  console.log(results); //이거 지울거
+  console.log(filteredResults); //이거 지울거
   return (
     <div>
       {results.length > 0 && (
@@ -57,7 +81,7 @@ const SearchResults = ({results, loading, error, searchPerformed}) => {
           onClick={openModal}
         />
       )}
-      { results.map((store) => (
+      { filteredResults.map((store) => (
         <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
               onClick={() => navigateToStoreDetails(store.id)}>
             <div style={{ display: 'flex', alignItems: 'center'}}>  
@@ -65,6 +89,9 @@ const SearchResults = ({results, loading, error, searchPerformed}) => {
               <div style={{ flexGrow: 1 }}>
                 <h3 className="text-xl font-bold">{store.name}</h3>
                 <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
+                <p style={{display: 'flex', alignItems: 'center' }}> 
+                  <img src={grade} style={{ margin: '5px', width: '20px'}}/> {store.grade} / 5.0 
+                </p>
               </div>
             </div>
           <hr style={{ width: '435px', margin: 'auto'}}/>

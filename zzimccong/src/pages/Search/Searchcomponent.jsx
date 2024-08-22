@@ -11,31 +11,61 @@ const SearchComponent = () => {
 
 
 
+  // useEffect(() => {
+  //   if (searchPerformed && searchWord) {
+  //     handleSubmit(); 
+  //   }
+  // }, [searchPerformed, searchWord]);
+
+  // const handleChange = (event) => {
+  //   setQuery(event.target.value);
+  // };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   setLoading(true);
+  //   setError(null);
+  //   setSearchPerformed(true);
+
+  //   try {
+  //     const response = await axios.get(`api/search/${searchWord}`);
+  //     setResults(response.data);
+  //   } catch (err) {
+  //     console.error('검색 결과를 가져오는 중 오류 발생:', err);
+  //     setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   useEffect(() => {
-    if (searchPerformed && searchWord) {
-      handleSubmit(); 
-    }
-  }, []);
+    const fetchData = async () => {
+      if (searchPerformed) {
+        setLoading(true);
+        setError(null);
+
+        try {
+          const response = await axios.get(`api/search/${searchWord}`);
+          setResults(response.data);
+        } catch (err) {
+          console.error('검색 결과를 가져오는 중 오류 발생:', err);
+          setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
+        } finally {
+          setLoading(false);
+          setSearchPerformed(false);
+        }
+      }
+    };
+
+    fetchData();
+  }, [searchPerformed, searchWord]);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-    setError(null);
     setSearchPerformed(true);
-
-    try {
-      const response = await axios.get(`api/search/${searchWord}`);
-      setResults(response.data);
-    } catch (err) {
-      console.error('검색 결과를 가져오는 중 오류 발생:', err);
-      setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
-    } finally {
-      setLoading(false);
-    }
   };
 
 
@@ -61,6 +91,7 @@ const SearchComponent = () => {
       <div style={{ overflow: 'auto', height: '600px' }}>
         <div className="search-results h-96">
         <SearchResults
+            searchWord={searchWord}
             results={results}
             loading={loading}
             error={error}

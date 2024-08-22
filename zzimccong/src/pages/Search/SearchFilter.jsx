@@ -9,12 +9,19 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
     setFilters(selectedFilters); // 모달이 열릴 때마다 부모에서 받은 필터 상태로 초기화
   }, [selectedFilters]);
 
-    const toggleFilter = (filter) => {
-      setFilters((prevFilters) =>
-        prevFilters.includes(filter)
-         ? prevFilters.filter((item) => item !== filter)
-          : [...prevFilters, filter]
-      );
+    const toggleFilter = (category, filter) => {
+      setFilters((prevFilters) => {
+        const newFilters = { ...prevFilters };
+        if (!newFilters[category]) {
+          newFilters[category] = [];
+        }
+        if (newFilters[category].includes(filter)) {
+          newFilters[category] = newFilters[category].filter((item) => item !== filter);
+        } else {
+          newFilters[category].push(filter);
+        }
+        return newFilters;
+      });
     };
 
     const handleApply = () => {
@@ -23,7 +30,7 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
     };
 
     const handleReset = () => {
-      setFilters([]); // 모든 필터를 초기화
+      setFilters({}); // 모든 필터를 초기화
     };
     
     return (
@@ -35,8 +42,8 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
                 {['한식', '일식', '중식', '양식', '아시아 음식', '아메리칸 음식'].map((filter) => (
                   <button
                     key={filter}
-                    className={filters.includes(filter) ? 'active' : ''}
-                    onClick={() => toggleFilter(filter)}
+                    className={filters['나라별']?.includes(filter) ? 'active' : ''}
+                    onClick={() => toggleFilter('나라별', filter)}
                   >
                     {filter}
                   </button>
@@ -49,8 +56,8 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
                 {['룸', '단체석', '바테이블', '연인석', '1인석', '테라스', '루프탑'].map((filter) => (
                   <button
                     key={filter}
-                    className={filters.includes(filter) ? 'active' : ''}
-                    onClick={() => toggleFilter(filter)}
+                    className={filters['테이블 타입']?.includes(filter) ? 'active' : ''}
+                    onClick={() => toggleFilter('테이블 타입', filter)}
                   >
                     {filter}
                   </button>
@@ -63,8 +70,8 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
                 {['주차 가능', '콜키지 가능', '그릴링 서비스', '반려동물 동반 가능', '장애인 편의시설'].map((filter) => (
                   <button
                     key={filter}
-                    className={filters.includes(filter) ? 'active' : ''}
-                    onClick={() => toggleFilter(filter)}
+                    className={filters['편의시설']?.includes(filter) ? 'active' : ''}
+                    onClick={() => toggleFilter('편의시설', filter)}
                   >
                     {filter}
                   </button>
@@ -77,8 +84,8 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
                 {['비즈니스 미팅', '데이트', '기념일', '가족 모임', '조용한', '전통적인'].map((filter) => (
                   <button
                     key={filter}
-                    className={filters.includes(filter) ? 'active' : ''}
-                    onClick={() => toggleFilter(filter)}
+                    className={filters['분위기']?.includes(filter) ? 'active' : ''}
+                    onClick={() => toggleFilter('분위기', filter)}
                   >
                     {filter}
                   </button>
