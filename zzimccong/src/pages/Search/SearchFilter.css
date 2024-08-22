@@ -1,24 +1,24 @@
 .Modal {
   width: 400px; 
   max-width: 90%;
-  max-height: 70vh; /* 모달의 최대 높이를 설정 */
+  max-height: 70vh;
   margin: auto;
   border-radius: 10px;
   padding: 20px;
   background-color: white;
   position: relative;
-  overflow: hidden; /* 모달에서 스크롤바가 보이지 않도록 숨김 */
+  overflow: hidden;
 }
 
 .filter-modal-content {
   padding: 15px;
-  max-height: calc(70vh - 40px); /* 모달의 padding을 고려한 최대 높이 설정 */
-  overflow-y: auto; /* 내부 내용이 넘칠 경우 스크롤 추가 */
+  max-height: calc(70vh - 40px); 
+  overflow-y: auto; 
 }
 
 .filter-modal-content::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* 스크롤바 배경을 투명하게 설정 */
+  background: transparent; 
 }
 
 .filter-group {
@@ -42,7 +42,7 @@
   font-size: 14px;
   transition: background-color 0.3s, color 0.3s;
 }
-  
+
 .filter-group button.active {
   background-color: #f55a5a;
   color: white;
@@ -65,9 +65,20 @@
 .modal-footer .close-button {
   background-color: #e0e0e0;
   color: #333;
+  padding: 10px 60px;
+  font-size: 18px;
 }
   
 .modal-footer .apply-button {
   background-color: #f55a5a;
   color: white;
+  padding: 10px 60px;
+  font-size: 18px;
+}
+
+.reset-button {
+  color: #333;
+  font-size: 15px;
+  float: right;
+
 }

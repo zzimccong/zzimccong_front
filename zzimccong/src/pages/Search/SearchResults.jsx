@@ -78,7 +78,8 @@ const SearchResults = ({results, loading, error, searchPerformed}) => {
         className="Modal"
         overlayClassName="Overlay"
       >
-        <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters} />
+        <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters}
+                      selectedFilters={selectedFilters} />
       </Modal>
     </div>
   );
