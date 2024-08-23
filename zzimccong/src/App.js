@@ -46,6 +46,9 @@ import AdminCorpEdit from './pages/MyPage/admin/corp/AdminCorpEdit.jsx';
 import KakaoRegister from './components/register/kakao/KakaoRegister.jsx';
 import KakaoRegisterMain from './components/register/kakao/KakaoRegisterMain.jsx';
 import KakaoEdit from './pages/MyPage/kakao/KakaoEdit.jsx';
+import AskComponent from './pages/Ask/AskComponent.jsx';
+import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
+import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 
 function App() {
 
@@ -151,6 +154,11 @@ function App() {
 
             <Route path="/edit-user/:id" element={<AdminUserEdit />} />
             <Route path="/edit-corp/:id" element={<AdminCorpEdit />} />
+          
+            {/* 1:1 문의 */}
+            <Route path="/dialog" element={<AskComponent />} />
+            <Route path="/register-ask" element={<RegisterAsk />} />
+            <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
           
           </Routes>
           <Navbar />
