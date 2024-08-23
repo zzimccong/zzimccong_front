@@ -12,6 +12,10 @@ const Header = () => {
     window.history.back();
   };
 
+  const onClickAlarmIcon = () => {
+    navigate('/alram-history'); // 알람 아이콘 클릭 시 /alarm-history로 이동
+  };
+
   // 로컬 스토리지에서 'profile' 키의 값 가져오기
   const profileData = window.localStorage.getItem('profile');
   let displayName = 'Guest'; // 기본값 설정
@@ -47,9 +51,10 @@ const Header = () => {
             </form>
             <div className="header-right flex">
               <a className=" bg-no-repeat ml-[8px]"></a>
-              <button className="w-[30px] h-[30px] bg-alert bg-[30px] bg-no-repeat ml-[8px]"></button>
+              <button className="w-[30px] h-[30px] bg-alert bg-[30px] bg-no-repeat ml-[8px]" onClick={onClickAlarmIcon}></button> {/* 알람 아이콘 클릭 시 이동 */}
             </div>
           </div>
+        
         );
       case "/ct/shop":
         return (
@@ -166,6 +171,7 @@ const Header = () => {
         ) : null;
       case "/corporation/edit":
       case "/users/edit":
+        case "/kakao/edit":
         return isLoggedIn ? (
           <div className="header-wrapper flex px-[20px]">
             <div className="header-left flex items-center">
@@ -182,6 +188,20 @@ const Header = () => {
             </div>
           </div>
         ) : null;
+        case "/kakao-register":
+          return (
+            <div className="header-wrapper flex justify-between w-full px-[20px] items-center">
+              <div className="header-left items-center">
+                <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+                  회원가입
+                </h1>
+              </div>
+              <div className="header-right flex">
+                <button className="w-[30px] h-[30px] bg-alert bg-[30px] bg-no-repeat ml-[8px]"></button>
+              </div>
+            </div>
+          );
+  
       case "/register":
         return (
           <div className="header-wrapper flex justify-between w-full px-[20px] items-center">
