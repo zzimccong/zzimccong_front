@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 us
 import axios from "../../utils/axiosConfig";
 import "./MyReservations.css";
 import { AuthContext } from "../../context/AuthContext";
-<<<<<<< HEAD
-=======
 
 const loadFont = async () => {
   try {
@@ -46,7 +44,6 @@ const loadImageAsBase64 = async (imageUrl) => {
     throw error;
   }
 };
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
 
 function MyReservations() {
   const { user } = useContext(AuthContext);
@@ -141,8 +138,6 @@ function MyReservations() {
     return parts.length > 2 ? `${parts[0]} ${parts[1]}` : address;
   };
 
-<<<<<<< HEAD
-=======
   const generatePDF = async () => {
     try {
       const base64Font = await loadFont(); // 폰트 파일을 불러와 Base64로 변환const doc = newjsPDF();
@@ -184,7 +179,6 @@ function MyReservations() {
     }
   };
 
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
   const handleWriteReviewClick = (reservationId) => {
     navigate(`/review/create?reservationId=${reservationId}`);
   };

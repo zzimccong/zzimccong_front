@@ -111,7 +111,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className="main mt-[100px]">
+    <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
           

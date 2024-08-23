@@ -91,7 +91,6 @@ function RestaurantDetail() {
     const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
     console.log("user  ", user);
-<<<<<<< HEAD
 
     if (isLoggedIn) {
 
@@ -103,9 +102,6 @@ function RestaurantDetail() {
         return;
       }
 
-=======
-    if (isLoggedIn) {
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
       const cartItem = {
         userId: user.id,
         restaurantId: id,
@@ -120,15 +116,11 @@ function RestaurantDetail() {
         });
   
         if (response.status === 200) {
-<<<<<<< HEAD
           const userConfirmed = window.confirm('장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?');
 
           if (userConfirmed) {
              navigate('/corp/cart');
           }
-=======
-          alert('장바구니에 추가되었습니다.');
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
         } else {
           alert('장바구니 추가 중 문제가 발생했습니다.');
         }

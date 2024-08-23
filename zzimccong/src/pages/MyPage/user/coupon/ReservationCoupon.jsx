@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../../assets/css/style.css';
 import './Coupon.css';
-import axios from 'axios';
+import axios from '../../../../utils/axiosConfig.js';
 import { useEffect, useState, useCallback } from 'react';
 import CouponMenu from './CouponMenu.jsx';
 
@@ -31,7 +31,7 @@ const ReservationCoupon = ({setAmount, setCouponType}) => {
     // 예약권의 개수를 가져오는 함수
     const fetchReservationCount = async () => {
       try {
-        const response = await axios.get(`/app/api/coupons/${userId}/reservation/cnt`);
+        const response = await axios.get(`/api/coupons/${userId}/reservation/cnt`);
         setReservationCount(response.data);
       } catch (error) {
         console.error('Error fetching reservation coupons:', error);

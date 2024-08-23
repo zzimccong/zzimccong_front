@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../../utils/axiosConfig';
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import ReservationCalendar from '../../Calendar/ReservationCalendar';
 import Modal from 'react-modal';
@@ -8,22 +7,13 @@ import'./Cart.css';
 
 Modal.setAppElement('#root');
 
-=======
-import { useNavigate } from 'react-router-dom'
-import'./Cart.css';
-
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
 function Cart() {
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
-<<<<<<< HEAD
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
-=======
-
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
 
     const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
@@ -101,14 +91,11 @@ function Cart() {
         return parts.slice(0, 2).join(' ');  
     };
 
-<<<<<<< HEAD
     const handleReservationClick = (restaurantId) => {
         setSelectedRestaurantId(restaurantId);
         setModalIsOpen(true);
       };
 
-=======
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
    
     return (
         <div>
@@ -145,17 +132,10 @@ function Cart() {
                                         src={cart.restaurant.photo1Url}
                                         alt={`${cart.name} 사진`}
                                         className="restaurant-image"
-<<<<<<< HEAD
                                         style={{ margin: '10px', width: '100px', height: '100px' }}
                                     />
                                     <div className="restaurant-info" style={{ flexGrow: 1 }}>
                                         <div className="restaurant-name text-10px font-bold">
-=======
-                                        style={{ margin: '10px', width: '120px', height: '120px' }}
-                                    />
-                                    <div className="restaurant-info" style={{ flexGrow: 1 }}>
-                                        <div className="restaurant-name text-xl font-bold">
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
                                             {cart.restaurant.name}
                                         </div>
                                         <div className="restaurant-category">
@@ -163,15 +143,12 @@ function Cart() {
                                         </div>
                                     </div>
                                 </div>
-<<<<<<< HEAD
                                 <button 
                                     className="reservation"
                                     onClick={(e) => {e.stopPropagation();
                                         handleReservationClick(cart.restaurant.id);}} >
                                     예약하기
                                 </button>
-=======
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
                                 <hr style={{ width: '435px', margin: 'auto' }} />
                             </div>
                         ))}
@@ -184,7 +161,6 @@ function Cart() {
                 <button className="reserve-button" onClick={handlePaper}>문서화</button>
                 <button className="cancel-button" onClick={handleCancel}>삭제</button>
             </div>
-<<<<<<< HEAD
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
@@ -198,8 +174,6 @@ function Cart() {
                     닫기
                 </button>
             </Modal>
-=======
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
         </div>
       );
 }

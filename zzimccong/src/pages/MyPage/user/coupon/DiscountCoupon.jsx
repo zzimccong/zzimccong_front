@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../../../utils/axiosConfig.js';
 import './DiscountCoupon.css'; // 스타일을 추가하기 위해 CSS 파일을 임포트합니다.
 
 export default function DiscountCoupon() {
@@ -36,7 +36,7 @@ export default function DiscountCoupon() {
 
   const fetchDiscountCoupon = async (userId) => {
     try {
-      const response = await axios.get(`/app/api/coupons/${userId}/discount-coupon`);
+      const response = await axios.get(`/api/coupons/${userId}/discount-coupon`);
       setCoupon(response.data);
     } catch (error) {
       console.error('Error fetching discount coupon:', error);
