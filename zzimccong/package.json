@@ -9,6 +9,10 @@
     "@tosspayments/tosspayments-sdk": "^2.2.4",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.4",
+<<<<<<< HEAD
+=======
+    "jspdf": "^2.5.1",
+>>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
     "jwt-decode": "^4.0.0",
     "postcss": "^8.4.41",
     "react": "^18.3.1",
@@ -16,10 +20,14 @@
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.1",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.26.0",
+    "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.12",
+<<<<<<< HEAD
     "swiper": "^11.1.9",
+=======
+    "swiper": "^11.1.10",
+>>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
     "tailwindcss": "^3.4.10",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.6.0",
@@ -61,6 +69,5 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
-  "proxy": "http://localhost:8090"
+  }
 }

@@ -1,0 +1,116 @@
+pipeline{
+    agent any
+
+    environment {
+        
+        //SOURCE CLONE
+        BRANCH_NAME = "main"
+        
+        //Prepare Workspace in Target Server
+        JENKINS_PRJ_NAME = "app-pipeline"
+
+        //Git Project
+        GIT_MAIN_NAME = "zzimccong"
+        GIT_PRJ_NAME = "zzimccong_front"
+        GIT_BRANCH_NAME = "dev"
+
+        NODE_BASE_IMAGE = "node:18-alpine"
+        NGINX_BASE_IMAGE = "nginx:latest"
+        IMAGE_TAG = "3.8-slim-buster"
+
+        SSH_USER = "ubuntu"
+        SSH_HOST = "ec2-15-168-10-98.ap-northeast-3.compute.amazonaws.com"
+    }
+   
+    stages {
+
+        stage('Clone Source in Jenkins') {
+            steps {
+                script {
+                    echo "--------------------"
+                    echo "[Clone Source in Jenkins]"
+                    echo "--------------------"
+
+                    sh "git clone --branch ${GIT_BRANCH_NAME} https://github.com/${GIT_MAIN_NAME}/${GIT_PRJ_NAME}.git"
+                }
+            }
+        }
+        
+        stage('Prepare Workspace in Target Server') {
+            steps {
+                echo "--------------------"
+                echo "[Prepare Workspace in Target Server]"
+                echo "--------------------"
+
+                sh 'echo "Current path: $(pwd)"'
+                sh "ls -l"
+                sh "rm -rf tmp"
+                sh "echo '--------------------'"
+                sh "tar -cvf ${GIT_PRJ_NAME}.tar ${GIT_PRJ_NAME}"
+                sh "rm -rf ${GIT_PRJ_NAME} && ls -l"
+                sh "echo '--------------------'"
+
+                script {
+                    sshagent(credentials: ['jenkins_ssh_key']) {
+                        sh """
+                        scp -o StrictHostKeyChecking=no ${GIT_PRJ_NAME}.tar ${SSH_USER}@${SSH_HOST}:/home/ubuntu
+                        """
+                        
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} '
+                        tar -xvf ${GIT_PRJ_NAME}.tar'
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Pull Base Images') {
+            steps {
+                script {
+                    echo "--------------------"
+                    echo "[Pull Base Images]"
+                    echo "--------------------"
+
+                    sshagent(credentials: ['jenkins_ssh_key']) {
+                        sh """#!/bin/sh
+                        ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} '
+                        base_images=()
+
+                        for i in "${NGINX_BASE_IMAGE}" "${NODE_BASE_IMAGE}"; do
+                            base_images+=("\$i")
+                        done
+
+                        for image in "\${base_images[@]}"; do
+                            sudo docker pull "\$image"
+                        done'
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Build & Deploy') {
+            steps {
+                script {
+                    echo "--------------------"
+                    echo "[Build & Deploy]"
+                    echo "--------------------"
+
+                    sshagent(credentials: ['jenkins_ssh_key']) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} '
+                        cd ${GIT_PRJ_NAME} && sudo docker-compose up -d'
+                        """
+                        
+                    }
+                }
+            }
+        }
+    }
+    post {
+      always {
+         cleanWs()
+      }
+   } 
+}

@@ -23,7 +23,6 @@ import Fail from './pages/MyPage/user/payment/Fail.jsx';
 import PaymentHistory from './pages/MyPage/user/payment/PaymentHistory.jsx';
 import ChangePassword from './components/login/changePassword/ChangePassword.jsx';
 import KakaoCallBack from './components/login/kakao/KakaoCallBack.jsx';
-import KakaoUser from './pages/MyPage/kakao/KakaoUser.jsx';
 import FindId from './components/login/find/FindId.jsx';
 import FindPassword from './components/login/find/FindPassword.jsx';
 import { AuthProvider } from './context/AuthContext.js';
@@ -44,7 +43,12 @@ import UserManagement from './pages/MyPage/admin/user/UserManagement.jsx';
 import CorpManagement from './pages/MyPage/admin/corp/CorpManagement.jsx';
 import AdminUserEdit from './pages/MyPage/admin/user/AdminUserEdit.jsx';
 import AdminCorpEdit from './pages/MyPage/admin/corp/AdminCorpEdit.jsx';
-
+import KakaoRegister from './components/register/kakao/KakaoRegister.jsx';
+import KakaoRegisterMain from './components/register/kakao/KakaoRegisterMain.jsx';
+import KakaoEdit from './pages/MyPage/kakao/KakaoEdit.jsx';
+import AskComponent from './pages/Ask/AskComponent.jsx';
+import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
+import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 
 function App() {
 
@@ -59,6 +63,10 @@ function App() {
           <Header />
           <Routes>
 
+    
+           
+          
+
             {/* 메인화면 */}
             <Route path="/" element={<Home />} />
 
@@ -67,9 +75,13 @@ function App() {
 
             {/* 로그인 */}
             <Route path="/login" element={<Login />} />
+            <Route path="/oauth2/callback/kakao" element={<KakaoCallBack />} />
 
             {/* 회원가입 */}
             <Route path="/register" element={<Register />} />
+
+            <Route path="/kakao-register" element={<KakaoRegisterMain />}/>
+            <Route path="/kakao-signup" element={<KakaoRegister />} />
 
             {/* 마이페이지 */}
             <Route path="/myPage" element={<MyPage />} />
@@ -77,6 +89,8 @@ function App() {
             {/* 내 정보 수정 */}
             <Route path="/corporation/edit" element={<CorpEdit />} />
             <Route path="/users/edit" element={<UserEdit />} />
+
+            <Route path="/kakao/edit" element={<KakaoEdit />} /> 
 
             {/* 비밀번호 변경 */}
             <Route path="/change-password" element={<ChangePassword />} />
@@ -105,8 +119,8 @@ function App() {
             <Route path="visited" element={<Visit/>} />
             <Route path="/reviewList" element={<ReviewList/>} />
 
-            <Route path="/oauth2/callback/kakao" element={<KakaoCallBack />} />
-            <Route path="/kakao-user" element={<KakaoUser />} />
+            
+        
 
             <Route path="/find-id" element={<FindId />} />
             <Route path="/find-password" element={<FindPassword />} />
@@ -142,7 +156,12 @@ function App() {
 
             <Route path="/edit-user/:id" element={<AdminUserEdit />} />
             <Route path="/edit-corp/:id" element={<AdminCorpEdit />} />
-        
+          
+            {/* 1:1 문의 */}
+            <Route path="/dialog" element={<AskComponent />} />
+            <Route path="/register-ask" element={<RegisterAsk />} />
+            <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
+          
           </Routes>
           <Navbar />
         </Router>

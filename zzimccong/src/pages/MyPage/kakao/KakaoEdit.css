@@ -1,0 +1,100 @@
+/* UserEdit.css */
+
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    margin-top: 100px; /* 헤더 공간 확보 */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 80px auto; /* 헤더를 피해서 중앙에 위치 */
+}
+
+.edit-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.form-item {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-item input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    height: 40px; /* 높이 설정 */
+}
+
+.password-input {
+    display: flex;
+    align-items: center;
+}
+
+.change-password-button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: #f55a5a !important;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem; /* 텍스트 크기 조정 */
+    line-height: 1.3; /* 텍스트 줄높이 설정 */
+    height: auto; /* 높이를 자동으로 설정 */
+    display: flex; /* 버튼 내 텍스트를 중앙에 위치 */
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.change-password-button:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.update-button, .delete-account-button {
+    padding: 10px 20px; /* 텍스트 크기에 맞춰 패딩 설정 */
+    font-size: 1rem; /* 텍스트 크기 조정 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+    background-color: #f55a5a !important;
+    line-height: 1.5; /* 텍스트 줄높이 설정 */
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #218838;
+}
+
+.delete-account-button {
+    background-color: #dc3545;
+}
+
+.delete-account-button:hover {
+    background-color: #c82333;
+}
