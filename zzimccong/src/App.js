@@ -55,6 +55,7 @@ function App() {
   const [Amount, setAmount] = useState(0);
   const [CouponType, setCouponType] = useState("");
 
+
   return (
     <div>
       <AuthProvider>
@@ -96,6 +97,7 @@ function App() {
 
             {/* 검색 */}
             <Route path="/search" element={<Search />} />
+            
 
             {/* 쿠폰 */}
             <Route path="/user/coupon" element={<UserCoupon setAmount={setAmount} setCouponType={setCouponType} />} />

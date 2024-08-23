@@ -20,8 +20,11 @@
 
 ## npm install @tosspayments/tosspayments-sdk --save
 
+<<<<<<< HEAD
+=======
 ## npm install jspdf
 
+>>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
 
 ## 챗봇
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from '../../utils/axiosConfig';
 import './RestaurantDetail.css';
@@ -18,6 +18,7 @@ function RestaurantDetail() {
   const [todayBusinessHours, setTodayBusinessHours] = useState('');
   const [allBusinessHours, setAllBusinessHours] = useState('');
   const [showAllBusinessHours, setShowAllBusinessHours] = useState(false);
+  const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(AuthContext); // 로그인 상태 확인
 
@@ -90,7 +91,17 @@ function RestaurantDetail() {
     const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
     console.log("user  ", user);
+
     if (isLoggedIn) {
+
+      const response = await axios.get(`api/cart/${user.id}`);
+      const alreadyInCart = response.data.some(item => item.restaurant.id === Number(id));
+
+      if(alreadyInCart){
+        alert("이미 장바구니에 있습니다.");
+        return;
+      }
+
       const cartItem = {
         userId: user.id,
         restaurantId: id,
@@ -105,7 +116,11 @@ function RestaurantDetail() {
         });
   
         if (response.status === 200) {
-          alert('장바구니에 추가되었습니다.');
+          const userConfirmed = window.confirm('장바구니에 추가되었습니다.\n장바구니로 이동하시겠습니까?');
+
+          if (userConfirmed) {
+             navigate('/corp/cart');
+          }
         } else {
           alert('장바구니 추가 중 문제가 발생했습니다.');
         }
