@@ -1,0 +1,84 @@
+/* KakaoRegister.css */
+
+/* 전체 컨테이너 */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+/* 제목 스타일 */
+.register-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f55a5a;
+    margin-bottom: 20px;
+}
+
+/* 폼 전체 스타일 */
+.register-form {
+    width: 100%;
+}
+
+/* 각 섹션 스타일 */
+.register-form-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* 입력 필드 스타일 */
+.register-input[type="text"],
+.register-input[type="date"],
+.register-input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+}
+
+.register-input::placeholder {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 라벨 스타일 */
+.register-form-section label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* 제출 버튼 스타일 */
+.register-submit-button {
+    background-color: #f55a5a;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 버튼에 마우스 올릴 때 */
+.register-submit-button:hover {
+    background-color: #e04a4a;
+}

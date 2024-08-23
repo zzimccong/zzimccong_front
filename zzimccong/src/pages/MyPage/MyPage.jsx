@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가
+import axios from '../../utils/axiosConfig';
 
 export default function MyPage() {
   const [loading, setLoading] = useState(true);
@@ -36,9 +37,39 @@ export default function MyPage() {
     }
   }, [shouldRedirect]);
 
-  const handleLogout = useCallback(() => {
-    localStorage.clear();
-    window.location.href = '/account';
+  const handleLogout = useCallback(async () => {
+    try {
+      const userString = localStorage.getItem('user');
+      const parsedUser = userString ? JSON.parse(userString) : null;
+
+      if (parsedUser && parsedUser.id) {
+        let logoutUrl = '';
+
+        if (parsedUser.corpId) {
+          logoutUrl = '/api/corporations/logout';
+        } else if (parsedUser.loginId) {
+          logoutUrl = '/api/users/logout';
+        }
+
+        if (logoutUrl) {
+          await axios.post(logoutUrl, null, {
+            params: { id: parsedUser.id },
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+          });
+        }
+      }
+      // Firebase 관련 IndexedDB 데이터베이스 삭제
+      // clearFirebaseIndexedDB();
+      
+      localStorage.clear();
+      window.location.href = '/account';
+    } catch (error) {
+      console.error("로그아웃 중 오류가 발생했습니다.", error);
+      localStorage.clear();
+      window.location.href = '/account';
+    }
   }, []);
 
   const handleEdit = useCallback(() => {
@@ -52,7 +83,11 @@ export default function MyPage() {
       if (parsedUser.corpId) {
         window.location.href = '/corporation/edit';
       } else if (parsedUser.loginId) {
-        window.location.href = '/users/edit';
+        if (parsedUser.loginId.includes('@')) {  // loginId에 '@'가 포함된 경우
+          window.location.href = '/kakao/edit';
+        } else {
+          window.location.href = '/users/edit';
+        }
       }
     }
   }, []);
@@ -76,7 +111,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className="main mt-[100px]">
+    <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
           
