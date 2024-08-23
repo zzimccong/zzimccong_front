@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: "proxy-server"
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+    ports:
+      - 80:80
+  web:
+    container_name: "web-app"
+    build:
+      context: ./zzimccong
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
