@@ -50,6 +50,12 @@ import AskComponent from './pages/Ask/AskComponent.jsx';
 import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 
+import './firebase/Firebase.js'
+
+import AlramHistory from './components/alarm/AlramHistory.jsx';
+
+
+
 function App() {
 
   const [Amount, setAmount] = useState(0);
@@ -120,8 +126,6 @@ function App() {
             <Route path="/reviewList" element={<ReviewList/>} />
 
             
-        
-
             <Route path="/find-id" element={<FindId />} />
             <Route path="/find-password" element={<FindPassword />} />
 
@@ -161,7 +165,10 @@ function App() {
             <Route path="/dialog" element={<AskComponent />} />
             <Route path="/register-ask" element={<RegisterAsk />} />
             <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
-          
+
+            {/* 알림 기록 */}
+            <Route path="/alram-history" element={<AlramHistory />} />
+
           </Routes>
           <Navbar />
         </Router>
