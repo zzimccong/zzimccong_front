@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./RegisterAsk.css"; // 스타일을 위한 CSS 파일
-import axios from "axios";  // Axios를 사용해 백엔드 API 호출
+import axios from "../../utils/axiosConfig";  // Axios를 사용해 백엔드 API 호출
 
 const RegisterAsk = () => {
   const [title, setTitle] = useState(""); // 제목 입력 상태
@@ -35,7 +35,7 @@ const RegisterAsk = () => {
     // role에 따른 userId, corpId, userName, corpName 설정
     const askData = {
       role: role,
-      userId: role === "USER" ? user?.id : null, // role이 USER이면 userId 설정
+      userId: role === "USER" || role === "MANAGER" ? user?.id : null, // role이 USER이면 userId 설정
       corpId: role === "CORP" ? user?.id : null, // role이 CORP이면 corpId 설정
       userName: role === "USER" ? user?.name : null, // role이 USER이면 userName 설정
       corpName: role === "CORP" ? user?.corpName : null, // role이 CORP이면 corpName 설정
@@ -47,7 +47,7 @@ const RegisterAsk = () => {
 
     try {
       // 백엔드로 데이터 전송
-      const response = await axios.post("/app/api/ask", askData);
+      const response = await axios.post("/api/ask", askData);
       if (response.status === 200) {
         alert("문의가 성공적으로 등록되었습니다!");
       }

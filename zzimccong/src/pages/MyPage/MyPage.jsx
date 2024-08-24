@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가
 import axios from '../../utils/axiosConfig';
+import { clearFirebaseIndexedDB } from "../../utils/firebaseClear";
+import ButtonClickFCM from "../../components/fcm/ButtonClickFCM";
 
 export default function MyPage() {
   const [loading, setLoading] = useState(true);
@@ -61,7 +63,7 @@ export default function MyPage() {
         }
       }
       // Firebase 관련 IndexedDB 데이터베이스 삭제
-      // clearFirebaseIndexedDB();
+      clearFirebaseIndexedDB();
       
       localStorage.clear();
       window.location.href = '/account';
@@ -134,6 +136,7 @@ export default function MyPage() {
                 쿠폰 관리
               <span className="arrow">&gt;</span>
             </button>
+            <ButtonClickFCM />
             <hr/>
             <button className="menu-option">
                 통계
@@ -168,6 +171,8 @@ export default function MyPage() {
                 1:1 문의
               <span className="arrow">&gt;</span>
             </button>
+
+            <ButtonClickFCM />
             <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
                 로그아웃
@@ -196,6 +201,8 @@ export default function MyPage() {
               1:1 문의
             <span className="arrow">&gt;</span>
           </button>
+
+          <ButtonClickFCM />
           <hr/>
           <button className="menu-option btn-logout" onClick={handleLogout} >
               로그아웃

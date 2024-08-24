@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../../assets/css/style.css';
 import './Coupon.css';
-import axios from 'axios';
+import axios from '../../../../utils/axiosConfig.js';
 import CouponMenu from './CouponMenu.jsx';
 
 const LotteryCoupon = ({setAmount, setCouponType}) => {
@@ -30,7 +30,7 @@ const LotteryCoupon = ({setAmount, setCouponType}) => {
     // 추첨권의 개수를 가져오는 함수
     const fetchLotteryCount = async () => {
       try {
-        const response = await axios.get(`/app/api/coupons/${userId}/lottery/cnt`);
+        const response = await axios.get(`/api/coupons/${userId}/lottery/cnt`);
         setLotteryCount(response.data);
       } catch (error) {
         console.error('Error fetching lottery coupons:', error);
