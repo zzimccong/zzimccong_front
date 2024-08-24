@@ -22,15 +22,15 @@
 
 ## npm install jspdf
 
-## npm install react-datepicker
-
-## npm install date-fns
+## npm install react-datepicker 보류
+ 
+## npm install date-fns 보류
 
 ## npm install firebase 
 
 ## npm install -g firebase-tools 일단 보류
 
-## npm install react-spring react-use-gesture
+## npm install react-spring react-use-gesture 보류
 
 
 
