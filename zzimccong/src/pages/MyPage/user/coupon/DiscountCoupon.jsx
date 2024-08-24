@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../../../utils/axiosConfig';
+import axios from '../../../../utils/axiosConfig.js';
 import './DiscountCoupon.css'; // 스타일을 추가하기 위해 CSS 파일을 임포트합니다.
 
 export default function DiscountCoupon() {

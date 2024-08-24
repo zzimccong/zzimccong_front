@@ -1,0 +1,84 @@
+.Modal {
+  width: 400px; 
+  max-width: 90%;
+  max-height: 70vh;
+  margin: auto;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-modal-content {
+  padding: 15px;
+  max-height: calc(70vh - 40px); 
+  overflow-y: auto; 
+}
+
+.filter-modal-content::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; 
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+  
+.filter-group h4 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+  
+.filter-group button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 8px 15px;
+  border: solid 0.5px;
+  border-color: #f0f0f0;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-group button.active {
+  background-color: #f55a5a;
+  color: white;
+}
+  
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+  
+.modal-footer button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+  
+.modal-footer .close-button {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 10px 60px;
+  font-size: 18px;
+}
+  
+.modal-footer .apply-button {
+  background-color: #f55a5a;
+  color: white;
+  padding: 10px 60px;
+  font-size: 18px;
+}
+
+.reset-button {
+  color: #333;
+  font-size: 15px;
+  float: right;
+
+}
