@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterAsk.css"; // 스타일을 위한 CSS 파일
-import axios from "axios";  // Axios를 사용해 백엔드 API 호출
+// import axios from "axios";  // Axios를 사용해 백엔드 API 호출
+import axios from "../../utils/axiosConfig.js";
 
 const RegisterAsk = () => {
   const [title, setTitle] = useState(""); // 제목 입력 상태
@@ -47,7 +48,7 @@ const RegisterAsk = () => {
 
     try {
       // 백엔드로 데이터 전송
-      const response = await axios.post("/app/api/ask", askData);
+      const response = await axios.post("/api/ask", askData);
       if (response.status === 200) {
         alert("문의가 성공적으로 등록되었습니다!");
       }

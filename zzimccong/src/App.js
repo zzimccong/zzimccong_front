@@ -49,6 +49,7 @@ import KakaoEdit from './pages/MyPage/kakao/KakaoEdit.jsx';
 import AskComponent from './pages/Ask/AskComponent.jsx';
 import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
+import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 
 function App() {
 
@@ -161,7 +162,9 @@ function App() {
             <Route path="/dialog" element={<AskComponent />} />
             <Route path="/register-ask" element={<RegisterAsk />} />
             <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
-          
+            <Route path="/admin-answer-register/:inquiryId" element={<AdminAnswerRegister/>} />
+
+            
           </Routes>
           <Navbar />
         </Router>

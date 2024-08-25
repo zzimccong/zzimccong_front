@@ -88,7 +88,14 @@ const AskComponent = () => {
     if (inquiry.secret) {
       handleSecretInquiryClick(inquiry);
     } else {
-      navigate(`/inquiry/${inquiry.id}`);
+      // console.log(role);
+      if (role === 'ADMIN')
+      {
+        navigate(`/admin-answer-register/${inquiry.id}`);
+      }
+      else {
+        navigate(`/inquiry/${inquiry.id}`);
+      }
     }
   };
 

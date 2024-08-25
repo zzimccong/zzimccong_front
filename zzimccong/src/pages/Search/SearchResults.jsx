@@ -85,7 +85,7 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
         <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
               onClick={() => navigateToStoreDetails(store.id)}>
             <div style={{ display: 'flex', alignItems: 'center'}}>  
-              <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '10px', width: '120px', height: '120px' }} />
+              <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '15px', width: '120px', height: '120px' }} />
               <div style={{ flexGrow: 1 }}>
                 <h3 className="text-xl font-bold">{store.name}</h3>
                 <p>{store.category} / {getShortAddress(store.roadAddress)}</p>

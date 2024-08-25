@@ -1,6 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import axios from '../../utils/axiosConfig';
 import SearchResults from './SearchResults';
+import './Searchcomponent.css';
 
 const SearchComponent = () => {
   const [searchWord, setQuery] = useState('');
@@ -10,33 +11,6 @@ const SearchComponent = () => {
   const [searchPerformed, setSearchPerformed] = useState(false);
 
 
-
-  // useEffect(() => {
-  //   if (searchPerformed && searchWord) {
-  //     handleSubmit(); 
-  //   }
-  // }, [searchPerformed, searchWord]);
-
-  // const handleChange = (event) => {
-  //   setQuery(event.target.value);
-  // };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   setLoading(true);
-  //   setError(null);
-  //   setSearchPerformed(true);
-
-  //   try {
-  //     const response = await axios.get(`api/search/${searchWord}`);
-  //     setResults(response.data);
-  //   } catch (err) {
-  //     console.error('검색 결과를 가져오는 중 오류 발생:', err);
-  //     setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   useEffect(() => {
     const fetchData = async () => {
       if (searchPerformed) {
@@ -88,8 +62,7 @@ const SearchComponent = () => {
           검색
         </button>
       </form>
-      <div style={{ overflow: 'auto', height: '600px' }}>
-        <div className="search-results h-96">
+      <div style={{overflow: 'auto', height: '840px'}}>
         <SearchResults
             searchWord={searchWord}
             results={results}
@@ -97,7 +70,6 @@ const SearchComponent = () => {
             error={error}
             searchPerformed={searchPerformed}
           />
-        </div>
       </div>
     </div>
   );
