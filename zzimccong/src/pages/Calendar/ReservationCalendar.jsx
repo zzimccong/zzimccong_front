@@ -1,22 +1,73 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import axios from "./../../utils/axiosConfig";
+import axios from "../../utils/axiosConfig";
 import "./ReservationCalendar.css";
-import { AuthContext } from "./../../context/AuthContext"; // AuthContext 가져오기
+import { AuthContext } from "../../context/AuthContext";
 
 function ReservationCalendar({ restaurantId }) {
-  const { user } = useContext(AuthContext); // 현재 로그인한 사용자 정보 가져오기
+  const { user } = useContext(AuthContext);
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [count, setCount] = useState(2);
   const [request, setRequest] = useState("");
+  const [availableSeats, setAvailableSeats] = useState(0);
+  const [couponCount, setCouponCount] = useState(0); // 쿠폰 수 상태 추가
+  const [loading, setLoading] = useState(false);
 
   const times = ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30"];
+
+  // 날짜 또는 시간이 변경될 때마다 남은 좌석 수 조회
+  useEffect(() => {
+    if (selectedTime) {
+      const reservationTime = new Date(date);
+      const [hours, minutes] = selectedTime.split(":");
+      reservationTime.setHours(parseInt(hours, 10));
+      reservationTime.setMinutes(parseInt(minutes, 10));
+      reservationTime.setSeconds(0, 0);
+
+      setLoading(true);
+      axios
+        .get(`/api/restaurant/${restaurantId}/availability`, {
+          params: {
+            date: reservationTime.toISOString().split("T")[0],
+            time: selectedTime,
+          },
+        })
+        .then((response) => {
+          setAvailableSeats(response.data.availableSeats);
+        })
+        .catch((error) => {
+          console.error("남은 좌석 수 조회 중 오류가 발생했습니다.", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [date, selectedTime, restaurantId]);
+
+  // 초기 렌더링 시 쿠폰 수 가져오기
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`/api/coupons/${user.id}/reservation/cnt`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          setCouponCount(response.data);
+        })
+        .catch((error) => {
+          console.error("쿠폰 수 조회 중 오류가 발생했습니다.", error);
+        });
+    }
+  }, [user]);
 
   const handleDateChange = (date) => {
     setDate(date);
     setSelectedTime(null);
+    setAvailableSeats(0); // 좌석 수 초기화
   };
 
   const handleTimeClick = (time) => {
@@ -32,32 +83,35 @@ function ReservationCalendar({ restaurantId }) {
   };
 
   const handleReservation = () => {
-    console.log("Submitting reservation with restaurantId:", restaurantId);
     if (!selectedTime) {
       alert("예약 시간을 선택하세요.");
       return;
     }
 
-    const token = localStorage.getItem("token"); // JWT 토큰 가져오기
-    if (!token) {
-      alert("로그인이 필요합니다."); // 토큰이 없을 경우 로그인 요청
+    if (count > availableSeats) {
+      alert(`남은 좌석 수(${availableSeats}명)보다 많은 인원으로 예약할 수 없습니다.`);
       return;
     }
 
-    // role이 'USER'인 경우에만 예약권 쿠폰 정보 확인
-    if (user.role === "USER") {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    if (user.role === "USER" || user.role === "MANAGER") {
       axios
         .get(`/api/coupons/${user.id}/reservation/cnt`, {
           headers: {
-            Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
+          console.log('Coupon Count:', response.data); // 응답 데이터 로그 출력
           const couponCnt = response.data;
-
-          if (couponCnt < 2 || couponCnt == 0) {
+          if (couponCnt < 2 || couponCnt === 0) {
             alert("예약권이 부족하여 예약이 불가합니다.");
-            return; // 예약 진행 중단
+            return;
           }
 
           proceedReservation(token);
@@ -67,22 +121,19 @@ function ReservationCalendar({ restaurantId }) {
           alert("예약 중 오류가 발생했습니다.");
         });
     } else if (user.role === "CORP") {
-      // role이 'CORP'인 경우 바로 예약 진행
       proceedReservation(token);
     }
   };
 
   const proceedReservation = (token) => {
-    // 예약 시간 설정
     const reservationTime = new Date(date);
     const [hours, minutes] = selectedTime.split(":");
     reservationTime.setHours(parseInt(hours, 10));
     reservationTime.setMinutes(parseInt(minutes, 10));
-    reservationTime.setSeconds(0, 0); // 초와 밀리초를 0으로 설정
-
+    reservationTime.setSeconds(0, 0);
+  
     const reservationRegistrationTime = new Date();
-
-    // 로컬 타임존을 고려하여 시간을 UTC로 변환
+  
     const utcReservationTime = new Date(
       reservationTime.getTime() - reservationTime.getTimezoneOffset() * 60000
     );
@@ -90,14 +141,13 @@ function ReservationCalendar({ restaurantId }) {
       reservationRegistrationTime.getTime() -
         reservationRegistrationTime.getTimezoneOffset() * 60000
     );
-
-    // 유저 타입에 따른 예약 정보 설정
+  
     let reservation;
-    if (user.role === "USER") {
+    if (user.role === "USER" || user.role === "MANAGER") {
       reservation = {
-        restaurant: { id: restaurantId }, // restaurantId 포함
-        user: { id: user.id }, // UserId 포함
-        corporation: null, // corporationId는 null로 설정
+        restaurant: { id: restaurantId },
+        user: { id: user.id },
+        corporation: null,
         reservationTime: utcReservationTime,
         reservationRegistrationTime: utcReservationRegistrationTime,
         count: count,
@@ -106,9 +156,9 @@ function ReservationCalendar({ restaurantId }) {
       };
     } else if (user.role === "CORP") {
       reservation = {
-        restaurant: { id: restaurantId }, // restaurantId 포함
-        user: null, // userId는 null로 설정
-        corporation: { id: user.Id }, // CorporationId 포함
+        restaurant: { id: restaurantId },
+        user: null,
+        corporation: { id: user.id },
         reservationTime: utcReservationTime,
         reservationRegistrationTime: utcReservationRegistrationTime,
         count: count,
@@ -116,27 +166,43 @@ function ReservationCalendar({ restaurantId }) {
         request: request,
       };
     }
-    console.log(reservation);
-    // 예약 요청
+  
     axios
       .post("/api/reservations", JSON.stringify(reservation), {
         headers: {
-          Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 추가
-          "Content-Type": "application/json", // Content-Type 헤더 추가
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
         alert(`예약 성공: ${response.data}`);
+        setAvailableSeats((prevSeats) => prevSeats - count);
+  
+        // 서버에서 최신 쿠폰 수를 다시 가져오기
+        axios
+          .get(`/api/coupons/${user.id}/reservation/cnt`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setCouponCount(response.data); // 최신 쿠폰 수 업데이트
+          })
+          .catch((error) => {
+            console.error("최신 쿠폰 수 조회 중 오류가 발생했습니다.", error);
+          });
       })
       .catch((error) => {
         console.error("예약 실패", error);
         alert("예약 중 오류가 발생했습니다.");
       });
   };
-
+  
   return (
     <div className="container">
-      <h2>예약하기</h2>
+      <p>남은 좌석 수: {loading ? "조회 중..." : `${availableSeats}명`}</p>
+      <p>현재 예약권 수: {couponCount}개</p> {/* 현재 쿠폰 수 표시 */}
+
       <div className="calendar">
         <Calendar
           onChange={handleDateChange}
@@ -174,6 +240,7 @@ function ReservationCalendar({ restaurantId }) {
           onChange={handleRequestChange}
         />
       </div>
+      
       <button onClick={handleReservation} className="reservation">
         예약하기
       </button>

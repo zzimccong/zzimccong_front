@@ -49,11 +49,11 @@ import KakaoEdit from './pages/MyPage/kakao/KakaoEdit.jsx';
 import AskComponent from './pages/Ask/AskComponent.jsx';
 import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
-
-import './firebase/Firebase.js'
+import "./firebase/Firebase.js"
 
 import AlramHistory from './components/alarm/AlramHistory.jsx';
-
+import EventParticipation from './pages/Event/EventParticipation/EventParticipation.jsx';
+import EventList from './pages/Event/EventList/EventList.jsx';
 
 
 function App() {
@@ -168,6 +168,11 @@ function App() {
 
             {/* 알림 기록 */}
             <Route path="/alram-history" element={<AlramHistory />} />
+
+            {/* 이벤트 */}
+            <Route path="/event-list" element={<EventList />} />
+
+            <Route path="/event-participation/:eventId" element={<EventParticipation />} />
 
           </Routes>
           <Navbar />

@@ -64,6 +64,15 @@ export default function MyPage() {
       }
       // Firebase 관련 IndexedDB 데이터베이스 삭제
       clearFirebaseIndexedDB();
+
+      // 서비스 워커 해제
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+            await registration.unregister();
+        }
+        console.log("서비스 워커가 성공적으로 해제되었습니다.");
+    }
       
       localStorage.clear();
       window.location.href = '/account';

@@ -86,7 +86,9 @@ const Header = () => {
             <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
               채팅하기
             </h1>
+            
           </div>
+          
         );
       case "/mydining/my":
         return (
@@ -104,9 +106,9 @@ const Header = () => {
                 {displayName} 님의 마이페이지
               </h1>
             </div>
-            <div className="header-right flex items-center ml-auto">
-              <button type="button" className="btn-icon alarm"></button>
-              <button type="button" className="btn-icon setting"></button>
+            <div className="header-right flex items-center ml-auto " onClick={onClickAlarmIcon}>
+              <button type="button" className="btn-icon alarm "></button>
+
             </div>
           </div>
         );
@@ -124,6 +126,7 @@ const Header = () => {
             </div>
           </div>
         );
+       
       case "/restaurants":
         return (
           <div className="header-wrapper flex px-[20px]">

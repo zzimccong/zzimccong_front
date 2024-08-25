@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useFirebaseMessaging } from "../../firebase/Firebase";
-import { clearFirebaseIndexedDB } from "../../utils/firebaseClear"; // Firebase 관련 IndexedDB 삭제 함수 import
-import axios from '../../utils/axiosConfig'; 
-import "./ButtonClickFCM.css"; // 슬라이드 버튼 스타일을 정의하는 CSS 파일
+import { useFirebaseMessaging, unregisterServiceWorkers } from "../../firebase/Firebase";
+import { clearFirebaseIndexedDB } from "../../utils/firebaseClear";
+import axios from '../../utils/axiosConfig';
+import "./ButtonClickFCM.css";
 
 const ButtonClickFCM = () => {
     const [tokenSaved, setTokenSaved] = useState(false);
-    const [tokenRemoved, setTokenRemoved] = useState(false); // "허용안함" 메시지를 위한 상태
-    const [isToggled, setIsToggled] = useState(false); // 슬라이드 버튼 상태
+    const [tokenRemoved, setTokenRemoved] = useState(false);
+    const [isToggled, setIsToggled] = useState(false);
     const { messaging, initializeFirebaseMessaging } = useFirebaseMessaging();
 
-    // 컴포넌트가 마운트될 때 슬라이드 버튼 상태를 로컬 스토리지에서 가져옴
     useEffect(() => {
         const savedState = localStorage.getItem('fcmToggleState');
         if (savedState === 'true') {
@@ -18,39 +17,46 @@ const ButtonClickFCM = () => {
         }
     }, []);
 
+
     const handleToggleChange = async () => {
         const newState = !isToggled;
         setIsToggled(newState);
-        localStorage.setItem('fcmToggleState', newState); // 토글 상태를 로컬 스토리지에 저장
+        localStorage.setItem('fcmToggleState', newState);
 
-        if (newState) { // 토글이 켜졌을 때
-            if (messaging) {
-                console.log("이미 FCM 메시징이 활성화되었습니다.");
-            } else {
-                console.log("FCM 메시징을 초기화합니다...");
-                
-                await initializeFirebaseMessaging(); // FCM 메시징 초기화 및 토큰 발급
-                
+        if (newState) {
+            console.log("FCM 메시징을 초기화하고 서비스 워커를 등록합니다...");
+
+            try {
+                await initializeFirebaseMessaging();
+                setTokenSaved(true);
+                setTokenRemoved(false);
+                setTimeout(() => setTokenSaved(false), 2000);
+            } catch (error) {
+                console.error("서비스 워커 등록 및 FCM 초기화 중 오류가 발생했습니다.", error);
             }
-            setTokenSaved(true);
-            setTokenRemoved(false); // 허용안함 메시지를 숨김
-            setTimeout(() => setTokenSaved(false), 2000); // 메시지를 2초 동안만 표시
-        } else { // 토글이 꺼졌을 때
-            clearFirebaseIndexedDB(); // Firebase 관련 IndexedDB 삭제
-            setTokenSaved(false); // 허용됨 메시지를 숨김
+        } else {
+            clearFirebaseIndexedDB();
+            setTokenSaved(false);
             setTokenRemoved(true);
 
-            // FCM 토큰 삭제 API 호출
-            await deleteFcmToken();
-            
-            setTimeout(() => setTokenRemoved(false), 2000); // 메시지를 2초 동안만 표시
+            try {
+                await unregisterServiceWorkers();  // 기존 서비스 워커를 제거
+                console.log("모든 서비스 워커가 성공적으로 해제되었습니다.");
+            } catch (error) {
+                console.error("서비스 워커 해제 중 오류가 발생했습니다.", error);
+            }
+
+            setTimeout(() => setTokenRemoved(false), 2000);
         }
     };
 
     const deleteFcmToken = async () => {
         try {
-            const response = await axios.post('/api/alarm/delete-token', { token: messaging.getToken() });
-            console.log('FCM 토큰 삭제 완료:', response.data);
+            const currentToken = await messaging.getToken();
+            if (currentToken) {
+                const response = await axios.post('/api/alarm/delete-token', { token: currentToken });
+                console.log('FCM 토큰 삭제 완료:', response.data);
+            }
         } catch (error) {
             console.error('FCM 토큰 삭제 실패:', error);
         }
@@ -58,7 +64,7 @@ const ButtonClickFCM = () => {
 
     return (
         <div>
-    
+            <h1>푸시 알림 설정</h1>
             <div className="fcm-container">
                 <label className="switch">
                     <input type="checkbox" checked={isToggled} onChange={handleToggleChange} />

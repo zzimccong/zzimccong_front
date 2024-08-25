@@ -1,0 +1,61 @@
+.roulette-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.roulette-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 0px;
+}
+
+.roulette-buttons-container {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    right: -120px; /* 룰렛 오른쪽에 배치 */
+}
+
+.orange-button {
+    padding: 10px 20px;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.middle-right {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.draw-lottery-section, .generate-participants-section {
+    margin-top: 20px;
+}
+
+.draw-lottery-section button, .generate-participants-section button {
+    width: 100%;
+}
