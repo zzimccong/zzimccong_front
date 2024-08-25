@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import axios from "./../../utils/axiosConfig";
+import axios from "../../utils/axiosConfig";
 import "./ReservationCalendar.css";
-import { AuthContext } from "./../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function ReservationCalendar({ restaurantId }) {
   const { user } = useContext(AuthContext);
@@ -11,24 +11,63 @@ function ReservationCalendar({ restaurantId }) {
   const [selectedTime, setSelectedTime] = useState(null);
   const [count, setCount] = useState(2);
   const [request, setRequest] = useState("");
-  const [availableSeats, setAvailableSeats] = useState(0); // 남은 좌석 수를 관리하기 위한 상태
+  const [availableSeats, setAvailableSeats] = useState(0);
+  const [couponCount, setCouponCount] = useState(0); // 쿠폰 수 상태 추가
+  const [loading, setLoading] = useState(false);
 
   const times = ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30"];
 
+  // 날짜 또는 시간이 변경될 때마다 남은 좌석 수 조회
   useEffect(() => {
-    // 컴포넌트가 렌더링될 때 해당 레스토랑의 좌석 수 정보를 가져옴
-    axios.get(`/api/restaurant/${restaurantId}`)
-      .then((response) => {
-        setAvailableSeats(response.data.reservationSeats); // 좌석 수를 상태로 설정
-      })
-      .catch((error) => {
-        console.error("좌석 정보를 불러오는 중 오류가 발생했습니다.", error);
-      });
-  }, [restaurantId]);
+    if (selectedTime) {
+      const reservationTime = new Date(date);
+      const [hours, minutes] = selectedTime.split(":");
+      reservationTime.setHours(parseInt(hours, 10));
+      reservationTime.setMinutes(parseInt(minutes, 10));
+      reservationTime.setSeconds(0, 0);
+
+      setLoading(true);
+      axios
+        .get(`/api/restaurant/${restaurantId}/availability`, {
+          params: {
+            date: reservationTime.toISOString().split("T")[0],
+            time: selectedTime,
+          },
+        })
+        .then((response) => {
+          setAvailableSeats(response.data.availableSeats);
+        })
+        .catch((error) => {
+          console.error("남은 좌석 수 조회 중 오류가 발생했습니다.", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [date, selectedTime, restaurantId]);
+
+  // 초기 렌더링 시 쿠폰 수 가져오기
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`/api/coupons/${user.id}/reservation/cnt`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          setCouponCount(response.data);
+        })
+        .catch((error) => {
+          console.error("쿠폰 수 조회 중 오류가 발생했습니다.", error);
+        });
+    }
+  }, [user]);
 
   const handleDateChange = (date) => {
     setDate(date);
     setSelectedTime(null);
+    setAvailableSeats(0); // 좌석 수 초기화
   };
 
   const handleTimeClick = (time) => {
@@ -68,8 +107,8 @@ function ReservationCalendar({ restaurantId }) {
           },
         })
         .then((response) => {
+          console.log('Coupon Count:', response.data); // 응답 데이터 로그 출력
           const couponCnt = response.data;
-
           if (couponCnt < 2 || couponCnt === 0) {
             alert("예약권이 부족하여 예약이 불가합니다.");
             return;
@@ -92,9 +131,9 @@ function ReservationCalendar({ restaurantId }) {
     reservationTime.setHours(parseInt(hours, 10));
     reservationTime.setMinutes(parseInt(minutes, 10));
     reservationTime.setSeconds(0, 0);
-
+  
     const reservationRegistrationTime = new Date();
-
+  
     const utcReservationTime = new Date(
       reservationTime.getTime() - reservationTime.getTimezoneOffset() * 60000
     );
@@ -102,7 +141,7 @@ function ReservationCalendar({ restaurantId }) {
       reservationRegistrationTime.getTime() -
         reservationRegistrationTime.getTimezoneOffset() * 60000
     );
-
+  
     let reservation;
     if (user.role === "USER" || user.role === "MANAGER") {
       reservation = {
@@ -127,7 +166,7 @@ function ReservationCalendar({ restaurantId }) {
         request: request,
       };
     }
-
+  
     axios
       .post("/api/reservations", JSON.stringify(reservation), {
         headers: {
@@ -137,16 +176,32 @@ function ReservationCalendar({ restaurantId }) {
       })
       .then((response) => {
         alert(`예약 성공: ${response.data}`);
+        setAvailableSeats((prevSeats) => prevSeats - count);
+  
+        // 서버에서 최신 쿠폰 수를 다시 가져오기
+        axios
+          .get(`/api/coupons/${user.id}/reservation/cnt`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setCouponCount(response.data); // 최신 쿠폰 수 업데이트
+          })
+          .catch((error) => {
+            console.error("최신 쿠폰 수 조회 중 오류가 발생했습니다.", error);
+          });
       })
       .catch((error) => {
         console.error("예약 실패", error);
         alert("예약 중 오류가 발생했습니다.");
       });
   };
-
+  
   return (
     <div className="container">
-            <p>남은 좌석 수: {availableSeats}명</p>
+      <p>남은 좌석 수: {loading ? "조회 중..." : `${availableSeats}명`}</p>
+      <p>현재 예약권 수: {couponCount}개</p> {/* 현재 쿠폰 수 표시 */}
 
       <div className="calendar">
         <Calendar

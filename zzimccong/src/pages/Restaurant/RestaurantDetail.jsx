@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import DatePicker from 'react-datepicker';
 import axios from '../../utils/axiosConfig';
 import './RestaurantDetail.css';
 import ReservationCalendar from '../Calendar/ReservationCalendar';
@@ -18,6 +19,10 @@ function RestaurantDetail() {
   const [todayBusinessHours, setTodayBusinessHours] = useState('');
   const [allBusinessHours, setAllBusinessHours] = useState('');
   const [showAllBusinessHours, setShowAllBusinessHours] = useState(false);
+  const [lotteryMessage, setLotteryMessage] = useState(''); // 이벤트 생성 결과 메시지 상태
+  const [startDate, setStartDate] = useState(new Date()); // 시작 날짜 상태
+  const [endDate, setEndDate] = useState(new Date()); // 종료 날짜 상태
+
   const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(AuthContext); // 로그인 상태 확인
@@ -133,6 +138,37 @@ function RestaurantDetail() {
     }
   };
 
+  const handleCreateLotteryEvent = async () => {
+    try {
+        const formatDateToLocalISOString = (date) => {
+            const tzOffset = date.getTimezoneOffset() * 60000; // 오프셋(밀리초)
+            const localISOTime = new Date(date - tzOffset).toISOString().slice(0, -1); // 밀리초 제거
+            return localISOTime;
+        };
+
+        const eventDTO = {
+            restaurantId: id,
+            restaurantName: restaurant.name,
+            description: restaurant.detailInfo,
+            roadAddress: restaurant.roadAddress,
+            status: "진행중",  // 기본 상태
+            startDate: formatDateToLocalISOString(startDate),  // 사용자가 선택한 시작 날짜
+            endDate: formatDateToLocalISOString(endDate),  // 사용자가 선택한 종료 날짜
+            category: restaurant.category,
+            mainPhotoUrl: restaurant.mainPhotoUrl
+        };
+
+        const response = await axios.post('/api/events/create', eventDTO);
+        setLotteryMessage(`추첨 이벤트 '${response.data.name}'가 성공적으로 생성되었습니다.`);
+    
+    } catch (error) {
+        setLotteryMessage('추첨 이벤트 생성 중 오류가 발생했습니다.');
+        console.error('추첨 이벤트 생성 중 오류 발생:', error);
+    }
+};
+
+if (!restaurant) return <div>로딩 중...</div>;
+
   return (
     <div className="restaurant-detail-container mb-[30px]">
       <Carousel showThumbs={false}>
@@ -144,6 +180,31 @@ function RestaurantDetail() {
       </Carousel>
       <p className="category">{restaurant.category}</p>
       <div className="name">{restaurant.name}</div>
+
+      {/* 이벤트 생성  */}
+      <div className="lottery-event-section">
+          <label>시작 날짜:</label>
+          <DatePicker
+            selected={startDate}
+            onChange={date => setStartDate(date)}
+            dateFormat="yyyy/MM/dd HH:mm"
+            showTimeSelect
+            className="date-picker"
+          />
+          <label>종료 날짜:</label>
+          <DatePicker
+            selected={endDate}
+            onChange={date => setEndDate(date)}
+            dateFormat="yyyy/MM/dd HH:mm"
+            showTimeSelect
+            className="date-picker"
+          />
+          <button onClick={handleCreateLotteryEvent} className="create-lottery">
+            이벤트 생성
+          </button>
+        </div>
+
+
       <br/>
       {/* <p>{restaurant.phoneNumber} 전화버튼 </p> */}
       <a href={`tel:${restaurant.phoneNumber}`}>{restaurant.phoneNumber}</a>

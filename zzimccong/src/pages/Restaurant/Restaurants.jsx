@@ -28,6 +28,9 @@ function Restaurants() {
       axios.get(`/api/zzim/user/${user.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        params: {
+          userType: user.role  // userType을 쿼리 파라미터로 추가
         }
       })
       .then(response => {
@@ -50,46 +53,58 @@ function Restaurants() {
 
   const toggleFavorite = (restaurantId) => {
     const isFavorited = favoritedRestaurants[restaurantId];
-    
-    // 찜 상태를 토글하고 서버에 데이터 전송
+    const userType = user.role;
+  
     if (isFavorited) {
       axios.delete(`/api/zzim/${user.id}/${restaurantId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT 토큰을 Authorization 헤더에 추가
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        params: {
+          userType: userType,
+        }
       })
-        .then(() => {
-          setFavoritedRestaurants(prevState => ({
-            ...prevState,
-            [restaurantId]: false
-          }));
-        })
-        .catch(error => {
-          console.error('Error removing favorite:', error);
-        });
+      .then(() => {
+        setFavoritedRestaurants(prevState => ({
+          ...prevState,
+          [restaurantId]: false
+        }));
+      })
+      .catch(error => {
+        console.error('Error removing favorite:', error);
+      });
     } else {
       const zzimData = {
-        restaurant: { id: restaurantId }, // restaurantId 포함
-        user: { id: user.id }, // UserId 포함
+        restaurant: { id: restaurantId },
       };
-
+  
+      if (userType === "CORP") {
+        zzimData.corporation = { id: user.id };
+      } else {
+        zzimData.user = { id: user.id };
+      }
+  
       axios.post('/api/zzim', zzimData, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT 토큰을 Authorization 헤더에 추가
-          'Content-Type': 'application/json', // Content-Type 헤더 추가
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json',
         },
+        params: {
+          userType: userType,
+        }
       })
-        .then(response => {
-          setFavoritedRestaurants(prevState => ({
-            ...prevState,
-            [restaurantId]: true
-          }));
-        })
-        .catch(error => {
-          console.error('Error adding favorite:', error);
-        });
+      .then(response => {
+        setFavoritedRestaurants(prevState => ({
+          ...prevState,
+          [restaurantId]: true
+        }));
+      })
+      .catch(error => {
+        console.error('Error adding favorite:', error);
+      });
     }
   };
+  
 
   return (
     <div className="restaurants-container">
@@ -128,7 +143,7 @@ function Restaurants() {
                     }}
                   >
                     <g id="ic-folder-heart">
-                      <path className="cls-1" d="M16.41,13.1a2.88,2.88,0,0,1,4.08,4.08l-.74.74h0L15.67,22h0l-4.07-4.08h0l-.75-.74a2.88,2.88,0,0,1,4.08-4.08l.75.74Z" />
+                      <path className="cls-1" d="M16.41,13.1a2.88,2.88,0,0,1,4.08,4.08l-.74-.74h0L15.67,22h0l-4.07-4.08h0l-.75-.74a2.88,2.88,0,0,1,4.08-4.08l.75.74Z" />
                       <path className="cls-2" d="M8,20.3H4a2,2,0,0,1-2-2V7.3H20a2,2,0,0,1,2,2" />
                       <path className="cls-2" d="M2,11.1v-6a1,1,0,0,1,.91-1h8.86a.89.89,0,0,1,.64.29L14,7.3" />
                     </g>
