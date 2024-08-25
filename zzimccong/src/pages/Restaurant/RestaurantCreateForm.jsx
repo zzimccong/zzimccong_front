@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../utils/axiosConfig';
 import './RestaurantForm.css'; // 추가된 CSS 파일을 import
 
-function RestaurantForm() {
+function RestaurantCreateForm () {
   const [restaurant, setRestaurant] = useState({
     name: '',
     category: '',
@@ -14,18 +14,17 @@ function RestaurantForm() {
     link: '',
     facilities: '',
     parkingInfo: '',
-    mainPhotoUrl: '',
-    photo1Url: '',
-    photo2Url: '',
-    photo3Url: '',
-    photo4Url: '',
-    photo5Url: '',
+    mainPhotoFile: null,
+    photo1File: null,
+    photo2File: null,
+    photo3File: null,
+    photo4File: null,
+    photo5File: null,
     latitude: '',
     longitude: '',
     seats: '',
   });
 
-  // useEffect를 사용하여 Daum 주소 API 스크립트를 동적으로 로드
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -34,7 +33,7 @@ function RestaurantForm() {
 
     return () => {
       document.body.removeChild(script);
-    }
+    };
   }, []);
 
   const handleChange = (e) => {
@@ -45,17 +44,25 @@ function RestaurantForm() {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setRestaurant(prevState => ({
+      ...prevState,
+      [name]: files[0]
+    }));
+  };
+
   const fetchGeocode = async (roadAddress) => {
     try {
       const response = await axios.get('/api/geocode', {
         params: { query: roadAddress },
       });
 
-      console.log(response.data); // 응답 데이터를 콘솔에 출력하여 확인
+      console.log(response.data);
 
       const { addresses } = response.data;
       if (addresses.length > 0) {
-        const { x, y } = addresses[0]; // x = longitude, y = latitude
+        const { x, y } = addresses[0];
         setRestaurant(prevState => ({
           ...prevState,
           latitude: y,
@@ -69,14 +76,12 @@ function RestaurantForm() {
     }
   };
 
-  // 다음 주소 API 호출 함수
   const handlePostcode = () => {
     new window.daum.Postcode({
       oncomplete: function (data) {
-        let fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-        let extraRoadAddr = ''; // 참고 항목 변수
+        let fullRoadAddr = data.roadAddress;
+        let extraRoadAddr = '';
 
-        // 참고항목 조합
         if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
           extraRoadAddr += data.bname;
         }
@@ -87,30 +92,42 @@ function RestaurantForm() {
           fullRoadAddr += ' (' + extraRoadAddr + ')';
         }
 
-        // 도로명 주소를 상태에 업데이트
         setRestaurant(prevState => ({
           ...prevState,
           roadAddress: fullRoadAddr,
           numberAddress: data.jibunAddress
         }));
 
-        // 도로명 주소를 기반으로 Geocode API 호출
         fetchGeocode(fullRoadAddr);
       }
     }).open();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(restaurant); // 폼이 제출되기 전의 restaurant 객체를 콘솔에 출력
 
-    axios.post('/api/restaurantCreate', restaurant)
-      .then(response => {
-        alert('Restaurant created successfully');
-      })
-      .catch(error => {
-        console.error('There was an error creating the restaurant!', error);
-      });
+    const formData = new FormData();
+
+    formData.append('restaurant', new Blob([JSON.stringify(restaurant)], { type: 'application/json' }));
+
+    if (restaurant.mainPhotoFile) formData.append('photos', restaurant.mainPhotoFile);
+    if (restaurant.photo1File) formData.append('photos', restaurant.photo1File);
+    if (restaurant.photo2File) formData.append('photos', restaurant.photo2File);
+    if (restaurant.photo3File) formData.append('photos', restaurant.photo3File);
+    if (restaurant.photo4File) formData.append('photos', restaurant.photo4File);
+    if (restaurant.photo5File) formData.append('photos', restaurant.photo5File);
+
+    try {
+        const response = await axios.post('/api/restaurant/create-with-photos', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        alert('Restaurant and photos created successfully');
+    } catch (error) {
+        console.error('There was an error creating the restaurant and uploading photos!', error);
+    }
   };
 
   return (
@@ -170,18 +187,17 @@ function RestaurantForm() {
       </div>
 
       <div className="form-group">
-        <label>메인 사진 URL</label>
-        <input type="text" name="mainPhotoUrl" value={restaurant.mainPhotoUrl} onChange={handleChange} />
+        <label>메인 사진 업로드</label>
+        <input type="file" name="mainPhotoFile" onChange={handleFileChange} />
       </div>
 
       {[1, 2, 3, 4, 5].map((num) => (
         <div className="form-group" key={num}>
-          <label>사진{num} URL</label>
+          <label>사진{num} 업로드</label>
           <input
-            type="text"
-            name={`photo${num}Url`}
-            value={restaurant[`photo${num}Url`]}
-            onChange={handleChange}
+            type="file"
+            name={`photo${num}File`}
+            onChange={handleFileChange}
           />
         </div>
       ))}
@@ -196,4 +212,4 @@ function RestaurantForm() {
   );
 }
 
-export default RestaurantForm;
+export default RestaurantCreateForm ;
