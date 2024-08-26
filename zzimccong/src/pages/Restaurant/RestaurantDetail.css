@@ -149,3 +149,29 @@ h2 {
 .all-business-hours {
   margin-top: 10px;
 }
+
+/*  추가  */
+.actions-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.lottery-event-section {
+  display: flex;
+  align-items: center;
+}
+
+.lottery-input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.create-lottery {
+  padding: 5px 10px;
+}
+
+.reservation-section .reservation {
+  padding: 10px 20px;
+}

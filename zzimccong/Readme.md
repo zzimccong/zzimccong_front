@@ -22,9 +22,9 @@
 
 ## npm install jspdf
 
-## npm install react-datepicker 보류
+## npm install react-datepicker
  
-## npm install date-fns 보류
+## npm install date-fns
 
 ## npm install firebase 
 

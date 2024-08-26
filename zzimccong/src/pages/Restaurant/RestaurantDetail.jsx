@@ -8,6 +8,7 @@ import ReservationCalendar from '../Calendar/ReservationCalendar';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { AuthContext } from '../../context/AuthContext'; // AuthContext 추가
+import 'react-datepicker/dist/react-datepicker.css';
 
 Modal.setAppElement('#root');
 
