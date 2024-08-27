@@ -3,7 +3,6 @@ import ShortCut from './shortCut';
 import Carousel from './Carousel';
 import Footer from '../../components/Footer';
 import Restaurants from '../Restaurant/Restaurants';
-import ChatBot from '../../components/chatbot/ChatBot';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
@@ -39,7 +38,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ChatBot/>
+      
       {/* 푸터 */}
       <Footer />
      

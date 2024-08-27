@@ -44,7 +44,7 @@ function Restaurants() {
           {restaurants.map(restaurant => (
             <SwiperSlide key={restaurant.id}>
               <Link to={`/restaurant/${restaurant.id}`} className="restaurant-card">
-                <img src={restaurant.photo1Url} alt={restaurant.name} className="restaurant-image" />
+                <img src={restaurant.mainPhotoUrl} alt={restaurant.name} className="restaurant-image" />
                 <h3>{restaurant.name}</h3>
                 <p className="category">{restaurant.category}</p>
                 <p className="address">{getShortenedAddress(restaurant.roadAddress)}</p>

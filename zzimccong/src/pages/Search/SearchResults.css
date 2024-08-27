@@ -1,12 +1,15 @@
-.fiter {
+.SearchResults-fiter {
   width: 30px;
   margin: 15px;
   margin-bottom: 0px;
   border-radius: 10px;
-  
 }
 
-.Modal {
+.SearchResults-fiter.active-filter {
+  background-color: #f55a5a; 
+}
+
+.SearchResults-Modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -21,7 +24,7 @@
   z-index: 1000;
 }
 
-.Overlay {
+.SearchResults-Overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -29,10 +32,59 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 999;
-  
 }
 
-::-webkit-scrollbar {
+.SearchResults-::-webkit-scrollbar {
   display: none; 
 }
 
+.SearchResults-store-item {
+  border-radius: 12px;
+  background-color: #fff;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.SearchResults-store-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.SearchResults-store-item img {
+  margin: 15px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.SearchResults-store-details {
+  flex-grow: 1;
+}
+
+.SearchResults-store-details h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.SearchResults-store-details p {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.SearchResults-store-grade {
+  display: flex;
+  align-items: center;
+}
+
+.SearchResults-store-grade img {
+  margin: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.SearchResults-store-divider {
+  width: 435px;
+  margin: auto;
+  border: none;
+  border-top: 1px solid #ddd;
+}

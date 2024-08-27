@@ -51,6 +51,8 @@ import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 
+import SearchDefault from './pages/Search/SearchDefault.jsx';
+
 function App() {
 
   const [Amount, setAmount] = useState(0);
@@ -98,6 +100,7 @@ function App() {
 
             {/* 검색 */}
             <Route path="/search" element={<Search />} />
+            <Route path="/SearchDefault" element={<SearchDefault />} />
             
 
             {/* 쿠폰 */}

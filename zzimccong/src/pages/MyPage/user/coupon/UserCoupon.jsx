@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import '../../../../assets/css/style.css';
+import './UserCoupon';
 import logoImage from '../../../../assets/icons/logo.png'; 
 import ReservationCoupon from './ReservationCoupon';
 import LotteryCoupon from './LotteryCoupon';

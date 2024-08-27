@@ -1,11 +1,15 @@
 import React, { useState , useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosConfig';
 import SearchResults from './SearchResults';
+import back from '../../assets/icons/back.png';
+import logo from '../../assets/icons/logo.png';
 import './Searchcomponent.css';
 
 const SearchComponent = () => {
-  const [searchWord, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const navigate = useNavigate();
+  const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord') || '');
+  const [results, setResults] = useState(JSON.parse(localStorage.getItem('results')) || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
@@ -20,6 +24,7 @@ const SearchComponent = () => {
         try {
           const response = await axios.get(`api/search/${searchWord}`);
           setResults(response.data);
+          localStorage.setItem('results', JSON.stringify(response.data)); 
         } catch (err) {
           console.error('검색 결과를 가져오는 중 오류 발생:', err);
           setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
@@ -34,7 +39,9 @@ const SearchComponent = () => {
   }, [searchPerformed, searchWord]);
 
   const handleChange = (event) => {
-    setQuery(event.target.value);
+    const value = event.target.value;
+    setSearchWord(value);
+    localStorage.setItem('searchWord', value); 
   };
 
   const handleSubmit = (event) => {
@@ -42,36 +49,54 @@ const SearchComponent = () => {
     setSearchPerformed(true);
   };
 
+  const handleBackClick = () => {
+    setSearchWord(''); 
+    setResults([]); 
+    localStorage.removeItem('searchWord'); 
+    localStorage.removeItem('results'); 
+    navigate('/'); 
+  };
+
 
   return (
-    <div className="search-component w-full">
-      <form className="keyword-search keyword-search-main w-full mb-2" onSubmit={handleSubmit}>
-        <input
-          className="pl-10 pr-4 text-xs h-9 w-full"
-          type="text"
-          placeholder="지역, 음식, 매장명 검색"
-          value={searchWord}
-          onChange={handleChange}
-          aria-label="검색어 입력"
-        />
-        <button
-          type="submit"
-          className="search-button absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded"
-          aria-label="검색 버튼"
-        >
-          검색
-        </button>
-      </form>
-      <div style={{overflow: 'auto', height: '840px'}}>
-        <SearchResults
-            searchWord={searchWord}
-            results={results}
-            loading={loading}
-            error={error}
-            searchPerformed={searchPerformed}
+    <div>
+      <div className="header">
+        <img src={logo} className="logo" />
+        <div className="searchcomponent_title">검색하기</div>
+      </div>
+      <div className="searchcomponent_search-component">
+        <form className="keyword-search" onSubmit={handleSubmit}>
+          <img src={back} className="searchcomponent_back" alt="back button" 
+            onClick={handleBackClick} />
+          <input
+            className="searchcomponent_search-input"
+            type="text"
+            placeholder="지역, 음식, 매장명 검색"
+            value={searchWord}
+            onChange={handleChange}
+            aria-label="검색어 입력"
           />
+          <button
+            type="submit"
+            className="searchcomponent_search-button"
+            aria-label="검색 버튼"
+          >
+            Search
+          </button>
+        </form>
+
+        <div style={{overflow: 'auto', height: '710px'}}>
+          <SearchResults
+              searchWord={searchWord}
+              results={results}
+              loading={loading}
+              error={error}
+              searchPerformed={searchPerformed}
+            />
+        </div>
       </div>
     </div>
+    
   );
 };
 

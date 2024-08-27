@@ -74,9 +74,9 @@ const Header = () => {
       case "/search":
         return (
           <div className="">
-            <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
+            {/* <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
               검색하기
-            </h1>
+            </h1> */}
             <Search />
           </div>
         );
