@@ -145,9 +145,9 @@ function ReservationCalendar({ restaurantId }) {
     let reservation;
     if (user.role === "USER" || user.role === "MANAGER") {
       reservation = {
-        restaurant: { id: restaurantId },
-        user: { id: user.id },
-        corporation: null,
+        restaurantId: restaurantId ,
+        userId: user.id ,
+        corporationId: null,
         reservationTime: utcReservationTime,
         reservationRegistrationTime: utcReservationRegistrationTime,
         count: count,
@@ -156,9 +156,9 @@ function ReservationCalendar({ restaurantId }) {
       };
     } else if (user.role === "CORP") {
       reservation = {
-        restaurant: { id: restaurantId },
-        user: null,
-        corporation: { id: user.id },
+        restaurantId: restaurantId,
+        userId: null,
+        corporationId: user.id,
         reservationTime: utcReservationTime,
         reservationRegistrationTime: utcReservationRegistrationTime,
         count: count,
@@ -166,15 +166,19 @@ function ReservationCalendar({ restaurantId }) {
         request: request,
       };
     }
+
+    // 예약 데이터 로그 출력
+    console.log("Reservation Data being sent:", reservation);
   
     axios
-      .post("/api/reservations", JSON.stringify(reservation), {
+      .post("/api/reservations", reservation, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
       })
       .then((response) => {
+        console.log("Reservation Response:", response.data); // 서버 응답 로그 출력
         alert(`예약 성공: ${response.data}`);
         setAvailableSeats((prevSeats) => prevSeats - count);
   
@@ -193,7 +197,11 @@ function ReservationCalendar({ restaurantId }) {
           });
       })
       .catch((error) => {
-        console.error("예약 실패", error);
+        if (error.response) {
+          console.error("예약 실패: ", error.response.data); // 서버 오류 응답 로그 출력
+        } else {
+          console.error("예약 실패: ", error.message); // 기타 오류 로그 출력
+        }
         alert("예약 중 오류가 발생했습니다.");
       });
   };
@@ -239,7 +247,7 @@ function ReservationCalendar({ restaurantId }) {
           value={request}
           onChange={handleRequestChange}
         />
-      </div>
+      </div>      
       
       <button onClick={handleReservation} className="reservation">
         예약하기
