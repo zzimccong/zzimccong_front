@@ -52,6 +52,12 @@ import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 
 import SearchDefault from './pages/Search/SearchDefault.jsx';
+import "./firebase/Firebase.js"
+
+import AlramHistory from './components/alarm/AlramHistory.jsx';
+import EventParticipation from './pages/Event/EventParticipation/EventParticipation.jsx';
+import EventList from './pages/Event/EventList/EventList.jsx';
+
 
 function App() {
 
@@ -124,8 +130,6 @@ function App() {
             <Route path="/reviewList" element={<ReviewList/>} />
 
             
-        
-
             <Route path="/find-id" element={<FindId />} />
             <Route path="/find-password" element={<FindPassword />} />
 
@@ -167,7 +171,14 @@ function App() {
             <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
             <Route path="/admin-answer-register/:inquiryId" element={<AdminAnswerRegister/>} />
 
-            
+            {/* 알림 기록 */}
+            <Route path="/alram-history" element={<AlramHistory />} />
+
+            {/* 이벤트 */}
+            <Route path="/event-list" element={<EventList />} />
+
+            <Route path="/event-participation/:eventId" element={<EventParticipation />} />
+
           </Routes>
           <Navbar />
         </Router>

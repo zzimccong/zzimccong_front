@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가
+import { Link, useNavigate } from "react-router-dom"; 
 import axios from '../../utils/axiosConfig';
+import { clearFirebaseIndexedDB } from "../../utils/firebaseClear";
+import ButtonClickFCM from "../../components/fcm/ButtonClickFCM";
 
 export default function MyPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false); // 드롭다운 상태
+  const [showDropdown, setShowDropdown] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +63,16 @@ export default function MyPage() {
         }
       }
       // Firebase 관련 IndexedDB 데이터베이스 삭제
-      // clearFirebaseIndexedDB();
+      clearFirebaseIndexedDB();
+
+      // 서비스 워커 해제
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+            await registration.unregister();
+        }
+        console.log("서비스 워커가 성공적으로 해제되었습니다.");
+    }
       
       localStorage.clear();
       window.location.href = '/account';
@@ -105,6 +116,9 @@ export default function MyPage() {
       navigate('/corp/cart');
     }, [navigate]);
   
+    const handleReservations = useCallback(() => {
+      navigate('/reservations');
+    }, [navigate]);
 
   if (loading) {
     return <div>로딩 중...</div>;
@@ -114,7 +128,8 @@ export default function MyPage() {
     <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
-          
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
                 사용자 관리
@@ -147,7 +162,8 @@ export default function MyPage() {
         </div>
       ) : user?.role === 'CORP' ? (
         <div>
-          
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
                 내 정보 수정
@@ -164,9 +180,34 @@ export default function MyPage() {
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
-            <button className="menu-option" >
-                1:1 문의
+            <button className="menu-option btn-logout" onClick={handleLogout} >
+                로그아웃
+            </button>
+          </div>
+        </div>
+      ) : user?.role === 'MANAGER' ? (
+        <div>
+          <ButtonClickFCM />
+          <hr/>
+          <div className="menu-container">
+            <button className="menu-option" onClick={handleEdit}>
+                내 정보 수정
               <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleReservations}>
+                나의 가게 예약 현황
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleCartClick}>
+                나의 가게 리스트
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleCouponClick}>
+              쿠폰
+            <span className="arrow">&gt;</span>
             </button>
             <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
@@ -174,8 +215,9 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-      ) : ( <div>
-          
+      ): ( <div>
+        <ButtonClickFCM />
+        <hr/>
         <div className="menu-container">
           <button className="menu-option" onClick={handleEdit}>
               내 정보 수정
@@ -189,11 +231,6 @@ export default function MyPage() {
           <hr/>
           <button className="menu-option" onClick={handleCouponClick}>
               쿠폰
-            <span className="arrow">&gt;</span>
-          </button>
-          <hr/>
-          <button className="menu-option" >
-              1:1 문의
             <span className="arrow">&gt;</span>
           </button>
           <hr/>

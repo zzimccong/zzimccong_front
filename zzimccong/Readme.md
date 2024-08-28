@@ -20,11 +20,23 @@
 
 ## npm install @tosspayments/tosspayments-sdk --save
 
-<<<<<<< HEAD
-=======
 ## npm install jspdf
 
->>>>>>> 65cebdfd558180da22893dba380ce4132d29e008
+
+=======
+## npm install react-datepicker
+ 
+## npm install date-fns
+
+## npm install firebase 
+
+## npm install -g firebase-tools 일단 보류
+
+## npm install react-spring react-use-gesture 보류
+
+## npm install react-icons
+
+## npm install react-chartjs-2 chart.js
 
 ## 챗봇
 

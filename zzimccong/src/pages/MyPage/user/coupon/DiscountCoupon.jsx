@@ -64,9 +64,13 @@ export default function DiscountCoupon() {
       <p className="DiscountCoupon-p">보유쿠폰 {coupon.cnt}장</p>
       {/* cnt 값만큼 쿠폰 카드를 반복하여 렌더링 */}
       {Array.from({ length: coupon.cnt }).map((_, index) => (
-        <div key={index} className="DiscountCoupon-coupon-card">
-          <p className="DiscountCoupon-coupon-price">{coupon.discountPrice.toLocaleString()}원</p>
-          <p>결제 시 {coupon.discountPrice.toLocaleString()}원 할인</p>
+        <div key={index} className="coupon-card">
+          <p className="coupon-price">
+            {coupon.discountPrice ? `${coupon.discountPrice.toLocaleString()}원` : 'N/A'}
+          </p>
+          <p>
+            결제 시 {coupon.discountPrice ? `${coupon.discountPrice.toLocaleString()}원` : 'N/A'} 할인
+          </p>
         </div>
       ))}
       <div className="DiscountCoupon-coupon-note">

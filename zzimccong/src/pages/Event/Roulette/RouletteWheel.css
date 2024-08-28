@@ -1,0 +1,171 @@
+.roulette-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 300px; /* 너비를 충분히 확보 */
+}
+
+
+.roulette-container::before {
+    display: none;
+}
+
+.roulette-wheel {
+    border: 5px solid #2c3e50;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    width: 250px; /* 룰렛 크기 조정 */
+    height: 250px; /* 룰렛 크기 조정 */
+}
+
+.roulette-pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-580%, -600%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid red;
+}
+
+.winner-announcement {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #fefefe;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+.roulette-buttons {
+    display: flex;
+    flex-direction: column; /* 버튼을 가로로 배치 */
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px; /* 룰렛과 버튼 간의 간격 */
+}
+
+.roulette-buttons button {
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 5px; /* 버튼 간 간격 */
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    position: relative;
+}
+
+.participants-list, .win-probability-section {
+    margin-top: 10px;
+    max-height: 200px; /* 목록의 최대 높이 설정 */
+    overflow-y: auto; /* 스크롤 가능하게 설정 */
+    width: 100%; /* 콘텐츠를 버튼 너비에 맞추기 */
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.roulette-wheel canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* 원형으로 만들기 */
+}
+
+.toggle-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+    width: 200px;
+    animation: slideUp 0.3s ease-out forwards; /* 위로 펼쳐지게 애니메이션 */
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* 아래에서 위로 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-100%); /* 버튼을 덮도록 위로 이동 */
+    }
+}
+
+.toggle-content.active {
+    display: block; /* 활성화된 콘텐츠만 표시 */
+    top: 0; /* 버튼을 덮도록 위치 설정 */
+    transform: translateY(-100%);
+}
+
+.participants-list {
+    visibility: visible; /* 임시로 visibility를 강제로 visible로 설정해보세요 */
+    max-height: none; /* 높이 제한을 없애서 실제로 렌더링되는지 확인 */
+    overflow-y: auto; /* 스크롤 가능하게 설정 */
+}
+
+.roulette-container {
+    position: relative;
+}
+
+.modal-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9); /* 백그라운드 반투명 */
+    z-index: 10;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.participants-list.open {
+    max-height: 200px; /* 필요에 따라 조정 */
+    overflow-y: auto;
+}
+
+.win-probability-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.winner-announcement {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+    background-color: #fefefe;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    z-index: 1;
+}

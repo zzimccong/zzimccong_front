@@ -1,4 +1,4 @@
-ReservationCalendar.css
+/* ReservationCalendar.css */
 
 .container {
   display: flex;
@@ -45,5 +45,5 @@ button.reservation {
   background-color: orange;
   color: white;
   font-size: 16px;
-  border-radius: 5px; /* 예약하기 버튼은 동그랗게 만들지 않음 */
+  border-radius: 5px; 
 }

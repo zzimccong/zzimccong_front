@@ -28,20 +28,8 @@ const SearchDefault = () => {
         </div>
       </div>
       <hr/>
-      <div className="recent-restaurants">
-        <h3>추천 검색어</h3>
-        <div className="restaurant-tags">
-          <button>센텀시티</button>
-          <button>두바이 초콜릿</button>
-          <button>태국 음식</button>
-          <button>한우 갈비</button>
-          <button>용산동</button>
-          <button>해운대구</button>
-        </div>
-      </div>
-      <hr/>
       <div className="restaurant-keywords">
-        <h4>여기는 어떠세요? <h8 style={{ fontSize: '12px' }}>광고</h8></h4>
+      <h4 style={{display: 'flex'}}>여기는 어떠세요? <p style={{ fontSize: '12px', marginLeft: '5px', marginTop: '5px'}}>광고</p></h4>
         <div className="keyword-cards">
           <div className="keyword-card">
             <img src={searchkeyword1} alt="Keyword 1" />
@@ -54,7 +42,20 @@ const SearchDefault = () => {
           </div>
         </div>
       </div>
+      <hr/>
       <img src={searchBanner} className="searchBanner" alt="searchBanner" />
+      <hr/>
+      <div className="recent-restaurants">
+        <h3>추천 검색어</h3>
+        <div className="restaurant-tags">
+          <button>센텀시티</button>
+          <button>두바이 초콜릿</button>
+          <button>태국 음식</button>
+          <button>한우 갈비</button>
+          <button>용산동</button>
+          <button>해운대구</button>
+        </div>
+      </div>
 
 
   </div>
