@@ -6,7 +6,7 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
   const [filters, setFilters] = useState(selectedFilters);
 
   useEffect(() => {
-    setFilters(selectedFilters); // 모달이 열릴 때마다 부모에서 받은 필터 상태로 초기화
+    setFilters(selectedFilters);
   }, [selectedFilters]);
 
     const toggleFilter = (category, filter) => {
@@ -25,12 +25,11 @@ const SearchFilter = ({ onClose, onApplyFilters, selectedFilters }) => {
     };
 
     const handleApply = () => {
-       onApplyFilters(filters); // 선택된 필터를 부모 컴포넌트로 전달
-      //  onClose();
+       onApplyFilters(filters);
     };
 
     const handleReset = () => {
-      setFilters({}); // 모든 필터를 초기화
+      setFilters({}); 
     };
     
     return (

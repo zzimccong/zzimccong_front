@@ -1,0 +1,43 @@
+.UsedCoupon-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .UsedCoupon-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .UsedCoupon-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0;
+  }
+  
+  .UsedCoupon-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .UsedCoupon-restaurantName {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .UsedCoupon-visitDate {
+    font-size: 0.9rem;
+    color: #888888;
+  }
+  
+  .UsedCoupon-amount {
+    font-size: 1.2rem;
+    color: #ff4500; /* 빨간색 */
+  }
+  
+  .UsedCoupon-negativeAmount {
+    font-weight: bold;
+  }
+  

@@ -134,7 +134,7 @@ function RestaurantDetail() {
       const alreadyInCart = response.data.some(item => item.restaurant.id === Number(id));
 
       if (alreadyInCart) {
-        alert("이미 장바구니에 있습니다.");
+        alert("장바구니에 담긴 가게입니다.");
         return;
       }
 
@@ -189,11 +189,11 @@ function RestaurantDetail() {
 
       const response = await axios.post('/api/events/create', eventDTO);
       setLotteryMessage(`추첨 이벤트가 성공적으로 생성되었습니다.`);
-      alert(lotteryMessage);
+      alert("추첨 이벤트가 성공적으로 생성되었습니다.");
 
     } catch (error) {
       setLotteryMessage('추첨 이벤트 생성 중 오류가 발생했습니다.');
-      alert(lotteryMessage);
+      alert("추첨 이벤트 생성 중 오류가 발생했습니다.");
       console.error('추첨 이벤트 생성 중 오류 발생:', error);
     }
   };
@@ -205,7 +205,7 @@ function RestaurantDetail() {
   const calculateRatingDistribution = (reviews) => {
     const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     reviews.forEach(review => {
-      const rating = Math.round(review.rate);
+      const rating = Math.floor(review.rate);
       if (distribution[rating] !== undefined) {
         distribution[rating]++;
       }
@@ -287,6 +287,7 @@ function RestaurantDetail() {
                 dateFormat="yyyy/MM/dd HH:mm"
                 showTimeSelect
                 className="date-picker"
+                popperPlacement="top-end"
               />
             </div>
             <div className="lottery-date-item">
@@ -297,6 +298,7 @@ function RestaurantDetail() {
                 dateFormat="yyyy/MM/dd HH:mm"
                 showTimeSelect
                 className="date-picker"
+                popperPlacement="top-end"
               />
             </div>
           </div>

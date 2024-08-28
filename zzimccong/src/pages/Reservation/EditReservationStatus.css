@@ -1,38 +1,92 @@
-.edit-reservation-status-container {
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.edit-reservaion-status-title {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold; 
+  color: #f55a5a;
+  align-items: center;
+}
+
+.edit-reservaion-status-container {
     padding: 20px;
   }
+
+.edit-reservaion-status-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
   
-  .reservations-list {
+.edit-reservaion-status-button-container button {
+  background-color: white; 
+  color: rgb(170, 170, 170); 
+  padding: 6px 16px; 
+  font-size: 25px;
+  width: 160px; 
+  margin: 6px 4px; 
+  margin-right: 10px;
+}
+  
+.edit-reservaion-status-button-container button.active {
+  color: black; 
+  font-weight: bold;
+}
+
+.edit-reservaion-status-divider {
+  height: 30px;  
+  width: 2px;  
+  background-color: #000; 
+  margin: auto 0;  
+}
+  
+.edit-reservaion-status-reservations-list {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-  }
+}
   
-  .reservation-card {
-    border: 1px solid #ddd;
+.edit-reservaion-status-reservation-card {
+    border: 1px solid #e6e6e6;
     padding: 15px;
     margin: 10px;
     border-radius: 5px;
     cursor: pointer;
-  }
+}
   
-  .reservation-card.selected {
-    border-color: blue;
-  }
+.edit-reservaion-status-reservation-card.selected {
+    border-color: #f55a5a;
+}
   
-  .update-status {
-    margin-top: 20px;
-  }
+.edit-reservaion-status-update-status {
+  margin-left: 60px;
+  margin-top: 20px;
+}
   
-  .update-status select {
-    margin-right: 10px;
-  }
+.edit-reservaion-status-update-status select {
+  margin-left: 35px;
+  margin-right: 10px;
+}
   
-  .update-status button {
-    background-color: blue;
+.edit-reservaion-status-update-status button {
+    background-color: #f55a5a;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-  }
-  
+    
+}
+
+.EditReservationStatus-analysis{
+  background-color: #f55a5a;
+  border-radius: 8px;
+  color: white;
+  padding: 3px;
+  margin-top: 7px;
+}

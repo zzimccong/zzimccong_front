@@ -55,26 +55,26 @@ const LotteryCoupon = ({setAmount, setCouponType}) => {
     
     <div>
       
-      <div className="coupon-container">
-        <div className="coupon-header">
-          <span className="coupon-title">현재 보유중인 추첨권</span>
-          <span className="coupon-count">{lotteryCount} 개</span>
+      <div className="Coupon-container">
+        <div className="Coupon-header">
+          <span className="Coupon-title">현재 보유중인 추첨권</span>
+          <span className="Coupon-count">{lotteryCount} 개</span>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">추첨권 1개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={1_000} value2="추첨권 1개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">추첨권 1개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={1_000} value2="추첨권 1개">
             500원
           </button>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">추첨권 11개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="추첨권 11개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">추첨권 11개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={5_000} value2="추첨권 11개">
             5,000원
           </button>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">추첨권 22개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="추첨권 22개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">추첨권 22개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={10_000} value2="추첨권 22개">
             10,000원
           </button>
         </div>

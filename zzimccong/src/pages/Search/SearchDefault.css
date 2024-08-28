@@ -1,0 +1,83 @@
+.search-default {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.recent-restaurants h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.restaurant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.restaurant-tags button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.restaurant-categories {
+  /* margin-top: 30px; */
+  /* margin-bottom: 20px; */
+}
+
+.restaurant-categories h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.category-cards {
+  display: flex;
+  gap: 15px;
+}
+
+.card {
+  flex: 1;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.restaurant-keywords {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.restaurant-keywords h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.keyword-cards {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+.keyword-card img {
+  height: 55px;
+  width: 118px;
+}
+
+.searchBanner {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+

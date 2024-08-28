@@ -74,9 +74,6 @@ const Header = () => {
       case "/search":
         return (
           <div className="">
-            <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
-              검색하기
-            </h1>
             <Search />
           </div>
         );
@@ -84,7 +81,7 @@ const Header = () => {
         return (
           <div className="">
             <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
-              채팅하기
+              1:1 문의
             </h1>
             
           </div>
@@ -94,7 +91,7 @@ const Header = () => {
         return (
           <div className="">
             <h1 className="text-xl h-[47px] leading-[47px] font-bold px-[20px]">
-              마이다이닝
+              마이테이블
             </h1>
           </div>
         );
@@ -102,7 +99,7 @@ const Header = () => {
         return (
           <div className="header-wrapper flex px-[20px]">
             <div className="header-left flex items-center">
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold"  style={{ color: '#000000' }}>
                 {displayName} 님의 마이페이지
               </h1>
             </div>
@@ -116,7 +113,7 @@ const Header = () => {
         return (
           <div className="header-wrapper flex px-[20px]">
             <div className="header-left flex items-center">
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
                 추첨 이벤트 목록
               </h1>
             </div>
@@ -131,7 +128,7 @@ const Header = () => {
         return (
           <div className="header-wrapper flex px-[20px]">
             <div className="header-left flex items-center">
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
                 가게 목록
               </h1>
             </div>
@@ -145,7 +142,7 @@ const Header = () => {
         return (
           <div className="header-wrapper flex px-[20px]">
             <div className="header-left flex items-center">
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
                 가게 목록
               </h1>
             </div>
@@ -162,7 +159,7 @@ const Header = () => {
               <button className="back header-icon mr-[8px]" onClick={onClickBack}>
                 뒤로
               </button>
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#00000' }}>
                 {displayName} 님의 마이페이지
               </h1>
             </div>
@@ -181,7 +178,7 @@ const Header = () => {
               <button className="back header-icon mr-[8px]" onClick={onClickBack}>
                 뒤로
               </button>
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold  pb-[45px]">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold  pb-[45px]" style={{ color: '#000000' }}>
                 {displayName} 님의 내 정보 보기
               </h1>
             </div>
@@ -195,7 +192,7 @@ const Header = () => {
           return (
             <div className="header-wrapper flex justify-between w-full px-[20px] items-center">
               <div className="header-left items-center">
-                <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+                <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
                   회원가입
                 </h1>
               </div>
@@ -209,7 +206,7 @@ const Header = () => {
         return (
           <div className="header-wrapper flex justify-between w-full px-[20px] items-center">
             <div className="header-left items-center">
-              <h1 className="text-xl h-[47px] leading-[47px] font-bold">
+              <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
                 회원가입
               </h1>
             </div>

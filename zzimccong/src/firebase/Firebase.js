@@ -1,3 +1,5 @@
+// Firebase.js (useFirebaseMessaging hook)
+
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken as getFCMToken } from "firebase/messaging";
@@ -101,4 +103,4 @@ const useFirebaseMessaging = () => {
     return { messaging, initializeFirebaseMessaging };
 };
 
-export { useFirebaseMessaging,unregisterServiceWorkers, app };
+export { useFirebaseMessaging, unregisterServiceWorkers, app };

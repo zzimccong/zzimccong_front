@@ -1,28 +1,14 @@
 .chat-chatbot-icon {
     position: fixed;
     z-index: 1000;
+    right: 20px; /* 오른쪽 여백 설정 */
+    bottom: 75px; /* 아래쪽 여백 설정 */
 }
 
 .chat-chatbot-icon img {
     width: 50px;  
     height: 50px;
     cursor: pointer; 
-}
-
-/* 웹에서의 위치 설정 */
-@media (min-width: 769px) {
-    .chat-chatbot-icon {
-        bottom: 10%; 
-        right: 36%;
-    }
-}
-
-/* 모바일에서의 위치 설정 */
-@media (max-width: 768px) {
-    .chat-chatbot-icon {
-        bottom: 10%;
-        right: 3.5%;
-    }
 }
 
 .chat-modal-chat {
@@ -33,11 +19,10 @@
     top: 0;
     width: 100%;
     height: 100%;
-    padding-right: 3%;
     background-color: rgba(0, 0, 0, 0.4);
     overflow: auto;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center; /* 중앙 정렬 */
 }
 
 .chat-modal-content-chat {
@@ -45,18 +30,9 @@
     padding: 10px;
     border: 1px;
     border-radius: 20px !important;
-    position: relative;
     width: 390px;
-    height: 590px; 
-    margin-right: 30px;
-}  
-
-/* 모바일에서의 모달 위치 설정 */
-@media (max-width: 768px) {
-    .chat-modal-content-chat {
-        bottom: 0px;
-        right: 13px;
-    }
+    height: 590px;
+    margin: auto; /* 중앙에 위치 */
 }
 
 .chat-close {
@@ -77,15 +53,15 @@
 
 .chat-header {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
 .chat-header img {
-    width: 200px;
+    width: 170px;
     height: 70px;
     margin-top: 10px;
-    position: relative;
 }
 
 .chat-header h1 {
@@ -110,9 +86,6 @@
     margin: 0 auto; 
 }
 
-.chat-subheader p{
-
-}
 .chat-subheader img {
     width: 20px;
     height: 20px;
@@ -185,7 +158,7 @@
     margin-bottom: 10px;
     border: none;
     border-radius: 10px;
-    background-color: #FF8e4f;
+    background-color: #f55a5a;
     color: white;
     cursor: pointer;
     box-sizing: border-box; 
@@ -194,5 +167,5 @@
 }
 
 .chat-input-container button:hover {
-    background-color: #FF8C00; 
+    background-color: #f64545; 
 }

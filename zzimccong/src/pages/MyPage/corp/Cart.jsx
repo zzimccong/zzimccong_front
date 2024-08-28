@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import ReservationCalendar from '../../Calendar/ReservationCalendar';
+import logo from '../../../assets/icons/logo.png';
 import Modal from 'react-modal';
 import'./Cart.css';
 
@@ -100,19 +101,19 @@ function Cart() {
     return (
         <div>
           <div className="header">
-            {/* <img src={logoImage} className="logo" /> */}
-            <div className="title">장바구니</div>
+            <img src={logo} className="logo" />
+            <div className="searchcomponent_title">장바구니</div>
           </div>
-          <div className="cart-items">
+          <div className="Cart-items">
                 {cartItems.length > 0 ? (
                     <div>
-                        <div>
+                        <div style={{display:"flex", margin:'10px'}}>
                             <input
                                 type="checkbox"
                                 checked={selectAll}
                                 onChange={handleSelectAll}
                             />
-                            <label>전체선택</label>
+                            <label style={{display:"flex", marginLeft:'10px'}} >전체선택</label>
                         </div>
                         {cartItems.map((cart) => (
                             <div
@@ -124,9 +125,10 @@ function Cart() {
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <input
                                         type="checkbox"
+                                        style={{marginLeft:'8px'}}
                                         checked={selectedItems.includes(cart.restaurant.id)}
                                         onChange={() => handleSelectItem(cart.restaurant.id)}
-                                        onClick={(e) => e.stopPropagation()} // 이미지 클릭과 체크박스 클릭을 분리
+                                        onClick={(e) => e.stopPropagation()} 
                                     />
                                     <img
                                         src={cart.restaurant.photo1Url}
@@ -141,40 +143,41 @@ function Cart() {
                                         <div className="restaurant-category">
                                             {cart.restaurant.category} / {getShortAddress(cart.restaurant.roadAddress)}
                                         </div>
+                                        <button 
+                                            className="Cart-reservation"
+                                            onClick={(e) => {e.stopPropagation();
+                                                handleReservationClick(cart.restaurant.id);}} >
+                                            예약하기
+                                        </button>
                                     </div>
                                 </div>
-                                <button 
-                                    className="reservation"
-                                    onClick={(e) => {e.stopPropagation();
-                                        handleReservationClick(cart.restaurant.id);}} >
-                                    예약하기
-                                </button>
                                 <hr style={{ width: '435px', margin: 'auto' }} />
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div>장바구니가 비어 있습니다.</div>
+                    <div className='Cart-empty'>장바구니가 비어 있습니다.</div>
                 )}
             </div>
-            <div className="footer">
-                <button className="reserve-button" onClick={handlePaper}>문서화</button>
-                <button className="cancel-button" onClick={handleCancel}>삭제</button>
+            <div className="Cart-footer">
+                <button className="Cart-pdf-button" onClick={handlePaper}>문서화</button>
+                <button className="Cart-cancel-button" onClick={handleCancel}>삭제</button>
             </div>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
-                className="Modal"
-                overlayClassName="Overlay"
+                className="RestaurantDetail-Modal"
+                overlayClassName="RestaurantDetail-Overlay"
             >
                 {selectedRestaurantId && (
                     <ReservationCalendar restaurantId={selectedRestaurantId} />
                 )}
-                <button onClick={() => setModalIsOpen(false)} className="close-modal">
+                <button onClick={() => setModalIsOpen(false)} className="RestaurantDetail-close-modal">
                     닫기
                 </button>
             </Modal>
         </div>
+        
       );
 }
 

@@ -117,6 +117,10 @@ export default function MyPage() {
   const handleReviewClick=useCallback(()=>{
     navigate('/user/reviews');
   }, [navigate]);
+  
+    const handleReservations = useCallback(() => {
+      navigate('/reservations');
+    }, [navigate]);
 
   if (loading) {
     return <div>로딩 중...</div>;
@@ -126,7 +130,8 @@ export default function MyPage() {
     <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
-
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
               사용자 관리
@@ -146,8 +151,7 @@ export default function MyPage() {
               쿠폰 관리
               <span className="arrow">&gt;</span>
             </button>
-            <ButtonClickFCM />
-            <hr />
+            <hr/>
             <button className="menu-option">
               통계
               <span className="arrow">&gt;</span>
@@ -160,7 +164,8 @@ export default function MyPage() {
         </div>
       ) : user?.role === 'CORP' ? (
         <div>
-
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
               내 정보 수정
@@ -185,13 +190,45 @@ export default function MyPage() {
 
             <ButtonClickFCM />
             <hr />
+            <hr/>
+            <button className="menu-option btn-logout" onClick={handleLogout} >
+                로그아웃
+            </button>
+          </div>
+        </div>
+      ) : user?.role === 'MANAGER' ? (
+        <div>
+          <ButtonClickFCM />
+          <hr/>
+          <div className="menu-container">
+            <button className="menu-option" onClick={handleEdit}>
+                내 정보 수정
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleReservations}>
+                나의 가게 예약 현황
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleCartClick}>
+                나의 가게 리스트
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
+            <button className="menu-option" onClick={handleCouponClick}>
+              쿠폰
+            <span className="arrow">&gt;</span>
+            </button>
+            <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
               로그아웃
             </button>
           </div>
         </div>
-      ) : (<div>
-
+      ): ( <div>
+        <ButtonClickFCM />
+        <hr/>
         <div className="menu-container">
           <button className="menu-option" onClick={handleEdit}>
             내 정보 수정
@@ -216,6 +253,7 @@ export default function MyPage() {
 
           <ButtonClickFCM />
           <hr />
+          <hr/>
           <button className="menu-option btn-logout" onClick={handleLogout} >
             로그아웃
           </button>

@@ -3,8 +3,9 @@ import ShortCut from './shortCut';
 import Carousel from './Carousel';
 import Footer from '../../components/Footer';
 import Restaurants from '../Restaurant/Restaurants';
-import ChatBot from '../../components/chatbot/ChatBot';
 import { Link } from 'react-router-dom';
+import ChatBot from '../../components/chatbot/ChatBot';
+
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -20,10 +21,11 @@ export default function Home() {
   return (
     <main className="main ">
       {/* 캐러셀 */}
-      <ShortCut/>
+      <div className="mt-[70px]"></div>
       <section className="gap shortcut-gap"></section>
       <Carousel className="carousel"/>
-      <section className="gap shortcut-gap"></section>
+      {/* <section className="gap shortcut-gap"></section> */}
+      <ShortCut/>
 
       <section className="section pb-[45px]">
         <div className="px-[20px]">

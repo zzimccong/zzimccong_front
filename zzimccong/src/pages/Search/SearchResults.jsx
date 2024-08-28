@@ -6,7 +6,7 @@ import grade from '../../assets/icons/grade.png';
 import './SearchResults.css';
 import Modal from 'react-modal';
 import SearchFilter from './SearchFilter';
-
+import SearchDefault from './SearchDefault';
 
 const SearchResults = ({searchWord, results, loading, error, searchPerformed}) => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
   const [filteredResults, setFilteredResults] = useState(results);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
-  useEffect(() => {  // results가 변경될 때마다 filteredResults를 초기화
+  useEffect(() => {  
     setFilteredResults(results);  
   }, [results]);
 
@@ -37,8 +37,8 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
   };
 
   const handleApplyFilters = async (filters) => {
-    setSelectedFilters(filters); // 필터를 저장
-    closeModal(); // 모달 닫기
+    setSelectedFilters(filters); 
+    closeModal(); 
     console.log('Selected Filters:', filters);
 
     const filtersWithSearchWord = {
@@ -55,9 +55,12 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
       setFilteredResults(response.data);
     } catch (err) {
       console.error('검색 결과를 가져오는 중 오류 발생:', err);
-      // setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
     } 
 
+  };
+
+  const isAnyFilterSelected = () => {
+    return Object.keys(selectedFilters).some((key) => selectedFilters[key].length > 0);
   };
 
   if (loading) {
@@ -65,45 +68,46 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
   }
 
   if (error) {
-    return <p className="error-message">{error}</p>;
+    return <p className="SearchResults-error-message">{error}</p>;
+  }
+
+  if (!searchWord) {
+    return <SearchDefault />;
   }
 
   if (searchPerformed && results.length === 0) {
-    return <p>검색 결과가 없습니다.</p>;
+    return <SearchDefault />;
   }
  
-  console.log(filteredResults); //이거 지울거
   return (
     <div>
       {results.length > 0 && (
         <img
-          src={fiter} className="fiter" alt="Filter"
+          src={fiter} className={`SearchResults-fiter ${isAnyFilterSelected() ? 'active-filter' : ''}`}  alt="Filter"
           onClick={openModal}
         />
       )}
       { filteredResults.map((store) => (
-        <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
-              onClick={() => navigateToStoreDetails(store.id)}>
-            <div style={{ display: 'flex', alignItems: 'center'}}>  
-              <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '10px', width: '120px', height: '120px' }} />
-              <div style={{ flexGrow: 1 }}>
-                <h3 className="text-xl font-bold">{store.name}</h3>
-                <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
-                <p style={{display: 'flex', alignItems: 'center' }}> 
-                  <img src={grade} style={{ margin: '5px', width: '20px'}}/> {store.grade} / 5.0 
-                </p>
-              </div>
-            </div>
-          <hr style={{ width: '435px', margin: 'auto'}}/>
+        <div key={store.id} className="SearchResults-store-item" onClick={() => navigateToStoreDetails(store.id)}>
+        <div className="SearchResults-store-item-content">
+          <img src={store.photo1Url} alt={`${store.name} 사진`} />
+          <div className="SearchResults-store-details">
+            <h3>{store.name}</h3>
+            <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
+            <p className="SearchResults-store-grade">
+              <img src={grade} alt="Grade" /> {store.grade} / 5.0
+            </p>
+          </div>
         </div>
+        <hr className="SearchResults-store-divider" />
+      </div>
       ))}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Filter Modal"
-        // ariaHideApp={false}
-        className="Modal"
-        overlayClassName="Overlay"
+        className="SearchResults-Modal"
+        overlayClassName="SearchResults-Overlay"
       >
         <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters}
                       selectedFilters={selectedFilters} />
