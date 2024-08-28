@@ -12,6 +12,7 @@
     "date-fns": "^3.6.0",
     "firebase": "^10.13.0",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "jwt-decode": "^4.0.0",
     "postcss": "^8.4.41",
     "react": "^18.3.1",
