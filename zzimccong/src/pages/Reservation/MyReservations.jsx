@@ -1,49 +1,8 @@
-import jsPDF from "jspdf";
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
 import axios from "../../utils/axiosConfig";
 import "./MyReservations.css";
 import { AuthContext } from "../../context/AuthContext";
-
-const loadFont = async () => {
-  try {
-    const response = await fetch('/font/NotoSansKR-Regular.ttf');
-    if (!response.ok) {
-      throw new Error('Failed to fetch font file.');
-    }
-
-    const fontBlob = await response.blob();
-    const reader = new FileReader();
-
-    return new Promise((resolve, reject) => {
-      reader.onloadend = () => {
-        const base64String = reader.result.split(",")[1];
-        resolve(base64String);
-      };
-
-      reader.onerror = (error) => {
-        reject("Error reading font file: " + error);
-      };
-
-      reader.readAsDataURL(fontBlob);
-    });
-  } catch (error) {
-    console.error("Error loading font:", error);
-    throw error;
-  }
-};
-
-const loadImageAsBase64 = async (imageUrl) => {
-  try {
-    const response = await axios.get('/api/image-to-base64', {
-      params: { url: imageUrl },
-    });
-    return response.data; // Base64 이미지 데이터
-  } catch (error) {
-    console.error('이미지 로드 에러:', error);
-    throw error;
-  }
-};
 
 function MyReservations() {
   const { user } = useContext(AuthContext);
@@ -136,47 +95,6 @@ function MyReservations() {
     if (!address) return "";
     const parts = address.split(" ");
     return parts.length > 2 ? `${parts[0]} ${parts[1]}` : address;
-  };
-
-  const generatePDF = async () => {
-    try {
-      const base64Font = await loadFont(); // 폰트 파일을 불러와 Base64로 변환const doc = newjsPDF();
-      const doc = new jsPDF();
-
-      doc.addFileToVFS("NotoSansKR-Regular.ttf", base64Font);
-      doc.addFont("NotoSansKR-Regular.ttf", "NotoSansKR", "normal");
-      doc.setFont("NotoSansKR", "normal");
-      doc.setFontSize(12);
-      let y = 10;
-
-
-      // reservations.forEach((reservation) => {
-
-      for (const reservation of reservations) {
-        const restaurant = restaurantDetails[reservation.restaurantId];
-        if (restaurant) {
-          y += 60;
-
-          const base64Image = await loadImageAsBase64(restaurant.photo1Url);
-          doc.addImage(base64Image, 'JPEG', 10, y, 50, 50);
-
-          // 텍스트 추가
-          doc.text(`레스토랑: ${restaurant.name}`, 70, y);
-          doc.text(`카테고리: ${restaurant.category}`, 70, y + 10);
-          doc.text(`주소: ${getShortenedAddress(restaurant.roadAddress)}`, 70, y + 20);
-          doc.text(`예약 시간: ${formatReservationTime(reservation.reservationTime)}`, 70, y + 30);
-          doc.text(`인원 수: ${reservation.count}명`, 70, y + 40);
-          doc.text(`상태: ${reservation.state}`, 70, y + 50);
-
-          y += 60; // 다음 예약 정보의 Y 좌표를 설정
-        }
-      }
-      // });
-
-      doc.save("reservations.pdf");
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-    }
   };
 
   const handleWriteReviewClick = (reservationId) => {
@@ -280,11 +198,6 @@ function MyReservations() {
             {tab === "upcoming" && renderReservations("upcoming")}
             {tab === "completed" && renderReservations("completed")}
             {tab === "cancelled" && renderReservations("cancelled")}
-          </div>
-          <div className="cta-section">
-            <button onClick={generatePDF} className="generate-pdf-btn">
-              PDF로 내보내기
-            </button>
           </div>
         </>
       );
