@@ -205,7 +205,7 @@ function RestaurantDetail() {
   const calculateRatingDistribution = (reviews) => {
     const distribution = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     reviews.forEach(review => {
-      const rating = Math.round(review.rate);
+      const rating = Math.floor(review.rate);
       if (distribution[rating] !== undefined) {
         distribution[rating]++;
       }

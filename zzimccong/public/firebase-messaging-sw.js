@@ -1,3 +1,5 @@
+// firebase-messaging-sw.js
+
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js');
 
@@ -16,11 +18,12 @@ const messaging = firebase.messaging();
 
 self.addEventListener('install', (event) => {
     console.log('fcm sw install..');
-    self.skipWaiting();
+    self.skipWaiting(); // 서비스 워커가 설치된 후 즉시 활성화
 });
 
 self.addEventListener('activate', (event) => {
     console.log('fcm sw activate..');
+    self.clients.claim(); // 서비스 워커가 활성화된 후 바로 제어하도록 함
 });
 
 self.addEventListener('push', (event) => {

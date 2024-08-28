@@ -1,0 +1,79 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.AdminRestaurantList-title {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold; 
+  color: #f55a5a;
+  align-items: center;
+}
+
+.AdminRestaurantList-input-container {
+  text-align: center;
+  width: 100%; /* 부모 요소의 크기를 100%로 설정 */
+}
+
+.AdminRestaurantList-input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin: 20px 0;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.AdminRestaurantList-table {
+  width: 90%; /* 표의 너비를 90%로 설정 */
+  margin: 0 auto; /* 표를 가운데 정렬 */
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.AdminRestaurantList-table, 
+.AdminRestaurantList-th, 
+.AdminRestaurantList-td {
+  border: 1px solid #ddd;
+}
+
+.AdminRestaurantList-th, 
+.AdminRestaurantList-td {
+  padding: 12px;
+  text-align: center;
+}
+
+.AdminRestaurantList-th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.AdminRestaurantList-td {
+  width: 50%; /* 각 컬럼의 너비를 동일하게 고정 */
+}
+
+.AdminRestaurantList-tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.AdminRestaurantList-tr:hover {
+  background-color: #f1f1f1;
+}
+
+.AdminRestaurantList-select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.AdminRestaurantList-hr-border {
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 40px 0;
+}

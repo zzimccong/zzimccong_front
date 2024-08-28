@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/axiosConfig";
+import logo from '../../assets/icons/logo.png';
 import "./AskDetailComponent.css"; // 문의 상세 페이지를 위한 CSS 파일
 
 const AskDetailComponent = () => {
@@ -61,27 +62,33 @@ const AskDetailComponent = () => {
   }
 
   return (
-    <div className="AskDetailComponent-container">
-      <h2 className="AskDetailComponent-title">1:1 문의</h2>
-      <div>
-        <div className="AskDetailComponent-titleBox">
-          {inquiry.title}
-        </div>
-        <div className="AskDetailComponent-contentBox">
-          {inquiry.content}
-        </div>
-        {answer && (
-          <>
-            <hr/>
-            <p className="AskDetailComponent-answerTitle">▷ 답변</p>
-            <div className="AskDetailComponent-contentBox">
-              {answer.content}
-            </div>
-          </>
-        )}
+    <div>
+      <div className="header">
+        <img src={logo} className="logo" />
+        <div className="searchcomponent_title">1:1 문의</div>
+      </div>
+      <div className="AskDetailComponent-container">
+        <div>
+          <div className="AskDetailComponent-titleBox">
+            {inquiry.title}
+          </div>
+          <div className="AskDetailComponent-contentBox">
+            {inquiry.content}
+          </div>
+          {answer && (
+            <>
+              <hr/>
+              <p className="AskDetailComponent-answerTitle">▷ 답변</p>
+              <div className="AskDetailComponent-contentBox">
+                {answer.content}
+              </div>
+            </>
+          )}
 
+        </div>
       </div>
     </div>
+    
   );
 };
 

@@ -112,25 +112,28 @@ const AskComponent = () => {
     }
 
     return (
-      <div className="inquiry-list">
-        {inquiries.map((inquiry) => (
-          <div
-            key={inquiry.id}
-            className="inquiry-item"
-            onClick={() => handleInquiryClick(inquiry)}
-          >
-            <h3 className="inquiry-title">
-              {inquiry.secret ? (
-                <>
-                  {inquiry.title}
-                  <img src={secretIcon} alt="비밀글" className="secret-icon" />
-                </>
-              ) : (
-                inquiry.title
-              )}
-            </h3>
-          </div>
-        ))}
+      <div>
+       
+        <div className="inquiry-list">
+          {inquiries.map((inquiry) => (
+            <div
+              key={inquiry.id}
+              className="inquiry-item"
+              onClick={() => handleInquiryClick(inquiry)}
+            >
+              <h3 className="inquiry-title">
+                {inquiry.secret ? (
+                  <>
+                    {inquiry.title}
+                    <img src={secretIcon} alt="비밀글" className="secret-icon" />
+                  </>
+                ) : (
+                  inquiry.title
+                )}
+              </h3>
+            </div>
+          ))}
+        </div>
       </div>
     );
   };
@@ -140,51 +143,53 @@ const AskComponent = () => {
   };
 
   return (
-    <div className="AskComponent-container">
+    <div>
       <div className="header">
         <img src={logo} className="logo" />
         <div className="AskComponent-title">1:1 문의</div>
       </div>
+      <div className="AskComponent-container">
+        <div className="AskComponent-tabs">
+          <button
+            onClick={() => setActiveTab('inquiry')}
+            className={`AskComponent-tab-item ${activeTab === 'inquiry' ? 'active' : ''}`}
+          >
+            문의하기
+          </button>
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`AskComponent-tab-item ${activeTab === 'history' ? 'active' : ''}`}
+          >
+            내 문의내역
+          </button>
+        </div>
 
-      <div className="AskComponent-tabs">
-        <button
-          onClick={() => setActiveTab('inquiry')}
-          className={`AskComponent-tab-item ${activeTab === 'inquiry' ? 'active' : ''}`}
-        >
+        <div className="AskComponent-tab-content">
+          {renderContent()}
+        </div>
+
+        <button className="AskComponent-inquiry-button" onClick={handleCreateInquiryClick}>
           문의하기
         </button>
-        <button
-          onClick={() => setActiveTab('history')}
-          className={`AskComponent-tab-item ${activeTab === 'history' ? 'active' : ''}`}
-        >
-          내 문의내역
-        </button>
-      </div>
 
-      <div className="AskComponent-tab-content">
-        {renderContent()}
-      </div>
-
-      <button className="AskComponent-inquiry-button" onClick={handleCreateInquiryClick}>
-        문의하기
-      </button>
-
-      {showPasswordModal && (
-        <div className="AskComponent-password-modal">
-          <div className="AskComponent-password-modal-content">
-            <h3>비밀번호 입력</h3>
-            <input
-              type="password"
-              value={inputPassword}
-              onChange={(e) => setInputPassword(e.target.value)}
-              placeholder="비밀번호를 입력하세요"
-            />
-            <button onClick={handlePasswordSubmit}>확인</button>
-            <button onClick={handleCancel}>취소</button>
+        {showPasswordModal && (
+          <div className="AskComponent-password-modal">
+            <div className="AskComponent-password-modal-content">
+              <h3>비밀번호 입력</h3>
+              <input
+                type="password"
+                value={inputPassword}
+                onChange={(e) => setInputPassword(e.target.value)}
+                placeholder="비밀번호를 입력하세요"
+              />
+              <button onClick={handlePasswordSubmit}>확인</button>
+              <button onClick={handleCancel}>취소</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
+    
   );
 };
 

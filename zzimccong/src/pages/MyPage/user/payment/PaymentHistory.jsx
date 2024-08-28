@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../../../utils/axiosConfig';
+import logo from '../../../../assets/icons/logo.png';
 import './PaymentHistory.css';
 
 
@@ -29,17 +30,17 @@ function PaymentHistory() {
 
         <div>
             <div className="header">
-                {/* <img src={logoImage} className="logo" /> */}
-                <div className="title">쿠폰 결제 내역</div>
+                <img src={logo} className="logo" />
+                <div className="PaymentHistory-title">결제 내역</div>
             </div>
             <div>
                 {payHistory.map((item, index) => (
-                    <div key={index} className="payment-item">
-                        <div>
-                            <div className="payment-name">{item.orderName}</div>
-                            <div className="payment-date">{new Date(item.paymentDate).toLocaleDateString()}</div>
+                    <div key={index} className="PaymentHistory-item">
+                        <div className="PaymentHistory-info">
+                            <div className="PaymentHistory-name">{item.orderName}</div>
+                            <div className="PaymentHistory-date">{new Date(item.paymentDate).toLocaleDateString()}</div>
                         </div>
-                            <div className="payment-amount">{item.amount.toLocaleString()}원</div>
+                            <div className="PaymentHistory-amount">{item.amount.toLocaleString()}원</div>
                     </div>
                 ))}
             </div>

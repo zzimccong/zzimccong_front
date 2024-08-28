@@ -3,8 +3,9 @@ import ShortCut from './shortCut';
 import Carousel from './Carousel';
 import Footer from '../../components/Footer';
 import Restaurants from '../Restaurant/Restaurants';
-import ChatBot from '../../components/chatbot/ChatBot';
 import { Link } from 'react-router-dom';
+import ChatBot from '../../components/chatbot/ChatBot';
+
 
 export default function Home() {
   const [visible, setVisible] = useState(false);

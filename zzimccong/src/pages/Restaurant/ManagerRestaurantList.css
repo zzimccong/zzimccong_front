@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.ManagerRestaurantList-title {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold; 
+  color: #f55a5a;
+  align-items: center;
+}

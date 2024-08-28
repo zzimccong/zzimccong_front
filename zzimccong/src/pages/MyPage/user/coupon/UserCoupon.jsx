@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
-import '../../../../assets/css/style.css';
-import logoImage from '../../../../assets/icons/logo.png'; 
+import './UserCoupon.css';
+import logo from '../../../../assets/icons/logo.png';
 import ReservationCoupon from './ReservationCoupon';
 import LotteryCoupon from './LotteryCoupon';
 
@@ -16,15 +16,15 @@ function UserCoupon({ setAmount, setCouponType }) {
   return (
     <div>
       <div className="header">
-        {/* <img src={logoImage} className="logo" /> */}
-        <div className="title">쿠폰</div>
+          <img src={logo} className="logo" />
+          <div className="UserCoupon-title">쿠폰</div>
       </div>
 
-      <div className="buttons">
+      <div className="UserCoupon-buttons">
         <button onClick={() => setShow('reservation')} className={getButtonClass('reservation')}>
           예약쿠폰
         </button>
-        <span className="divider"></span>
+        <span className="UserCoupon-divider"></span>
         <button onClick={() => setShow('lottery')} className={getButtonClass('lottery')}>
           추첨권
         </button>

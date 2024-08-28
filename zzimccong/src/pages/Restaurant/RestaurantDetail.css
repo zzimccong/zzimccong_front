@@ -23,11 +23,12 @@
   font-size: 13px;
   color: #7a7979;
   padding-bottom: 5px;
+  margin-top: 15px;
 }
 
 .RestaurantDetail-phoneNumber{
   padding-right: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 14px;
 }
 
@@ -151,6 +152,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
 }
 
 .RestaurantDetail-facility-svg, .RestaurantDetail-parking-svg {

@@ -34,7 +34,7 @@ const shortcutItem = [
     id: 4,
     title: "추첨이벤트",
     url: main_event,
-    link: "/events",  // 추첨이벤트를 클릭했을 때 이동할 주소
+    link: "/event-list",  // 추첨이벤트를 클릭했을 때 이동할 주소
   },
 ];
 

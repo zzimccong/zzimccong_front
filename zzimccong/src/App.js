@@ -50,6 +50,9 @@ import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 import ReviewCreate from './pages/Review/ReviewCreate.jsx';
 import UserReview from './pages/Review/UserReview.jsx';
+
+
+import SearchDefault from './pages/Search/SearchDefault.jsx';
 import "./firebase/Firebase.js"
 
 import AlramHistory from './components/alarm/AlramHistory.jsx';
@@ -100,6 +103,7 @@ function App() {
 
             {/* 검색 */}
             <Route path="/search" element={<Search />} />
+            <Route path="/SearchDefault" element={<SearchDefault />} />
             
 
             {/* 쿠폰 */}

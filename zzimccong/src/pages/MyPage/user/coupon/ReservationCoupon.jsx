@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../../../assets/css/style.css';
 import './Coupon.css';
 import axios from '../../../../utils/axiosConfig.js';
 import { useEffect, useState, useCallback } from 'react';
@@ -62,26 +61,26 @@ const ReservationCoupon = ({setAmount, setCouponType}) => {
   return (
 
     <div>
-      <div className="coupon-container">
-        <div className="coupon-header">
-          <span className="coupon-title">현재 보유중인 예약 쿠폰</span>
-          <span className="coupon-count">{reservationCount} 개</span>
+      <div className="Coupon-container">
+        <div className="Coupon-header">
+          <span className="Coupon-title">현재 보유중인 예약 쿠폰</span>
+          <span className="Coupon-count">{reservationCount} 개</span>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">예약쿠폰 1개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={1_000} value2="예약쿠폰 1개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">예약쿠폰 1개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={1_000} value2="예약쿠폰 1개">
             1,000원
           </button>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">예약쿠폰 5개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={5_000} value2="예약쿠폰 5개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">예약쿠폰 5개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={5_000} value2="예약쿠폰 5개">
             5,000원
           </button>
         </div>
-        <div className="coupon-item">
-          <span className="coupon-text">예약쿠폰 10개</span>
-          <button className='button_pay' onClick={handleButtonClick} value1={10_000} value2="예약쿠폰 10개">
+        <div className="Coupon-item">
+          <span className="Coupon-text">예약쿠폰 10개</span>
+          <button className='Coupon-button_pay' onClick={handleButtonClick} value1={10_000} value2="예약쿠폰 10개">
             10,000원
           </button>
         </div>

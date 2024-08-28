@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.header .logo {
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.UserCoupon-title {
+  font-size: 20px;
+  font-weight: bold; 
+  color: #f55a5a;
+  align-items: center;
+}
+
+
+.button_coupon {
+  background-color: white; 
+  color: rgb(170, 170, 170); 
+  padding: 6px 16px; 
+  font-size: 25px;
+  width: 160px; 
+  margin: 6px 4px; 
+  margin-right: 10px;
+}
+
+.button_coupon.active {
+  color: black; 
+  font-weight: bold;
+}
+
+.UserCoupon-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.UserCoupon-divider {
+  height: 30px;  
+  width: 2px;  
+  background-color: #000; 
+  margin: auto 0;  
+}

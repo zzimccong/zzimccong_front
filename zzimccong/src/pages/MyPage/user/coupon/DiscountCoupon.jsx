@@ -59,9 +59,9 @@ export default function DiscountCoupon() {
   }
 
   return (
-    <div className="coupon-container">
-      <h1>할인쿠폰함</h1>
-      <p>보유쿠폰 {coupon.cnt}장</p>
+    <div className="DiscountCoupon-coupon-container">
+      <h1 className="DiscountCoupon-h1">할인쿠폰함</h1>
+      <p className="DiscountCoupon-p">보유쿠폰 {coupon.cnt}장</p>
       {/* cnt 값만큼 쿠폰 카드를 반복하여 렌더링 */}
       {Array.from({ length: coupon.cnt }).map((_, index) => (
         <div key={index} className="coupon-card">
@@ -73,10 +73,10 @@ export default function DiscountCoupon() {
           </p>
         </div>
       ))}
-      <div className="coupon-note">
-        <ul>
-          <li>추첨권 20장 사용 시 할인권을 제공합니다.</li>
-          <li>할인권은 식사 후 결제할 때 제시해 주세요.</li>
+      <div className="DiscountCoupon-coupon-note">
+        <ul className="DiscountCoupon-ul">
+          <li className="DiscountCoupon-li">추첨권 20장 사용 시 할인권을 제공합니다.</li>
+          <li className="DiscountCoupon-li">할인권은 식사 후 결제할 때 제시해 주세요.</li>
         </ul>
       </div>
     </div>
