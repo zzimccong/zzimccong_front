@@ -37,8 +37,6 @@ import MyReservations from './pages/Reservation/MyReservations.jsx';
 import EditReservationStatus from './pages/Reservation/EditReservationStatus.jsx';
 import RestaurantEditForm from './pages/Restaurant/RestaurantEditForm.jsx';
 import ManagerRestaurantList from './pages/Restaurant/ManagerRestaurantList.jsx';
-import Visit from './pages/MyPage/review/Visit.jsx';
-import ReviewList from './pages/MyPage/review/ReviewList.jsx';
 import UserManagement from './pages/MyPage/admin/user/UserManagement.jsx';
 import CorpManagement from './pages/MyPage/admin/corp/CorpManagement.jsx';
 import AdminUserEdit from './pages/MyPage/admin/user/AdminUserEdit.jsx';
@@ -48,7 +46,10 @@ import KakaoRegisterMain from './components/register/kakao/KakaoRegisterMain.jsx
 import KakaoEdit from './pages/MyPage/kakao/KakaoEdit.jsx';
 import AskComponent from './pages/Ask/AskComponent.jsx';
 import RegisterAsk from './pages/Ask/RegisterAsk.jsx';
+import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
+import ReviewCreate from './pages/Review/ReviewCreate.jsx';
+import UserReview from './pages/Review/UserReview.jsx';
 import "./firebase/Firebase.js"
 
 import AlramHistory from './components/alarm/AlramHistory.jsx';
@@ -68,10 +69,6 @@ function App() {
         <Router>
           <Header />
           <Routes>
-
-    
-           
-          
 
             {/* 메인화면 */}
             <Route path="/" element={<Home />} />
@@ -121,11 +118,6 @@ function App() {
             <Route path="/payment/fail" element={<Fail />} />
             <Route path="/paymenthistory" element={<PaymentHistory />} />
 
-            {/* 방문내역 */}
-            <Route path="visited" element={<Visit/>} />
-            <Route path="/reviewList" element={<ReviewList/>} />
-
-            
             <Route path="/find-id" element={<FindId />} />
             <Route path="/find-password" element={<FindPassword />} />
 
@@ -162,17 +154,22 @@ function App() {
             <Route path="/edit-corp/:id" element={<AdminCorpEdit />} />
           
             {/* 1:1 문의 */}
-            <Route path="/dialog" element={<AskComponent />} />
+            <Route path="/ask" element={<AskComponent />} />
             <Route path="/register-ask" element={<RegisterAsk />} />
             <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
+            <Route path="/admin-answer-register/:inquiryId" element={<AdminAnswerRegister/>} />
 
             {/* 알림 기록 */}
             <Route path="/alram-history" element={<AlramHistory />} />
 
             {/* 이벤트 */}
             <Route path="/event-list" element={<EventList />} />
-
             <Route path="/event-participation/:eventId" element={<EventParticipation />} />
+
+            {/* 리뷰 */}
+            <Route path="/review/create" element={<ReviewCreate />} />
+            <Route path="/user/reviews" element={<UserReview />} />
+
 
           </Routes>
           <Navbar />

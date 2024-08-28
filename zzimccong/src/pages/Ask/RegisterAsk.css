@@ -33,14 +33,14 @@
   
   .RegisterAsk-options {
     display: flex;
-    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
   
   .RegisterAsk-checkbox-label {
     font-size: 16px;
-    margin-left: 20px; /* 왼쪽에 고정 */
+    margin-left: 20px;
   }
   
   .RegisterAsk-checkbox-label input {
@@ -53,7 +53,7 @@
     border-radius: 10px;
     font-size: 16px;
     width: 250px;
-    margin-right: 20px; /* 오른쪽에 고정 */
+    margin-right: 20px;
   }
   
   .RegisterAsk-submit {
@@ -77,23 +77,24 @@
     cursor: pointer;
     font-size: 18px;
     margin: 10px 0;
-    color: #ff4d4d; /* 제목에 파란색 링크 스타일 적용 */
+    margin-left: 10px;
+    color: #444444;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
   }
   
-  /* 구분선 스타일 */
-  .inquiry-divider {
-    border: 0;
-    height: 1px;
-    background-color: #ccc;
-    margin: 10px 0;
-  }
-  
-  /* 문의 항목 스타일 */
   .inquiry-item {
     padding: 10px;
-    transition: background-color 0.2s;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .inquiry-item:hover {
-    background-color: #ff4d4d; /* 마우스 오버 시 배경색 변경 */
+    background-color: #dfdfdf; /* 마우스 오버 시 배경색 변경 */
   }

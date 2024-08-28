@@ -22,8 +22,8 @@ const navItem = [
   },
   {
     id: 2,
-    name: "dialog",
-    to: "/dialog",
+    name: "ask",
+    to: "/ask",
     image: "dock-review",
     imageOn: "dock-review-on",
     selectItem: false,

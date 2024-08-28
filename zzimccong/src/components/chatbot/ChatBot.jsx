@@ -4,7 +4,6 @@ import chatBotIcon from '../../assets/icons/chatbot-icon.png';
 import logo from '../../assets/icons/logo2.png';
 import loudspeaker from '../../assets/icons/loudspeaker.png';
 
-// 서버 URL 설정
 const getServerUrl = () => {
     const hostname = window.location.hostname;
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
@@ -70,7 +69,6 @@ const ChatBot = () => {
         }
     };
 
-    // 스크롤 위치 맨 아래로 이동
     useEffect(() => {
         if (chatWindowRef.current) {
             chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
@@ -79,31 +77,31 @@ const ChatBot = () => {
 
     return (
         <>
-            <div className="chatbot-icon" onClick={toggleModal}>
+            <div className="chat-chatbot-icon" onClick={toggleModal}>
                 <img src={chatBotIcon} alt="ChatBot" />
             </div>
            
             {isModalOpen && (
-                <div className="modal" onClick={toggleModal}>
-                    <div className="modal-content" onClick={e => e.stopPropagation()}>
-                        <span className="close" onClick={toggleModal}>&times;</span>
-                        <div className="header">
+                <div className="chat-modal-chat" onClick={toggleModal}>
+                    <div className="chat-modal-content-chat" onClick={e => e.stopPropagation()}>
+                        <span className="chat-close" onClick={toggleModal}>&times;</span>
+                        <div className="chat-header">
                             <img src={logo} alt="Logo" />
                         </div>
-                        <div className="subheader">
+                        <div className="chat-subheader">
                             <img src={loudspeaker} alt="Loudspeaker" />
                             <p>맛집을 찜하다, 찜꽁테이블 챗봇입니다.</p>
                         </div>
-                        <div className="chat-window" ref={chatWindowRef}>
+                        <div className="chat-chat-window" ref={chatWindowRef}>
                             {messages.map((message, index) => (
-                                <div key={index} className="message-container">
-                                    <div className={message.user ? 'user-message' : 'bot-message'}>
+                                <div key={index} className="chat-message-container">
+                                    <div className={message.user ? 'chat-user-message' : 'chat-bot-message'}>
                                         {message.text}
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <div className="input-container">
+                        <div className="chat-input-container">
                             <input
                                 type="text"
                                 value={input}

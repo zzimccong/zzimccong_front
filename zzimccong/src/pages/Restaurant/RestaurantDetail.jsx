@@ -514,10 +514,10 @@ function RestaurantDetail() {
         className="RestaurantDetail-Modal"
         overlayClassName="RestaurantDetail-Overlay"
       >
-        <ReservationCalendar restaurantId={id} />
-        <button onClick={() => setModalIsOpen(false)} className="RestaurantDetail-close-modal">
-          닫기
-        </button>
+        <ReservationCalendar
+          restaurantId={id}
+          closeModal={() => setModalIsOpen(false)}
+        />
       </Modal>
     </div>
   );

@@ -4,8 +4,7 @@
 
 .main-tabs {
   display: flex;
-  border-bottom: 2px solid #ddd;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .main-tabs button {
@@ -18,12 +17,13 @@
 }
 
 .main-tabs .active {
-  border-bottom: 2px solid black;
+  font-weight: bold;
 }
 
 .tabs {
   display: flex;
   border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   margin-bottom: 20px;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .tabs .active {
-  border-bottom: 2px solid black;
+  font-weight: bold;
 }
 
 .content {
@@ -54,7 +54,7 @@
 }
 
 .explore-restaurants {
-  background-color: blue;
+  background-color: #f55a5a;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -72,28 +72,65 @@
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
+}
+
+.reservation-card-content {
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
+  align-items: center;
 }
 
 .reservation-image {
-  width: 100px;
-  height: auto;
-  margin-bottom: 10px;
+  width: 150px; 
+  height: 150px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.reservation-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .reservation-text {
   font-size: 14px;
   margin: 5px 0;
+  padding: 0;
+}
+
+.reservation-text-name{
+  font-size: 15px;
+  font-weight: bold;
+  margin: 5px 0;
+  padding: 0;
 }
 
 .cta-section {
   margin-top: 20px;
 }
 
-hr {
+.write-review-button {
+  background-color:#f55a5a;
+  color: white;
   border: none;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
+  padding: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.write-review-button:hover {
+  background-color: #f95151; /* 호버 시 색상 변경 */
+}
+
+.review-completed-button{
+  background-color:#989898;
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
 }

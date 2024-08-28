@@ -23,7 +23,7 @@
 }
 
 /* 슬라이더 */
-.slider {
+.ButtonClickFCM-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -36,7 +36,7 @@
 }
 
 /* 슬라이더 내부의 원형 */
-.slider:before {
+.ButtonClickFCM-slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -49,19 +49,19 @@
 }
 
 /* 체크된 상태에서의 스타일 */
-input:checked + .slider {
+input:checked + .ButtonClickFCM-slider {
     background-color: #2196F3;
 }
 
 /* 체크된 상태에서 슬라이더 원형 이동 */
-input:checked + .slider:before {
+input:checked + .ButtonClickFCM-slider:before {
     transform: translateX(26px);
 }
 
 /* 원형 슬라이더 스타일 */
-.slider.round {
+.ButtonClickFCM-slider.round {
     border-radius: 34px;
 }
-.slider.round:before {
+.ButtonClickFCM-slider.round:before {
     border-radius: 50%;
 }

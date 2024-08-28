@@ -1,15 +1,71 @@
 .AskDetailComponent-container {
-    margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* 페이지 전체 배경을 연한 회색으로 설정 */
+  padding: 20px;
+}
+
+.AskDetailComponent-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.AskDetailComponent-titleBox {
+  width: 400px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: left; /* 왼쪽 정렬 */
+  outline: 2px solid #f55a5a; /* 박스 외곽선 */
+}
+
+.AskDetailComponent-contentBox {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  white-space: pre-wrap; /* 줄바꿈이 적용되도록 설정 */
+  margin-bottom: 50px; /* 문의 내용과 답변 사이 간격 */
+}
+
+.AskDetailComponent-answerTitle {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%;
+  max-width: 600px;
+  padding-left: 5px;
+  margin-top: 20px; /* 질문과의 간격 조절 */
+  margin-bottom: 10px;
+}
+
+.loading, .error, .no-inquiry {
+  font-size: 18px;
+  color: #666;
+}
+
+/* @media (max-width: 768px) {
+  .AskDetailComponent-title, .AskDetailComponent-titleBox, .AskDetailComponent-contentBox {
+    font-size: 16px;
+    padding: 15px;
   }
-  
+
   .AskDetailComponent-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-size: 20px;
   }
-  
-  .AskDetailComponent-content {
-    font-size: 18px;
-    line-height: 1.6;
-  }
-  
+} */
