@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from '../../utils/axiosConfig';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/icons/logo.png';
 import './ManagerRestaurantList.css';
 
 function ManagerRestaurantList() {
@@ -56,6 +57,7 @@ function ManagerRestaurantList() {
   return (
     <div>
       <div className="header">
+        <img src={logo} className="logo" />
         <div className="ManagerRestaurantList-title">나의 가게 목록</div>
       </div>
       { restaurants.map((restaurant, index) => (

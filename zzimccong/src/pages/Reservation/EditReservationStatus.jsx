@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axiosConfig";
 import "./EditReservationStatus.css";
+import logo from '../../assets/icons/logo.png';
+import { useNavigate } from "react-router-dom";
 
 function EditReservationStatus() {
   const [reservations, setReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [newStatus, setNewStatus] = useState("");
   const [view, setView] = useState("대기"); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -58,9 +61,23 @@ function EditReservationStatus() {
     (reservation) => reservation.state !== "예약 대기"
   );
 
+  const handleShowAnalysis = () => {
+    if (selectedReservation) {
+      const role = selectedReservation.userId ? "USER" : "CORP";
+      const userId = selectedReservation.userId || selectedReservation.corpId;
+      const userName=selectedReservation.userName;
+      const corpName=selectedReservation.corpName;
+
+      navigate(`/analysis/${userId}`, {
+        state: { userId, role, userName, corpName },
+      });
+    }
+  };
+
   return (
     <div>
       <div className="header">
+        <img src={logo} className="logo" />
         <div className="edit-reservaion-status-title">나의 가게 예약 현황</div>
       </div>
       <div className="edit-reservaion-status-button-container">
@@ -93,6 +110,7 @@ function EditReservationStatus() {
                   ) : reservation.userName == null ? (
                     <p>예약자명: {reservation.corpName}</p>
                   ) : null}
+                  <button className="EditReservationStatus-analysis" onClick={handleShowAnalysis}>예약자 정보</button>
               </div>
             ))}
           </div>

@@ -5,22 +5,27 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import image1 from "../../assets/icons/Carousel1.png";
+import image2 from "../../assets/icons/Carousel2.png";
+import image3 from "../../assets/icons/Carousel3.png";
+import image4 from "../../assets/icons/Carousel4.png";
+
 const slideItem = [
   {
     id: 0,
-    url: "https://ugc-images.catchtable.co.kr/admin/marketing/banner/images/3bf5d2c1564a46368375bae358767d3f",
+    url: image1,
   },
   {
     id: 1,
-    url: "https://ugc-images.catchtable.co.kr/admin/marketing/banner/images/62a52aa955f949c589aae83ad0eb00c3",
+    url: image2,
   },
   {
     id: 2,
-    url: "https://ugc-images.catchtable.co.kr/admin/marketing/banner/images/077887ecd3fc4ba2a38c1d0e370b7d5f",
+    url: image3,
   },
   {
     id: 3,
-    url: "https://d3kzx7mqemhf0.cloudfront.net/common_img/comm_2422211081434326.webp",
+    url: image4,
   },
 ];
 

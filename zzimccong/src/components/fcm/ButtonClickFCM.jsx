@@ -109,7 +109,7 @@ const ButtonClickFCM = () => {
             <div className="FCM-set"> 알림 설정</div>
                 <label className="switch">
                     <input type="checkbox" checked={isToggled} onChange={handleToggleChange} />
-                    <span className="slider round"></span>
+                    <span className="ButtonClickFCM-slider round"></span>
                 </label>
                 
                 {tokenSaved && <p className="token-status">허용됨</p>}

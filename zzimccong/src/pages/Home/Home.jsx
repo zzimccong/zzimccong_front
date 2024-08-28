@@ -21,10 +21,11 @@ export default function Home() {
   return (
     <main className="main ">
       {/* 캐러셀 */}
-      <ShortCut/>
+      <div className="mt-[70px]"></div>
       <section className="gap shortcut-gap"></section>
       <Carousel className="carousel"/>
-      <section className="gap shortcut-gap"></section>
+      {/* <section className="gap shortcut-gap"></section> */}
+      <ShortCut/>
 
       <section className="section pb-[45px]">
         <div className="px-[20px]">

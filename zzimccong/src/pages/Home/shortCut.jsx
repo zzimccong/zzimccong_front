@@ -42,7 +42,7 @@ export default function ShortCut() {
   const navigate = useNavigate();
 
   return (
-    <section className="shorcut-list-wrap pb-[20px] px-[20px] mt-[120px]">
+    <section className="shorcut-list-wrap pb-[20px] px-[20px] mt-[20px]">
       <div className="shortcut-list">
         {shortcutItem.map((item) => {
           return (

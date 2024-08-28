@@ -50,7 +50,8 @@ import AdminAnswerRegister from './pages/Ask/AdminAnswerRegister.jsx';
 import AskDetailComponent from './pages/Ask/AskDetailComponent.jsx';
 import ReviewCreate from './pages/Review/ReviewCreate.jsx';
 import UserReview from './pages/Review/UserReview.jsx';
-
+import UsedCoupon from './pages/MyPage/user/coupon/UsedCoupon.jsx';
+import UserAnalysis from './pages/Analysis/UserAnalysis.jsx';
 
 import SearchDefault from './pages/Search/SearchDefault.jsx';
 import "./firebase/Firebase.js"
@@ -86,7 +87,7 @@ function App() {
             {/* 회원가입 */}
             <Route path="/register" element={<Register />} />
 
-            <Route path="/kakao-register" element={<KakaoRegisterMain />}/>
+            <Route path="/kakao-register" element={<KakaoRegisterMain />} />
             <Route path="/kakao-signup" element={<KakaoRegister />} />
 
             {/* 마이페이지 */}
@@ -96,7 +97,7 @@ function App() {
             <Route path="/corporation/edit" element={<CorpEdit />} />
             <Route path="/users/edit" element={<UserEdit />} />
 
-            <Route path="/kakao/edit" element={<KakaoEdit />} /> 
+            <Route path="/kakao/edit" element={<KakaoEdit />} />
 
             {/* 비밀번호 변경 */}
             <Route path="/change-password" element={<ChangePassword />} />
@@ -104,17 +105,20 @@ function App() {
             {/* 검색 */}
             <Route path="/search" element={<Search />} />
             <Route path="/SearchDefault" element={<SearchDefault />} />
-            
+
 
             {/* 쿠폰 */}
             <Route path="/user/coupon" element={<UserCoupon setAmount={setAmount} setCouponType={setCouponType} />} />
             <Route path="/user/coupon/reservation" element={<ReservationCoupon />} />
             <Route path="/user/coupon/lottery" element={<LotteryCoupon />} />
             <Route path="/user/coupon/discount" element={<DiscountCoupon />} />
+            <Route path="/user/coupon/used" element={<UsedCoupon />} />
 
             {/* 장바구니 */}
             <Route path="/corp/cart" element={<Cart />} />
 
+            {/* 사용자 통계 */}
+            <Route path="/analysis/:userId" element={<UserAnalysis />} />
 
             {/* 결제 */}
             <Route path="/payment" element={<Payment Amount={Amount} CouponType={CouponType} />} />
@@ -156,12 +160,12 @@ function App() {
 
             <Route path="/edit-user/:id" element={<AdminUserEdit />} />
             <Route path="/edit-corp/:id" element={<AdminCorpEdit />} />
-          
+
             {/* 1:1 문의 */}
             <Route path="/ask" element={<AskComponent />} />
             <Route path="/register-ask" element={<RegisterAsk />} />
             <Route path="/inquiry/:inquiryId" element={<AskDetailComponent />} />
-            <Route path="/admin-answer-register/:inquiryId" element={<AdminAnswerRegister/>} />
+            <Route path="/admin-answer-register/:inquiryId" element={<AdminAnswerRegister />} />
 
             {/* 알림 기록 */}
             <Route path="/alram-history" element={<AlramHistory />} />

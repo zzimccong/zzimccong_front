@@ -30,7 +30,7 @@
     height: 0;
 }
 
-.slider {
+.ButtonClickFCM-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -42,7 +42,7 @@
     border-radius: 34px;
 }
 
-.slider:before {
+.ButtonClickFCM-slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -54,11 +54,11 @@
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked + .ButtonClickFCM-slider {
     background-color: #f55a5a;
 }
 
-input:checked + .slider:before {
+input:checked + .ButtonClickFCM-slider:before {
     transform: translateX(26px);
 }
 
