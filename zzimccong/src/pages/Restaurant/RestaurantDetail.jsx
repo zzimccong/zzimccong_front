@@ -84,27 +84,14 @@ function RestaurantDetail() {
       return;
     }
 
-    const reviewsApiUrl = `http://localhost:8090/app/api/reviews/restaurant?restaurantId=${id}`;
-    const ratingsApiUrl = `http://localhost:8090/app/api/reviews/average-rates?restaurantId=${id}`;
-
     Promise.all([
-      fetch(reviewsApiUrl).then((response) => {
-        if (!response.ok) {
-          throw new Error("리뷰를 불러오는 데 실패했습니다.");
-        }
-        return response.json();
-      }),
-      fetch(ratingsApiUrl).then((response) => {
-        if (!response.ok) {
-          throw new Error("평점을 불러오는 데 실패했습니다.");
-        }
-        return response.json();
-      })
+      axios.get(`/api/reviews/restaurant`, { params: { restaurantId: id } }),
+      axios.get(`/api/reviews/average-rates`, { params: { restaurantId: id } })
     ])
-      .then(([reviewsData, ratingsData]) => {
-        setReviews(reviewsData);
-        setUserAverageRating(ratingsData.USER);
-        setCorpAverageRating(ratingsData.CORP);
+      .then(([reviewsResponse, ratingsResponse]) => {
+        setReviews(reviewsResponse.data);
+        setUserAverageRating(ratingsResponse.data.USER);
+        setCorpAverageRating(ratingsResponse.data.CORP);
         setLoading(false);
       })
       .catch((error) => {
@@ -127,10 +114,10 @@ function RestaurantDetail() {
 
   const handleAddToCart = async () => {
     const userString = localStorage.getItem('user');
-    const user = JSON.parse(userString);
+    const user = userString ? JSON.parse(userString) : null;
 
-    if (isLoggedIn) {
-      const response = await axios.get(`api/cart/${user.id}`);
+    if (isLoggedIn && user) {
+      const response = await axios.get(`/api/cart/${user.id}`);
       const alreadyInCart = response.data.some(item => item.restaurant.id === Number(id));
 
       if (alreadyInCart) {
@@ -144,7 +131,7 @@ function RestaurantDetail() {
       };
 
       try {
-        const response = await axios.post('api/cart/add', cartItem, {
+        const response = await axios.post('/api/cart/add', cartItem, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -238,8 +225,8 @@ function RestaurantDetail() {
   };
 
   const userString = localStorage.getItem('user');
-  const user = JSON.parse(userString);
-  const isManager = user.role === 'MANAGER';
+  const user = userString ? JSON.parse(userString) : null;
+  const isManager = user?.role === 'MANAGER';
   const isOwner = user?.name === restaurant?.name;
   console.log("restaurant: ", restaurant);
 
@@ -503,7 +490,7 @@ function RestaurantDetail() {
         <button onClick={handleReservationClick} className="RestaurantDetail-reservation">
           예약하기
         </button>
-        {isLoggedIn && JSON.parse(localStorage.getItem('user')).role === 'CORP' && (
+        {isLoggedIn && user?.role === 'CORP' && (
           <button onClick={handleAddToCart} className="RestaurantDetail-reservation">
             장바구니
           </button>

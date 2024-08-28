@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import ReservationCalendar from '../../Calendar/ReservationCalendar';
+import PDFExportButton from './PDFExportButton';
+import PDFListUpExportButton from './PDFListUpExportButton';
 import logo from '../../../assets/icons/logo.png';
 import Modal from 'react-modal';
 import'./Cart.css';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 function Cart() {
     const navigate = useNavigate();
@@ -15,6 +17,8 @@ function Cart() {
     const [selectAll, setSelectAll] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
+    const [showPdfOptions, setShowPdfOptions] = useState(false);
+
 
     const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
@@ -48,10 +52,6 @@ function Cart() {
         } else {
             setSelectedItems([...selectedItems, restaurantId]);
         }
-    };
-
-    const handlePaper = () => {
-        console.log('문서화 처리:', selectedItems);
     };
 
     const handleCancel = async () => {
@@ -95,7 +95,11 @@ function Cart() {
     const handleReservationClick = (restaurantId) => {
         setSelectedRestaurantId(restaurantId);
         setModalIsOpen(true);
-      };
+    };
+
+    const togglePdfOptions = () => {
+        setShowPdfOptions(!showPdfOptions);
+    };
 
    
     return (
@@ -160,7 +164,42 @@ function Cart() {
                 )}
             </div>
             <div className="Cart-footer">
-                <button className="Cart-pdf-button" onClick={handlePaper}>문서화</button>
+            <div className="pdf-options">
+                    {showPdfOptions && (
+                        <div className="pdf-buttons">
+                            <PDFExportButton
+                                reservations={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .map(item => ({
+                                        restaurantId: item.restaurant.id,
+                                        reservationTime: new Date().toISOString() // 임시로 현재 시간 설정
+                                    }))}
+                                restaurantDetails={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .reduce((acc, item) => {
+                                        acc[item.restaurant.id] = item.restaurant;
+                                        return acc;
+                                    }, {})}
+                            />
+
+                            <PDFListUpExportButton
+                                reservations={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .map(item => ({ restaurantId: item.restaurant.id }))}
+                                restaurantDetails={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .reduce((acc, item) => {
+                                        acc[item.restaurant.id] = item.restaurant;
+                                        return acc;
+                                    }, {})}
+                            />
+                        </div>
+                    )}
+                    <button className="Cart-pdf-button" onClick={togglePdfOptions}>
+                        {showPdfOptions ? '닫기' : '문서화'}
+                    </button>
+                </div>
+
                 <button className="Cart-cancel-button" onClick={handleCancel}>삭제</button>
             </div>
             <Modal

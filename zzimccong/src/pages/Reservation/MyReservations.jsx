@@ -100,6 +100,10 @@ function MyReservations() {
     navigate(`/review/create?reservationId=${reservationId}`);
   };
 
+  const navigateToStoreDetails = (storeId) => {
+    navigate(`/restaurant/${storeId}`);
+  };
+
   const renderReservations = (status) => {
     const filteredReservations = reservations.filter((reservation) => {
       if (status === "upcoming") {
@@ -131,6 +135,7 @@ function MyReservations() {
                 src={restaurantDetails[reservation.restaurantId]?.photo1Url}
                 alt="restaurant"
                 className="reservation-image"
+                onClick={() => navigateToStoreDetails(reservation.restaurantId)}
               />
               <div className="reservation-details">
                 <p className="reservation-text-name">

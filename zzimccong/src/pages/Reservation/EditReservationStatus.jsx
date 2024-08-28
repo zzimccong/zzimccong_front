@@ -149,6 +149,7 @@ function EditReservationStatus() {
               <option value="">예약상태</option>
               <option value="예약 대기">예약 대기</option>
               <option value="예약 확정">예약 확정</option>
+              <option value="방문 완료">방문 완료</option>
               <option value="취소됨">취소됨</option>
               <option value="노쇼">노쇼</option>
             </select>

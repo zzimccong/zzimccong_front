@@ -14,7 +14,6 @@ const SearchComponent = () => {
   const [error, setError] = useState(null);
   const [searchPerformed, setSearchPerformed] = useState(false);
 
-
   useEffect(() => {
     const fetchData = async () => {
       if (searchPerformed) {
@@ -54,9 +53,9 @@ const SearchComponent = () => {
     setResults([]); 
     localStorage.removeItem('searchWord'); 
     localStorage.removeItem('results'); 
+    localStorage.removeItem('selectedFilters'); // 모달창 필터 설정 초기화
     navigate('/'); 
   };
-
 
   return (
     <div>
@@ -85,18 +84,18 @@ const SearchComponent = () => {
           </button>
         </form>
 
-        <div style={{overflow: 'auto', height: '710px'}}>
+        <div style={{overflow: 'auto', height: '600px'}}>
           <SearchResults
               searchWord={searchWord}
               results={results}
               loading={loading}
               error={error}
               searchPerformed={searchPerformed}
+              onBackClick={handleBackClick} // handleBackClick 전달
             />
         </div>
       </div>
     </div>
-    
   );
 };
 

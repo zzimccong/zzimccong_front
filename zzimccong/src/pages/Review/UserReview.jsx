@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './UserReview.css'; 
 import { FaStar, FaAngleDown, FaAngleUp } from 'react-icons/fa'; 
-import axios from 'axios';
-import logo from '../../assets/icons/logo.png';
+import axios from "../../utils/axiosConfig";
 
 const UserReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -24,21 +23,15 @@ const UserReviews = () => {
       return;
     }
 
-    const apiUrl = `http://localhost:8090/app/api/reviews/myreviews?userId=${userId}&role=${role}`;
-
-    fetch(apiUrl)
+    axios.get(`/api/reviews/myreviews`, {
+      params: { userId, role }
+    })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("리뷰를 불러오는 데 실패했습니다.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setReviews(data);
+        setReviews(response.data);
         setLoading(false);
       })
       .catch((error) => {
-        setError(error.message);
+        setError("리뷰를 불러오는 데 실패했습니다.");
         setLoading(false);
       });
   }, []);
@@ -47,13 +40,11 @@ const UserReviews = () => {
     const isConfirmed = window.confirm("리뷰를 삭제하시겠습니까?");
 
     if (isConfirmed) {
-      const deleteUrl = `http://localhost:8090/app/api/reviews/${reservationId}`;
-
-      axios.delete(deleteUrl)
+      axios.delete(`/api/reviews/${reservationId}`)
         .then(() => {
           setReviews(reviews.filter(review => review.reservationId !== reservationId));
         })
-        .catch((error) => {
+        .catch(() => {
           setError("리뷰를 삭제하는 데 실패했습니다.");
         });
     }
@@ -89,59 +80,53 @@ const UserReviews = () => {
   }
 
   return (
-    <div>
-      <div className="header">
-        <img src={logo} className="logo" />
-        <div className="searchcomponent_title">내가 쓴 리뷰보기</div>
-      </div>
-      <div className="user-reviews-container">
-        {reviews.length > 0 ? (
-          <ul className="user-reviews-list">
-            {reviews.map((review) => (
-              <li className="user-review-item" key={review.reservationId}>
-                <div className="user-review-box">
-                  <div className="name-rating-toggle-row">
-                    <p><strong>상호명:</strong> {review.restaurantName}</p>
-                    <div className="rating-toggle">
-                      <p><strong>평점:</strong> {review.rate}</p>
-                      <button 
-                        className="toggle-button" 
-                        onClick={() => toggleReviewDetails(review.reservationId)}
-                      >
-                        {expandedReviewIds[review.reservationId] ? <FaAngleUp /> : <FaAngleDown />}
-                      </button>
-                    </div>
+    <div className="user-reviews-container">
+      <h2 className="user-reviews-title">내가 쓴 리뷰</h2>
+      {reviews.length > 0 ? (
+        <ul className="user-reviews-list">
+          {reviews.map((review) => (
+            <li className="user-review-item" key={review.reservationId}>
+              <div className="user-review-box">
+                <div className="name-rating-toggle-row">
+                  <p><strong>상호명:</strong> {review.restaurantName}</p>
+                  <div className="rating-toggle">
+                    <p><strong>평점:</strong> {review.rate}</p>
+                    <button 
+                      className="toggle-button" 
+                      onClick={() => toggleReviewDetails(review.reservationId)}
+                    >
+                      {expandedReviewIds[review.reservationId] ? <FaAngleUp /> : <FaAngleDown />}
+                    </button>
                   </div>
-                  {expandedReviewIds[review.reservationId] && (
-                    <>
-                      <div className="user-review-rating-row">
-                        {renderStars(review.taste)}
-                        <p>맛</p>
-                      </div>
-                      <div className="user-review-rating-row">
-                        {renderStars(review.mood)}
-                        <p>분위기</p>
-                      </div>
-                      <div className="user-review-rating-row">
-                        {renderStars(review.convenient)}
-                        <p>편리함</p>
-                      </div>
-                    </>
-                  )}
-                  <div className='UserReview-user-content-box'>
-                    <p>{review.content}</p>
-                  </div>
-                  <button className='UserReview-button' onClick={() => handleDelete(review.reservationId)}>삭제</button>
                 </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>작성한 리뷰가 없습니다.</p>
-        )}
-      </div>
+                {expandedReviewIds[review.reservationId] && (
+                  <>
+                    <div className="user-review-rating-row">
+                      {renderStars(review.taste)}
+                      <p>맛</p>
+                    </div>
+                    <div className="user-review-rating-row">
+                      {renderStars(review.mood)}
+                      <p>분위기</p>
+                    </div>
+                    <div className="user-review-rating-row">
+                      {renderStars(review.convenient)}
+                      <p>편리함</p>
+                    </div>
+                  </>
+                )}
+                <div className='UserReview-user-content-box'>
+                  <p>{review.content}</p>
+                </div>
+                <button className='UserReview-button' onClick={() => handleDelete(review.reservationId)}>삭제</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>작성한 리뷰가 없습니다.</p>
+      )}
     </div>
-    
   );
 };
 
