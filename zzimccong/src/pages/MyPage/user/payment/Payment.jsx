@@ -77,7 +77,7 @@ export function Payment({ Amount, CouponType }) {
   //현재 로그인된 정보
   const user = useCurrentUser();
   const isLocalhost = window.location.hostname === 'localhost';
-  const baseUrl = isLocalhost ? 'http://localhost:3000' : 'http://10.10.10.227:3000';
+  const baseUrl = isLocalhost ? 'http://localhost:3000' : 'http://ec2-15-168-10-98.ap-northeast-3.compute.amazonaws.com:8090/app';
 
   const payment = async () => {
     console.log("결제 버튼 클릭");
