@@ -105,36 +105,6 @@ function AdminRestaurantList() {
           </tbody>
         </table>
       </div>
-      <hr className="AdminRestaurantList-hr-border"/>
-      <div>
-        <table className="AdminRestaurantList-table">
-          <thead>
-            <tr>
-              <th className="AdminRestaurantList-th">가게 이름</th>
-              <th className="AdminRestaurantList-th">가게 상태</th>
-            </tr>
-          </thead>
-          <tbody>
-            {restaurants.map((restaurant, index) => (
-              <tr key={index} className="AdminRestaurantList-tr">
-                <td className="AdminRestaurantList-td">{restaurant.name}</td>
-                <td className="AdminRestaurantList-td">
-                  <select
-                    className="AdminRestaurantList-select"
-                    value={restaurant.state}
-                    onChange={(e) => handleStateChange(restaurant.id, e.target.value)}
-                  >
-                    <option value="승인 대기 중">승인 대기 중</option>
-                    <option value="영업 중">영업 중</option>
-                    <option value="휴업">휴업</option>
-                    <option value="폐업">폐업</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }

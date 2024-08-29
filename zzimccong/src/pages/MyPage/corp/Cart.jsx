@@ -1,3 +1,4 @@
+import jsPDF from "jspdf";
 import React, { useEffect, useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
@@ -6,9 +7,49 @@ import PDFExportButton from './PDFExportButton';
 import PDFListUpExportButton from './PDFListUpExportButton';
 import logo from '../../../assets/icons/logo.png';
 import Modal from 'react-modal';
-import'./Cart.css';
+import './Cart.css';
 
 // Modal.setAppElement('#root');
+
+const loadFont = async () => {
+  try {
+    const response = await fetch('/font/NotoSansKR-Regular.ttf');
+    if (!response.ok) {
+      throw new Error('Failed to fetch font file.');
+    }
+
+    const fontBlob = await response.blob();
+    const reader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        const base64String = reader.result.split(",")[1];
+        resolve(base64String);
+      };
+
+      reader.onerror = (error) => {
+        reject("Error reading font file: " + error);
+      };
+
+      reader.readAsDataURL(fontBlob);
+    });
+  } catch (error) {
+    console.error("Error loading font:", error);
+    throw error;
+  }
+};
+
+const loadImageAsBase64 = async (imageUrl) => {
+  try {
+    const response = await axios.get('/api/image-to-base64', {
+      params: { url: imageUrl },
+    });
+    return response.data; // Base64 이미지 데이터
+  } catch (error) {
+    console.error('이미지 로드 에러:', error);
+    throw error;
+  }
+};
 
 function Cart() {
     const navigate = useNavigate();
@@ -24,8 +65,7 @@ function Cart() {
     const user = JSON.parse(userString);
 
     useEffect(() => {
-        const fetchCartItems = async () =>{
-
+        const fetchCartItems = async () => {
             try {
                 const response = await axios.get(`api/cart/${user.id}`);
                 setCartItems(response.data);
@@ -55,27 +95,27 @@ function Cart() {
     };
 
     const handleCancel = async () => {
-      const confirmDelete = window.confirm('선택한 항목을 삭제하시겠습니까?');
+        const confirmDelete = window.confirm('선택한 항목을 삭제하시겠습니까?');
         if (confirmDelete) {
             try {
-              const deleteItems = {
-                userId: user.id,
-                storeIds: selectedItems
-              };
-              console.log("전송 객체 ",deleteItems);
-              const response = await axios.post('/api/cart/delete', deleteItems, {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              });
+                const deleteItems = {
+                    userId: user.id,
+                    storeIds: selectedItems
+                };
+                console.log("전송 객체 ", deleteItems);
+                const response = await axios.post('/api/cart/delete', deleteItems, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-              if (response.status === 200) {
-                  console.log('삭제 성공:', response.data);
-                  setCartItems(cartItems.filter(item => !selectedItems.includes(item.restaurant.id)));
-                  setSelectedItems([]);
-              } else {
-                  console.error('삭제 실패:', response.data);
-              }
+                if (response.status === 200) {
+                    console.log('삭제 성공:', response.data);
+                    setCartItems(cartItems.filter(item => !selectedItems.includes(item.restaurant.id)));
+                    setSelectedItems([]);
+                } else {
+                    console.error('삭제 실패:', response.data);
+                }
             } catch (err) {
                 console.error('삭제 중 오류 발생:', err);
             }
@@ -83,13 +123,12 @@ function Cart() {
     };
 
     const navigateToStoreDetails = (storeId) => {
-        navigate(`/restaurant/${storeId}`);  
+        navigate(`/restaurant/${storeId}`);
     };
-  
-      //주소 파싱                                      
-      const getShortAddress = (address) => {
-        const parts = address.split(' ');  
-        return parts.slice(0, 2).join(' ');  
+
+    const getShortAddress = (address) => {
+        const parts = address.split(' ');
+        return parts.slice(0, 2).join(' ');
     };
 
     const handleReservationClick = (restaurantId) => {
@@ -101,7 +140,6 @@ function Cart() {
         setShowPdfOptions(!showPdfOptions);
     };
 
-   
     return (
         <div>
           <div className="header">

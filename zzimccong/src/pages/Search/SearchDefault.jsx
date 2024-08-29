@@ -1,4 +1,5 @@
 import './SearchDefault.css';
+import { useNavigate } from 'react-router-dom';
 import search1 from "../../assets/icons/search1.png";
 import search2 from "../../assets/icons/search2.png";
 import search3 from "../../assets/icons/search3.png";
@@ -9,7 +10,12 @@ import searchBanner from "../../assets/icons/searchBanner.png";
 
 const SearchDefault = () => {
   
+  const navigator = useNavigate();
+  const navigate = useNavigate();
 
+  const navigateToStoreDetails = (storeId) => {
+    navigate(`/restaurant/${storeId}`);
+  };
 
   return (
     <div className="search-default">
@@ -17,17 +23,13 @@ const SearchDefault = () => {
         <h4></h4>
         <div className="category-cards">
           <div className="card">
-            {/* 추첨 */}
-            {/* onClick={()=>navigator(`/`)} */}
-            <img src={search1} alt="Restaurant 1" />
+            <img src={search1} alt="Restaurant 1" onClick={()=>navigator(`/event-list`)}/>
           </div>
           <div className="card">
-            {/* 해목 */}
-            <img src={search3} alt="Restaurant 2" />
+            <img src={search3} alt="Restaurant 2" onClick={() => navigateToStoreDetails(18)}/>
           </div>
           <div className="card">
-            {/* 회식장소 */}
-            <img src={search2} alt="Restaurant 3" />
+            <img src={search2} alt="Restaurant 3" onClick={() => navigateToStoreDetails(63)}/>
           </div>
         </div>
       </div>
@@ -36,16 +38,13 @@ const SearchDefault = () => {
       <h4 style={{display: 'flex'}}>여기는 어떠세요? <p style={{ fontSize: '12px', marginLeft: '5px', marginTop: '5px'}}>광고</p></h4>
         <div className="keyword-cards">
           <div className="keyword-card">
-            {/* 이재모피자 */}
-            <img src={searchkeyword1} alt="Keyword 1" /> 
+            <img src={searchkeyword1} alt="Keyword 1" onClick={() => navigateToStoreDetails(9)}/> 
           </div>
           <div className="keyword-card">
-            {/* 톤쇼우광안점 */}
-            <img src={searchkeyword2} alt="Keyword 2" />
+            <img src={searchkeyword2} alt="Keyword 2" onClick={() => navigateToStoreDetails(79)}/>
           </div>
           <div className="keyword-card">
-            {/* 해운대암소갈비 */}
-            <img src={searchkeyword3} alt="Keyword 3" />
+            <img src={searchkeyword3} alt="Keyword 3" onClick={() => navigateToStoreDetails(14)}/>
           </div>
         </div>
       </div>
