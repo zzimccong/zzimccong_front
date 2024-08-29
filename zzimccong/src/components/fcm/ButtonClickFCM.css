@@ -1,13 +1,22 @@
 .fcm-container {
     display: flex;
-    align-items: center; /* 수직으로 가운데 정렬 */
+    align-items: center; 
+}
+
+.FCM-set {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 20px;
+    width: 82%;
+    font-size: 16px;
+    position: relative;
 }
 
 .token-status {
-    margin-left: 10px; /* 버튼과 텍스트 사이의 간격 */
+    margin-left: 10px; 
 }
 
-/* 스위치 컨테이너 */
 .switch {
     position: relative;
     display: inline-block;
@@ -15,15 +24,13 @@
     height: 34px;
 }
 
-/* 숨겨진 체크박스 */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* 슬라이더 */
-.slider {
+.ButtonClickFCM-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -35,8 +42,7 @@
     border-radius: 34px;
 }
 
-/* 슬라이더 내부의 원형 */
-.slider:before {
+.ButtonClickFCM-slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -48,17 +54,14 @@
     border-radius: 50%;
 }
 
-/* 체크된 상태에서의 스타일 */
-input:checked + .slider {
-    background-color: #2196F3;
+input:checked + .ButtonClickFCM-slider {
+    background-color: #f55a5a;
 }
 
-/* 체크된 상태에서 슬라이더 원형 이동 */
-input:checked + .slider:before {
+input:checked + .ButtonClickFCM-slider:before {
     transform: translateX(26px);
 }
 
-/* 원형 슬라이더 스타일 */
 .slider.round {
     border-radius: 34px;
 }

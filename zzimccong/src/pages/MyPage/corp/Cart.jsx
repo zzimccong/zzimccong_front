@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import ReservationCalendar from '../../Calendar/ReservationCalendar';
+import PDFExportButton from './PDFExportButton';
+import PDFListUpExportButton from './PDFListUpExportButton';
+import logo from '../../../assets/icons/logo.png';
 import Modal from 'react-modal';
 import './Cart.css';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 const loadFont = async () => {
   try {
@@ -55,6 +58,8 @@ function Cart() {
     const [selectAll, setSelectAll] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
+    const [showPdfOptions, setShowPdfOptions] = useState(false);
+
 
     const userString = localStorage.getItem('user');
     const user = JSON.parse(userString);
@@ -87,97 +92,6 @@ function Cart() {
         } else {
             setSelectedItems([...selectedItems, restaurantId]);
         }
-    };
-
-    const splitTextToFitWidth = (doc, text, maxWidth) => {
-        if (doc.getTextWidth(text) > maxWidth) {
-            return doc.splitTextToSize(text, maxWidth);
-        }
-        return text;
-    };
-
-    const generatePDF = async () => {
-        try {
-            const base64Font = await loadFont();
-            const doc = new jsPDF("landscape");  // 가로 형식으로 설정
-
-            doc.addFileToVFS("NotoSansKR-Regular.ttf", base64Font);
-            doc.addFont("NotoSansKR-Regular.ttf", "NotoSansKR", "normal");
-            doc.setFont("NotoSansKR", "normal");
-            doc.setFontSize(10); // 폰트 크기 조정
-
-            let y = 10; // Y 좌표 시작 위치
-            const cellPadding = 5;
-            const headerHeight = 20; // 1행의 높이
-            const cellHeight = 60; // 셀 높이 조정
-            const imageWidth = 50; // 이미지 너비 조정 (크게 조정)
-            const imageHeight = 50; // 이미지 높이 조정 (크게 조정)
-            const columnWidths = [60, 35, 35, 35, 30, 45]; // 사진 열 너비를 넓히고 나머지 열 너비를 줄임
-
-            // 테이블 헤더 생성
-            const headers = ['사진', '레스토랑 이름', '카테고리', '주소', '전화번호', '웹사이트'];
-            let x = 10; // X 좌표 시작 위치
-
-            headers.forEach((header, index) => {
-                doc.text(header, x + cellPadding, y + cellPadding);
-                doc.rect(x, y, columnWidths[index], headerHeight);
-                x += columnWidths[index];
-            });
-
-            y += headerHeight; // 다음 행으로 이동
-
-            // 테이블 내용 생성
-            for (const cartItem of cartItems) {
-                if (selectedItems.includes(cartItem.restaurant.id)) {
-                    x = 10; // X 좌표 초기화
-                    const base64Image = await loadImageAsBase64(cartItem.restaurant.photo1Url);
-                    
-                    // 이미지 셀 추가
-                    doc.addImage(base64Image, 'JPEG', x + cellPadding, y + (cellHeight - imageHeight) / 2, imageWidth, imageHeight);
-                    doc.rect(x, y, columnWidths[0], cellHeight);
-                    x += columnWidths[0];
-
-                    // 레스토랑 이름 셀 추가
-                    const restaurantName = splitTextToFitWidth(doc, cartItem.restaurant.name, columnWidths[1] - cellPadding * 2);
-                    doc.text(restaurantName, x + cellPadding, y + cellPadding + 10);
-                    doc.rect(x, y, columnWidths[1], cellHeight);
-                    x += columnWidths[1];
-
-                    // 카테고리 셀 추가
-                    const category = splitTextToFitWidth(doc, cartItem.restaurant.category, columnWidths[2] - cellPadding * 2);
-                    doc.text(category, x + cellPadding, y + cellPadding + 10);
-                    doc.rect(x, y, columnWidths[2], cellHeight);
-                    x += columnWidths[2];
-
-                    // 주소 셀 추가
-                    const address = splitTextToFitWidth(doc, cartItem.restaurant.roadAddress, columnWidths[3] - cellPadding * 2);
-                    doc.text(address, x + cellPadding, y + cellPadding + 10);
-                    doc.rect(x, y, columnWidths[3], cellHeight);
-                    x += columnWidths[3];
-
-                    // 전화번호 셀 추가
-                    const phoneNumber = splitTextToFitWidth(doc, cartItem.restaurant.phoneNumber, columnWidths[4] - cellPadding * 2);
-                    doc.text(phoneNumber, x + cellPadding, y + cellPadding + 10);
-                    doc.rect(x, y, columnWidths[4], cellHeight);
-                    x += columnWidths[4];
-
-                    // 웹사이트 셀 추가
-                    const link = splitTextToFitWidth(doc, cartItem.restaurant.link, columnWidths[5] - cellPadding * 2);
-                    doc.text(link, x + cellPadding, y + cellPadding + 10);
-                    doc.rect(x, y, columnWidths[5], cellHeight);
-
-                    y += cellHeight; // 다음 행으로 이동
-                }
-            }
-
-            doc.save("cart.pdf");
-        } catch (error) {
-            console.error("Error generating PDF:", error);
-        }
-    };
-
-    const handlePaper = () => {
-        generatePDF();
     };
 
     const handleCancel = async () => {
@@ -222,21 +136,26 @@ function Cart() {
         setModalIsOpen(true);
     };
 
+    const togglePdfOptions = () => {
+        setShowPdfOptions(!showPdfOptions);
+    };
+
     return (
         <div>
-            <div className="header">
-                <div className="title">장바구니</div>
-            </div>
-            <div className="cart-items">
+          <div className="header">
+            <img src={logo} className="logo" />
+            <div className="searchcomponent_title">장바구니</div>
+          </div>
+          <div className="Cart-items">
                 {cartItems.length > 0 ? (
                     <div>
-                        <div>
+                        <div style={{display:"flex", margin:'10px'}}>
                             <input
                                 type="checkbox"
                                 checked={selectAll}
                                 onChange={handleSelectAll}
                             />
-                            <label>전체선택</label>
+                            <label style={{display:"flex", marginLeft:'10px'}} >전체선택</label>
                         </div>
                         {cartItems.map((cart) => (
                             <div
@@ -248,9 +167,10 @@ function Cart() {
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <input
                                         type="checkbox"
+                                        style={{marginLeft:'8px'}}
                                         checked={selectedItems.includes(cart.restaurant.id)}
                                         onChange={() => handleSelectItem(cart.restaurant.id)}
-                                        onClick={(e) => e.stopPropagation()} // 이미지 클릭과 체크박스 클릭을 분리
+                                        onClick={(e) => e.stopPropagation()} 
                                     />
                                     <img
                                         src={cart.restaurant.photo1Url}
@@ -265,47 +185,77 @@ function Cart() {
                                         <div className="restaurant-category">
                                             {cart.restaurant.category} / {getShortAddress(cart.restaurant.roadAddress)}
                                         </div>
-                                        <div>
-                                            {cart.restaurant.phoneNumber}
-                                        </div>
-                                        <div>
-                                            {cart.restaurant.link}
-                                        </div>
+                                        <button 
+                                            className="Cart-reservation"
+                                            onClick={(e) => {e.stopPropagation();
+                                                handleReservationClick(cart.restaurant.id);}} >
+                                            예약하기
+                                        </button>
                                     </div>
                                 </div>
-                                <button 
-                                    className="reservation"
-                                    onClick={(e) => {e.stopPropagation();
-                                        handleReservationClick(cart.restaurant.id);}} >
-                                    예약하기
-                                </button>
                                 <hr style={{ width: '435px', margin: 'auto' }} />
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div>장바구니가 비어 있습니다.</div>
+                    <div className='Cart-empty'>장바구니가 비어 있습니다.</div>
                 )}
             </div>
-            <div className="footer">
-                <button className="reserve-button" onClick={handlePaper}>문서화</button>
-                <button className="cancel-button" onClick={handleCancel}>삭제</button>
+            <div className="Cart-footer">
+            <div className="pdf-options">
+                    {showPdfOptions && (
+                        <div className="pdf-buttons">
+                            <PDFExportButton
+                                reservations={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .map(item => ({
+                                        restaurantId: item.restaurant.id,
+                                        reservationTime: new Date().toISOString() // 임시로 현재 시간 설정
+                                    }))}
+                                restaurantDetails={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .reduce((acc, item) => {
+                                        acc[item.restaurant.id] = item.restaurant;
+                                        return acc;
+                                    }, {})}
+                            />
+
+                            <PDFListUpExportButton
+                                reservations={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .map(item => ({ restaurantId: item.restaurant.id }))}
+                                restaurantDetails={cartItems
+                                    .filter(item => selectedItems.includes(item.restaurant.id))
+                                    .reduce((acc, item) => {
+                                        acc[item.restaurant.id] = item.restaurant;
+                                        return acc;
+                                    }, {})}
+                            />
+                        </div>
+                    )}
+                    <button className="Cart-pdf-button" onClick={togglePdfOptions}>
+                        {showPdfOptions ? '닫기' : '문서화'}
+                    </button>
+                </div>
+
+                <button className="Cart-cancel-button" onClick={handleCancel}>삭제</button>
             </div>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
-                className="Modal"
-                overlayClassName="Overlay"
+                className="RestaurantDetail-Modal"
+                overlayClassName="RestaurantDetail-Overlay"
             >
                 {selectedRestaurantId && (
                     <ReservationCalendar restaurantId={selectedRestaurantId} />
                 )}
-                <button onClick={() => setModalIsOpen(false)} className="close-modal">
+                <button onClick={() => setModalIsOpen(false)} className="RestaurantDetail-close-modal">
                     닫기
                 </button>
             </Modal>
         </div>
-    );
+        
+      );
 }
 
 export default Cart;

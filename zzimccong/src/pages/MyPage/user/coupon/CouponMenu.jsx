@@ -22,7 +22,7 @@ const ReservationCoupon = () => {
           <span className="arrow">&gt;</span>
         </button>
         <hr/>
-        <button className="menu-option" >
+        <button className="menu-option" onClick={() => navigate('/user/coupon/used')}>
           사용 내역
           <span className="arrow">&gt;</span>
         </button>

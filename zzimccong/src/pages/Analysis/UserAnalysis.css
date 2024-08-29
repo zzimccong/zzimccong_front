@@ -1,0 +1,54 @@
+/* src/styles/UserAnalysis.css */
+
+.UserAnalysis-container {
+    background-color: #f4f4f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .UserAnalysis-card {
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%; /* 크기를 줄여서 중앙에 더 잘 맞추기 위해 */
+    height: 700px;
+  }
+  
+  .UserAnalysis-title {
+    font-size: 20px;
+    margin-bottom: 50px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .UserAnalysis-stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .UserAnalysis-stats {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 50px;
+  }
+  
+  .UserAnalysis-chart-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .UserAnalysis-noshow-rate {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+  }
+  

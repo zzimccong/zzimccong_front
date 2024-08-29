@@ -5,19 +5,18 @@ import axios from "../../utils/axiosConfig";
 import "./ReservationCalendar.css";
 import { AuthContext } from "../../context/AuthContext";
 
-function ReservationCalendar({ restaurantId }) {
+function ReservationCalendar({ restaurantId, closeModal }) {
   const { user } = useContext(AuthContext);
   const [date, setDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [count, setCount] = useState(2);
   const [request, setRequest] = useState("");
   const [availableSeats, setAvailableSeats] = useState(0);
-  const [couponCount, setCouponCount] = useState(0); // 쿠폰 수 상태 추가
+  const [couponCount, setCouponCount] = useState(0); 
   const [loading, setLoading] = useState(false);
 
   const times = ["17:00", "17:30", "18:00", "18:30", "19:00", "19:30"];
 
-  // 날짜 또는 시간이 변경될 때마다 남은 좌석 수 조회
   useEffect(() => {
     if (selectedTime) {
       const reservationTime = new Date(date);
@@ -46,7 +45,6 @@ function ReservationCalendar({ restaurantId }) {
     }
   }, [date, selectedTime, restaurantId]);
 
-  // 초기 렌더링 시 쿠폰 수 가져오기
   useEffect(() => {
     if (user) {
       axios
@@ -67,7 +65,7 @@ function ReservationCalendar({ restaurantId }) {
   const handleDateChange = (date) => {
     setDate(date);
     setSelectedTime(null);
-    setAvailableSeats(0); // 좌석 수 초기화
+    setAvailableSeats(0); 
   };
 
   const handleTimeClick = (time) => {
@@ -107,7 +105,7 @@ function ReservationCalendar({ restaurantId }) {
           },
         })
         .then((response) => {
-          console.log('Coupon Count:', response.data); // 응답 데이터 로그 출력
+          console.log('Coupon Count:', response.data); 
           const couponCnt = response.data;
           if (couponCnt < 2 || couponCnt === 0) {
             alert("예약권이 부족하여 예약이 불가합니다.");
@@ -131,22 +129,22 @@ function ReservationCalendar({ restaurantId }) {
     reservationTime.setHours(parseInt(hours, 10));
     reservationTime.setMinutes(parseInt(minutes, 10));
     reservationTime.setSeconds(0, 0);
-  
+
     const reservationRegistrationTime = new Date();
-  
+
     const utcReservationTime = new Date(
       reservationTime.getTime() - reservationTime.getTimezoneOffset() * 60000
     );
     const utcReservationRegistrationTime = new Date(
       reservationRegistrationTime.getTime() -
-        reservationRegistrationTime.getTimezoneOffset() * 60000
+      reservationRegistrationTime.getTimezoneOffset() * 60000
     );
-  
+
     let reservation;
     if (user.role === "USER" || user.role === "MANAGER") {
       reservation = {
-        restaurantId: restaurantId ,
-        userId: user.id ,
+        restaurantId: restaurantId,
+        userId: user.id,
         corporationId: null,
         reservationTime: utcReservationTime,
         reservationRegistrationTime: utcReservationRegistrationTime,
@@ -167,9 +165,8 @@ function ReservationCalendar({ restaurantId }) {
       };
     }
 
-    // 예약 데이터 로그 출력
     console.log("Reservation Data being sent:", reservation);
-  
+
     axios
       .post("/api/reservations", reservation, {
         headers: {
@@ -178,11 +175,10 @@ function ReservationCalendar({ restaurantId }) {
         },
       })
       .then((response) => {
-        console.log("Reservation Response:", response.data); // 서버 응답 로그 출력
-        alert(`예약 성공: ${response.data}`);
+        console.log("Reservation Response:", response.data); 
+        alert(`예약되었습니다.`);
         setAvailableSeats((prevSeats) => prevSeats - count);
-  
-        // 서버에서 최신 쿠폰 수를 다시 가져오기
+
         axios
           .get(`/api/coupons/${user.id}/reservation/cnt`, {
             headers: {
@@ -190,7 +186,7 @@ function ReservationCalendar({ restaurantId }) {
             },
           })
           .then((response) => {
-            setCouponCount(response.data); // 최신 쿠폰 수 업데이트
+            setCouponCount(response.data);
           })
           .catch((error) => {
             console.error("최신 쿠폰 수 조회 중 오류가 발생했습니다.", error);
@@ -198,18 +194,20 @@ function ReservationCalendar({ restaurantId }) {
       })
       .catch((error) => {
         if (error.response) {
-          console.error("예약 실패: ", error.response.data); // 서버 오류 응답 로그 출력
+          console.error("예약 실패: ", error.response.data);
         } else {
-          console.error("예약 실패: ", error.message); // 기타 오류 로그 출력
+          console.error("예약 실패: ", error.message); 
         }
-        alert("예약 중 오류가 발생했습니다.");
+        alert("예약 실패했습니다.");
       });
   };
-  
+
   return (
     <div className="container">
-      <p>남은 좌석 수: {loading ? "조회 중..." : `${availableSeats}명`}</p>
-      <p>현재 예약권 수: {couponCount}개</p> {/* 현재 쿠폰 수 표시 */}
+
+
+      <p className="ReservationCalendar-seat">남은 좌석 수: {loading ? "조회 중..." : `${availableSeats}명`}</p>
+      <p>현재 예약권 수: {couponCount}개</p>
 
       <div className="calendar">
         <Calendar
@@ -219,6 +217,7 @@ function ReservationCalendar({ restaurantId }) {
           className="react-calendar"
         />
       </div>
+
       <div className="button-group">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
           <button
@@ -247,11 +246,16 @@ function ReservationCalendar({ restaurantId }) {
           value={request}
           onChange={handleRequestChange}
         />
-      </div>      
-      
-      <button onClick={handleReservation} className="reservation">
-        예약하기
-      </button>
+      </div>
+
+      <div className="button-row">
+        <button onClick={handleReservation} className="reservation">
+          예약하기
+        </button>
+        <button onClick={closeModal} className="close-button">
+          닫기
+        </button>
+      </div>
     </div>
   );
 }

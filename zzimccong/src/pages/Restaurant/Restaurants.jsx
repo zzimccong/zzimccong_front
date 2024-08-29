@@ -126,30 +126,31 @@ function Restaurants() {
                 <img src={restaurant.mainPhotoUrl} alt={restaurant.name} className="restaurant-image" />
                 <div className="restaurant-title">
                   <h3>{restaurant.name}</h3>
-                  <svg
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent navigation when clicking the SVG
-                      toggleFavorite(restaurant.id);
-                    }}
-                    width="20px"
-                    height="20px"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                      marginLeft: '8px',
-                      cursor: 'pointer',
-                      fill: favoritedRestaurants[restaurant.id] ? 'red' : 'none', // Change color when favorited
-                      stroke: favoritedRestaurants[restaurant.id] ? 'red' : '#000000',
-                    }}
-                  >
-                    <g id="ic-folder-heart">
-                      <path className="cls-1" d="M16.41,13.1a2.88,2.88,0,0,1,4.08,4.08l-.74-.74h0L15.67,22h0l-4.07-4.08h0l-.75-.74a2.88,2.88,0,0,1,4.08-4.08l.75.74Z" />
-                      <path className="cls-2" d="M8,20.3H4a2,2,0,0,1-2-2V7.3H20a2,2,0,0,1,2,2" />
-                      <path className="cls-2" d="M2,11.1v-6a1,1,0,0,1,.91-1h8.86a.89.89,0,0,1,.64.29L14,7.3" />
-                    </g>
-                  </svg>
+                  {/* <div className="restaurant-details-row"> */}
+                    <svg
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevent navigation when clicking the SVG
+                        toggleFavorite(restaurant.id);
+                      }}
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{
+                        cursor: 'pointer',
+                        fill: favoritedRestaurants[restaurant.id] ? 'red' : 'none', // Change color when favorited
+                        stroke: favoritedRestaurants[restaurant.id] ? 'red' : '#000000',
+                      }}
+                    >
+                      <g id="ic-folder-heart">
+                        <path className="cls-1" d="M16.41,13.1a2.88,2.88,0,0,1,4.08,4.08l-.74-.74h0L15.67,22h0l-4.07-4.08h0l-.75-.74a2.88,2.88,0,0,1,4.08-4.08l.75.74Z" />
+                        <path className="cls-2" d="M8,20.3H4a2,2,0,0,1-2-2V7.3H20a2,2,0,0,1,2,2" />
+                        <path className="cls-2" d="M2,11.1v-6a1,1,0,0,1,.91-1h8.86a.89.89,0,0,1,.64.29L14,7.3" />
+                      </g>
+                    </svg>
+                    <p className="category">{restaurant.category}</p>
+                  {/* </div> */}
                 </div>
-                <p className="category">{restaurant.category}</p>
                 <p className="address">{getShortenedAddress(restaurant.roadAddress)}</p>
               </Link>
             </SwiperSlide>
@@ -159,8 +160,8 @@ function Restaurants() {
         <div className="swiper-pagination"></div>
       </div>
       <div className="swiper-buttons">
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
+        {/* <div className="swiper-button-prev"></div> */}
+        {/* <div className="swiper-button-next"></div> */}
       </div>
     </div>
   );

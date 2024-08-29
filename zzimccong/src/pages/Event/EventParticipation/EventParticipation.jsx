@@ -40,9 +40,9 @@ function EventParticipation() {
         <div>
             <div className="header-wrapper flex px-[20px]">
                 <div className="header-left flex items-center">
-                    <h1 className="text-xl h-[47px] leading-[47px] font-bold">
-                        추첨 이벤트
-                    </h1>
+                <h1 className="text-xl h-[47px] leading-[47px] font-bold" style={{ color: '#f55a5a' }}>
+    추첨 이벤트
+</h1>
                 </div>
                 <div className="header-right flex items-center ml-auto">
                     <button type="button" className="btn-icon alarm"></button>

@@ -107,7 +107,12 @@ export default function RouletteWheel({ eventId }) {
 
             setTimeout(() => {
                 setWinner({ name: winnerName, index: winnerIndex });
-                setWinnerMessage(`축하합니다! ${winnerName} 님이 당첨되었습니다!`); // 당첨자 메시지 설정
+                setWinnerMessage(`축하합니다! ${winnerName} 님이 당첨되었습니다!`);
+
+                setTimeout(() => {
+                    setWinnerMessage(null);  // 메시지를 몇 초 뒤에 사라지게 함
+                }, 3000);  // 3초 뒤 메시지 사라짐
+
                 setSpinning(false);
             }, 4000);
 
@@ -126,7 +131,7 @@ export default function RouletteWheel({ eventId }) {
             <canvas ref={wheelRef} width="250" height="250" className="roulette-wheel"/>
             <div className="roulette-pointer"></div>
             <div className="roulette-buttons">
-                <button onClick={rotateRoulette} disabled={spinning || participantNames.length === 0}>
+                <button className="spin-button always-transparent" onClick={rotateRoulette} disabled={spinning || participantNames.length === 0}>
                     {spinning ? '추첨 중...' : '추첨 돌리기'}
                 </button>
                 <button className="orange-button" onClick={handleShowMyPosition}>
@@ -148,31 +153,37 @@ export default function RouletteWheel({ eventId }) {
                 >
                     내 당첨확률
                 </button>
-                {showWinProbability && (
-                    <div className="win-probability-section modal-content">
-                        {winProbability !== null ? (
-                            <>
-                                <h3>내 당첨확률</h3>
-                                <p>{winProbability}%</p>
-                            </>
-                        ) : (
-                            <p>응모 후 확인하실 수 있습니다.</p>
-                        )}
-                    </div>
-                )}
                 {showParticipants && (
-                    <div className="modal-content participants-list open">
-                        <ul>
-                            참여자 목록
-                            {participantNames.map((name, index) => (
-                                <li key={index}>{name}</li>
-                            ))}
-                        </ul>
+                    <div className="modal-overlay-roulette">
+                        <div className="modal-content-roulette participants-list open">
+                            <button className="modal-close-roulette" onClick={() => setShowParticipants(false)}>×</button>
+                            <ul>
+                                참여자 목록
+                                {participantNames.map((name, index) => (
+                                    <li key={index}>{name}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 )}
-                {winnerMessage && ( // 당첨자 메시지 표시
+                {showWinProbability && (
+                    <div className="modal-overlay-roulette">
+                        <div className="modal-content-roulette">
+                            <button className="modal-close-roulette" onClick={() => setShowWinProbability(false)}>×</button>
+                            {winProbability !== null ? (
+                                <>
+                                    <h3>내 당첨확률</h3>
+                                    <p>{winProbability}%</p>
+                                </>
+                            ) : (
+                                <p>응모 후 확인하실 수 있습니다.</p>
+                            )}
+                        </div>
+                    </div>
+                )}
+               {winnerMessage && (
                     <div className="winner-announcement">
-                        {winnerMessage}
+                        <p>{winnerMessage}</p>
                     </div>
                 )}
             </div>

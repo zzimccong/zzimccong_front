@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from '../../utils/axiosConfig';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/icons/logo.png';
+import './ManagerRestaurantList.css';
 
 function ManagerRestaurantList() {
   const { isLoggedIn, user } = useContext(AuthContext);
@@ -9,8 +11,8 @@ function ManagerRestaurantList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 로그인 상태가 아닐 경우 로그인 페이지로 리디렉션
-    if (isLoggedIn === null) return;  // isLoggedIn이 null이면 아무 작업도 하지 않음
+ 
+    if (isLoggedIn === null) return; 
 
     if (!isLoggedIn) {
       alert('로그인이 필요합니다.');
@@ -18,18 +20,19 @@ function ManagerRestaurantList() {
       return;
     }
 
-    // user가 null이 아닐 때만 권한을 검사
+  
     if (user?.role !== 'MANAGER') {
       alert('접근 권한이 없습니다.');
-      navigate('/'); // 메인 페이지로 리디렉션
+      navigate('/'); 
       return;
     }
-    // console.log(user.id);
+    
 
-    // 서버에서 사용자 ID에 연결된 가게 목록을 가져옴
+    console.log(restaurants);
+    
     axios.get(`/api/restaurants/user/${user.id}`)
       .then(response => {
-        console.log('Fetched restaurants:', response.data);  // 이 부분을 추가
+        console.log('Fetched restaurants:', response.data); 
 
         setRestaurants(response.data);
       })
@@ -38,29 +41,37 @@ function ManagerRestaurantList() {
       });
   }, [isLoggedIn, user, navigate]);
 
+  const navigateToStoreDetails = (storeId) => {
+    navigate(`/restaurant/${storeId}`);  
+  };
+  
+  const getShortAddress = (address) => {
+    const parts = address.split(' ');  
+    return parts.slice(0, 2).join(' ');  
+  };
+
   if (!isLoggedIn || user?.role !== 'MANAGER') {
-    return null; // 이미 리디렉션되므로 아무것도 렌더링하지 않음
+    return null; 
   }
 
   return (
     <div>
-      <h2>내 가게 목록 (매니저용)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>가게 이름</th>
-            <th>가게 상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          {restaurants.map((restaurant, index) => (
-            <tr key={index}>
-              <td>{restaurant.name}</td>
-              <td>{restaurant.state}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="header">
+        <img src={logo} className="logo" />
+        <div className="ManagerRestaurantList-title">나의 가게 목록</div>
+      </div>
+      { restaurants.map((restaurant, index) => (
+        <div key={index} className="SearchResults-store-item" onClick={() => navigateToStoreDetails(restaurant.id)}>
+        <div className="SearchResults-store-item-content">
+          <img src={restaurant.photo1Url} alt={`${restaurant.name} 사진`} />
+          <div className="SearchResults-store-details">
+            <h3>{restaurant.name}</h3>
+            <p>{restaurant.category} / {getShortAddress(restaurant.roadAddress)}</p>
+          </div>
+        </div>
+        <hr className="SearchResults-store-divider" />
+      </div>
+      ))}
     </div>
   );
 }

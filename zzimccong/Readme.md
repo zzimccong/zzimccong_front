@@ -22,6 +22,8 @@
 
 ## npm install jspdf
 
+
+=======
 ## npm install react-datepicker
  
 ## npm install date-fns
@@ -32,7 +34,9 @@
 
 ## npm install react-spring react-use-gesture 보류
 
+## npm install react-icons
 
+## npm install react-chartjs-2 chart.js
 
 ## 챗봇
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가
+import { Link, useNavigate } from "react-router-dom"; 
 import axios from '../../utils/axiosConfig';
 import { clearFirebaseIndexedDB } from "../../utils/firebaseClear";
 import ButtonClickFCM from "../../components/fcm/ButtonClickFCM";
@@ -8,7 +8,7 @@ export default function MyPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false); // 드롭다운 상태
+  const [showDropdown, setShowDropdown] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,18 +62,17 @@ export default function MyPage() {
           });
         }
       }
-      // Firebase 관련 IndexedDB 데이터베이스 삭제
+
       clearFirebaseIndexedDB();
 
-      // 서비스 워커 해제
       if ('serviceWorker' in navigator) {
         const registrations = await navigator.serviceWorker.getRegistrations();
         for (let registration of registrations) {
-            await registration.unregister();
+          await registration.unregister();
         }
         console.log("서비스 워커가 성공적으로 해제되었습니다.");
-    }
-      
+      }
+
       localStorage.clear();
       window.location.href = '/account';
     } catch (error) {
@@ -94,7 +93,7 @@ export default function MyPage() {
       if (parsedUser.corpId) {
         window.location.href = '/corporation/edit';
       } else if (parsedUser.loginId) {
-        if (parsedUser.loginId.includes('@')) {  // loginId에 '@'가 포함된 경우
+        if (parsedUser.loginId.includes('@')) { 
           window.location.href = '/kakao/edit';
         } else {
           window.location.href = '/users/edit';
@@ -104,18 +103,32 @@ export default function MyPage() {
   }, []);
 
   const toggleDropdown = () => {
-    setShowDropdown(!showDropdown); // 드롭다운 상태 토글
+    setShowDropdown(!showDropdown); 
   };
 
-    // 쿠폰 페이지로 이동하는 함수
-    const handleCouponClick = useCallback(() => {
-      navigate('/user/coupon');
+  const handleCouponClick = useCallback(() => {
+    navigate('/user/coupon');
+  }, [navigate]);
+
+  const handleCartClick = useCallback(() => {
+    navigate('/corp/cart');
+  }, [navigate]);
+
+  const handleReviewClick=useCallback(()=>{
+    navigate('/user/reviews');
+  }, [navigate]);
+  
+    const handleReservations = useCallback(() => {
+      navigate('/reservations');
     }, [navigate]);
 
-    const handleCartClick = useCallback(() => {
-      navigate('/corp/cart');
+    const handleMyStoreList = useCallback(() => {
+      navigate('/manager/restaurants');
     }, [navigate]);
-  
+
+    const handleStoreSet = useCallback(() => {
+      navigate('/admin/restaurants');
+    }, [navigate]);
 
   if (loading) {
     return <div>로딩 중...</div>;
@@ -125,100 +138,133 @@ export default function MyPage() {
     <div className="main mt-[120px]">
       {user?.role === 'ADMIN' ? (
         <div>
-          
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="btn-dropdown menu-option" onClick={toggleDropdown}>
-                사용자 관리
+              사용자 관리
               <span className="arrow">&gt;</span>
-              
+
               {showDropdown && (
-                    <div className="dropdown-menu">
-                      <br/>
-                      <div><Link to="/user-management">&gt; 유저 관리</Link></div>
-                      <div><Link to="/corp-management">&gt; 기업 관리</Link></div>
-                      <div><Link to="/store-management">&gt; 점주 관리</Link></div>
-                    </div>
+                <div className="dropdown-menu">
+                  <br />
+                  <div><Link to="/user-management">&gt; 유저 관리</Link></div>
+                  <div><Link to="/corp-management">&gt; 기업 관리</Link></div>
+                  <div><Link to="/store-management">&gt; 점주 관리</Link></div>
+                </div>
               )}
             </button>
-            <hr/>
-            <button className="menu-option" >
-                쿠폰 관리
+            <hr />
+            <button className="menu-option" onClick={handleStoreSet}>
+              가게 관리
               <span className="arrow">&gt;</span>
             </button>
-            <ButtonClickFCM />
+            <hr />
+            <button className="menu-option" >
+              쿠폰 관리
+              <span className="arrow">&gt;</span>
+            </button>
             <hr/>
             <button className="menu-option">
-                통계
+              통계
               <span className="arrow">&gt;</span>
             </button>
-            <hr/>
+            <hr />
             <button className="menu-option btn-logout" onClick={handleLogout} >
-                로그아웃
+              로그아웃
             </button>
           </div>
         </div>
       ) : user?.role === 'CORP' ? (
         <div>
-          
+          <ButtonClickFCM />
+          <hr/>
+          <div className="menu-container">
+            <button className="menu-option" onClick={handleEdit}>
+              내 정보 수정
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr />
+            <button className="menu-option" >
+              나의 찜 리스트
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr />
+            <button className="menu-option" onClick={handleCartClick}>
+              장바구니
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr />
+            <button className="menu-option" onClick={handleReviewClick}>
+              리뷰관리
+              <span className="arrow">&gt;</span>
+            </button>
+            <hr />
+            <button className="menu-option btn-logout" onClick={handleLogout} >
+                로그아웃
+            </button>
+          </div>
+        </div>
+      ) : user?.role === 'MANAGER' ? (
+        <div>
+          <ButtonClickFCM />
+          <hr/>
           <div className="menu-container">
             <button className="menu-option" onClick={handleEdit}>
                 내 정보 수정
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
-            <button className="menu-option" >
-                나의 찜 리스트
+            <button className="menu-option" onClick={handleReservations}>
+                나의 가게 예약 현황
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
-            <button className="menu-option" onClick={handleCartClick}>
-              장바구니
+            <button className="menu-option" onClick={handleMyStoreList}>
+                나의 가게 리스트
               <span className="arrow">&gt;</span>
             </button>
             <hr/>
-            <button className="menu-option" >
-                1:1 문의
-              <span className="arrow">&gt;</span>
+            <button className="menu-option" onClick={handleCouponClick}>
+              쿠폰
+            <span className="arrow">&gt;</span>
             </button>
-
-            <ButtonClickFCM />
             <hr/>
             <button className="menu-option btn-logout" onClick={handleLogout} >
-                로그아웃
+              로그아웃
             </button>
           </div>
         </div>
-      ) : ( <div>
-          
+      ): ( <div>
+        <ButtonClickFCM />
+        <hr/>
         <div className="menu-container">
           <button className="menu-option" onClick={handleEdit}>
-              내 정보 수정
+            내 정보 수정
             <span className="arrow">&gt;</span>
           </button>
-          <hr/>
+          <hr />
           <button className="menu-option" >
-              나의 찜 리스트
+            나의 찜 리스트
             <span className="arrow">&gt;</span>
           </button>
-          <hr/>
+          <hr />
           <button className="menu-option" onClick={handleCouponClick}>
-              쿠폰
+            쿠폰
             <span className="arrow">&gt;</span>
           </button>
-          <hr/>
-          <button className="menu-option" >
-              1:1 문의
+          <hr />
+          <button className="menu-option" onClick={handleReviewClick}>
+            리뷰관리
             <span className="arrow">&gt;</span>
           </button>
-
-          <ButtonClickFCM />
           <hr/>
           <button className="menu-option btn-logout" onClick={handleLogout} >
-              로그아웃
+            로그아웃
           </button>
         </div>
       </div>
-    )}
+      )}
     </div>
   );
 }

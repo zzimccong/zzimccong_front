@@ -52,7 +52,7 @@ const UserRegister = () => {
             const response = await axios.get('/api/users/check-id', { params: { loginId: formData.loginId } });
             setIdExists(response.data);
         } catch (error) {
-            console.error('ID check error:', error);
+            console.error('ID 확인 요망:', error);
         }
     };
 
@@ -61,7 +61,7 @@ const UserRegister = () => {
             const response = await axios.get('/api/users/check-email', { params: { email: formData.email } });
             setEmailExists(response.data);
         } catch (error) {
-            console.error('Email check error:', error);
+            console.error('Email 확인 요망:', error);
         }
     };
 
@@ -71,11 +71,11 @@ const UserRegister = () => {
             if (response.status === 200) {
                 setVerificationCodeSent(true);
                 setTimer(30); // 30초 타이머 설정
-                alert('Verification code sent successfully');
+                alert('인증번호 전송 성공');
             }
         } catch (error) {
             console.error('Error sending verification code:', error);
-            alert('Failed to send verification code');
+            alert('인증번호 전송 실패');
         }
     };
 
@@ -84,13 +84,13 @@ const UserRegister = () => {
             const response = await axios.post('/api/users/verify-sms', { phone: formData.phone, verificationCode });
             if (response.status === 200) {
                 setIsPhoneVerified(true);
-                alert('Phone number verified successfully');
+                alert('전화번호가 성공적으로 인증되었습니다');
             } else {
-                alert('Invalid verification code');
+                alert('잘못된 인증 코드');
             }
         } catch (error) {
             console.error('Error verifying code:', error);
-            alert('Failed to verify code');
+            alert('코드 인증 오류');
         }
     };
 
@@ -100,15 +100,15 @@ const UserRegister = () => {
             try {
                 const response = await axios.post('/api/users/user-register', formData);
                 if (response.status === 200) {
-                    alert('Registration successful');
+                    alert('등록이 완료되었습니다');
                     navigate('/account'); // 필요한 경우 올바른 경로로 변경
                 }
             } catch (error) {
                 console.error('Registration error:', error);
-                alert(`Registration failed: ${error.response?.data || error.message}`);
+                alert(`등록에 실패했습니다: ${error.response?.data || error.message}`);
             }
         } else {
-            alert('Please ensure all fields are correctly filled and phone number is verified.');
+            alert('모든 항목이 정확하게 입력되었고 전화번호가 인증되었는지 확인해 주세요.');
         }
     };
 

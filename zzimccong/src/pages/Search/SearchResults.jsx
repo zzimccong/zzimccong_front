@@ -6,26 +6,32 @@ import grade from '../../assets/icons/grade.png';
 import './SearchResults.css';
 import Modal from 'react-modal';
 import SearchFilter from './SearchFilter';
+import SearchDefault from './SearchDefault';
 
-
-const SearchResults = ({searchWord, results, loading, error, searchPerformed}) => {
+const SearchResults = ({ searchWord, results, loading, error, searchPerformed }) => {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState(results);
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState(JSON.parse(localStorage.getItem('selectedFilters')) || {});
 
-  useEffect(() => {  // results가 변경될 때마다 filteredResults를 초기화
-    setFilteredResults(results);  
+  useEffect(() => {
+    // Automatically apply filters stored in localStorage when component mounts
+    if (Object.keys(selectedFilters).length > 0) {
+      handleApplyFilters(selectedFilters);
+    }
+  }, []);
+
+  useEffect(() => {
+    setFilteredResults(results);
   }, [results]);
 
   const navigateToStoreDetails = (storeId) => {
-    navigate(`/restaurant/${storeId}`);  
+    navigate(`/restaurant/${storeId}`);
   };
 
-  //주소 파싱                                      
   const getShortAddress = (address) => {
-    const parts = address.split(' ');  
-    return parts.slice(0, 2).join(' ');  
+    const parts = address.split(' ');
+    return parts.slice(0, 2).join(' ');
   };
 
   const openModal = () => {
@@ -37,13 +43,13 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
   };
 
   const handleApplyFilters = async (filters) => {
-    setSelectedFilters(filters); // 필터를 저장
-    closeModal(); // 모달 닫기
-    console.log('Selected Filters:', filters);
+    setSelectedFilters(filters);
+    localStorage.setItem('selectedFilters', JSON.stringify(filters)); 
+    closeModal();
 
     const filtersWithSearchWord = {
       ...filters,
-      searchWord: searchWord, 
+      searchWord: searchWord,
     };
 
     try {
@@ -55,9 +61,11 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
       setFilteredResults(response.data);
     } catch (err) {
       console.error('검색 결과를 가져오는 중 오류 발생:', err);
-      // setError('검색 결과를 가져오는 중 오류가 발생했습니다.');
-    } 
+    }
+  };
 
+  const isAnyFilterSelected = () => {
+    return Object.keys(selectedFilters).some((key) => selectedFilters[key].length > 0);
   };
 
   if (loading) {
@@ -65,48 +73,50 @@ const SearchResults = ({searchWord, results, loading, error, searchPerformed}) =
   }
 
   if (error) {
-    return <p className="error-message">{error}</p>;
+    return <p className="SearchResults-error-message">{error}</p>;
+  }
+
+  if (!searchWord) {
+    return <SearchDefault />;
   }
 
   if (searchPerformed && results.length === 0) {
-    return <p>검색 결과가 없습니다.</p>;
+    return <SearchDefault />;
   }
- 
-  console.log(filteredResults); //이거 지울거
+
   return (
     <div>
       {results.length > 0 && (
         <img
-          src={fiter} className="fiter" alt="Filter"
+          src={fiter}
+          className={`SearchResults-fiter ${isAnyFilterSelected() ? 'active-filter' : ''}`}
+          alt="Filter"
           onClick={openModal}
         />
       )}
-      { filteredResults.map((store) => (
-        <div key={store.id} className="store-item  p-4 mb-4 rounded-lg" style={{ maxWidth: '700px' }}
-              onClick={() => navigateToStoreDetails(store.id)}>
-            <div style={{ display: 'flex', alignItems: 'center'}}>  
-              <img src={store.photo1Url} alt={`${store.name} 사진`} style={{ margin: '10px', width: '120px', height: '120px' }} />
-              <div style={{ flexGrow: 1 }}>
-                <h3 className="text-xl font-bold">{store.name}</h3>
-                <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
-                <p style={{display: 'flex', alignItems: 'center' }}> 
-                  <img src={grade} style={{ margin: '5px', width: '20px'}}/> {store.grade} / 5.0 
-                </p>
-              </div>
+      {filteredResults.map((store) => (
+        <div key={store.id} className="SearchResults-store-item" onClick={() => navigateToStoreDetails(store.id)}>
+          <div className="SearchResults-store-item-content">
+            <img src={store.photo1Url} alt={`${store.name} 사진`} />
+            <div className="SearchResults-store-details">
+              <h3>{store.name}</h3>
+              <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
+              <p className="SearchResults-store-grade">
+                <img src={grade} alt="Grade" /> {store.grade.toFixed(1)} / 5.0
+              </p>
             </div>
-          <hr style={{ width: '435px', margin: 'auto'}}/>
+          </div>
+          <hr className="SearchResults-store-divider" />
         </div>
       ))}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Filter Modal"
-        // ariaHideApp={false}
-        className="Modal"
-        overlayClassName="Overlay"
+        className="SearchResults-Modal"
+        overlayClassName="SearchResults-Overlay"
       >
-        <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters}
-                      selectedFilters={selectedFilters} />
+        <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters} selectedFilters={selectedFilters} />
       </Modal>
     </div>
   );

@@ -41,12 +41,12 @@
 }
 
 .participate-button, .generate-button {
-    background-color: #3498db;
+    background-color: #f55a5a;
     color: white;
 }
 
 .participate-button:hover, .generate-button:hover {
-    background-color: #2980b9;
+    background-color: #f55a5a;
 }
 
 .participants-list {
@@ -73,3 +73,5 @@
     text-align: center;
     margin-top: 10px;
 }
+
+
