@@ -4,6 +4,9 @@
     gap: 20px;
     justify-content: center;
     padding: 20px;
+    flex-direction: column;
+    min-height: 100vh; /* 뷰포트 높이를 최소 높이로 설정 */
+    padding-bottom: 20px; /* 하단에 여백 추가 */
   }
   
   .event-card {
@@ -12,7 +15,7 @@
     border-radius: 8px;
     overflow: hidden;
     width: 400px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 카드 그림자를 약간 더 강하게 변경 */
     transition: transform 0.3s ease;
     display: flex;
   }
@@ -31,6 +34,7 @@
   }
   
   .event-photo {
+    padding: 5px;
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -39,11 +43,14 @@
   
   .event-details {
     flex: 1;
-    padding: 10px;
+    padding: 10px 15px; /* 패딩을 약간 더 추가하여 텍스트와 이미지 간의 간격을 늘림 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+    background-color: #f5f5f5; /* 배경색을 약간 더 밝은 회색으로 변경 */
+    border-radius: 8px; /* 모서리를 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 추가 */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -51,7 +58,7 @@
   
   .event-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 0px;
   }
@@ -80,13 +87,14 @@
   .event-name {
     font-size: 1.2em;
     margin: 0;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
   }
   
   .event-category {
     font-size: 0.9em;
     color: #888;
-    margin-bottom: -25px;
+    margin-top: 10px;
+    margin-bottom: -20px;
   }
   
   .event-info {
@@ -96,9 +104,9 @@
 
   .event-buttons {
     display: flex;
-    justify-content: space-between; /* 버튼을 양 끝에 배치 */
-    width: 100%; /* 버튼들이 카드의 전체 너비를 차지하도록 설정 */
-}
+    justify-content: flex-end; 
+    width: 100%;
+  }
   
   .event-button {
     background-color: #e74c3c;

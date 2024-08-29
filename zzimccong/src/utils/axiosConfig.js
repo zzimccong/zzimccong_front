@@ -5,7 +5,7 @@ const isLocalhost = window.location.hostname === 'localhost';
 
 // axios 인스턴스를 생성합니다.
 const instance = axios.create({
-    baseURL: isLocalhost ? 'http://localhost:8090/app' : 'http://10.10.10.227:8090/app',
+    baseURL: isLocalhost ? 'http://localhost:8090/app' : 'http://172.30.1.100:8090/app',
     headers: {
         'Content-Type': 'application/json'
     }

@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosConfig';
 import SearchResults from './SearchResults';
@@ -53,7 +53,7 @@ const SearchComponent = () => {
     setResults([]); 
     localStorage.removeItem('searchWord'); 
     localStorage.removeItem('results'); 
-    localStorage.removeItem('selectedFilters'); // 모달창 필터 설정 초기화
+    localStorage.removeItem('selectedFilters');  // 필터 초기화
     navigate('/'); 
   };
 
@@ -84,18 +84,18 @@ const SearchComponent = () => {
           </button>
         </form>
 
-        <div style={{overflow: 'auto', height: '600px'}}>
+        <div style={{overflow: 'auto', height: '710px'}}>
           <SearchResults
               searchWord={searchWord}
               results={results}
               loading={loading}
               error={error}
               searchPerformed={searchPerformed}
-              onBackClick={handleBackClick} // handleBackClick 전달
             />
         </div>
       </div>
     </div>
+    
   );
 };
 

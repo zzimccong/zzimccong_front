@@ -31,7 +31,7 @@ function UserInfo({ eventId, user, userCoupons, userCouponsUsedInEvent, userCoup
                         <img src={restaurant.mainPhotoUrl} alt={restaurant.name} className="store-image" />
                         <div className="event-details">
                             <p><strong>가게 이름:</strong> {restaurant.name}</p>
-                            <p><strong>예약 시간:</strong> {restaurant.reservationTime}</p>
+                           
                         </div>
                     </>
                 ) : (

@@ -66,11 +66,13 @@ export function useEventParticipation() {
 
         setLoading(true);
         const token = localStorage.getItem('token');
-
+        const numericEventId = parseInt(eventId, 10);
         try {
-            await axios.post(`/api/lottery-events/${eventId}/participate`, {
-                couponCount: couponCount,
-                userId: userId
+            console.log('Sending participation request:', { couponCount, userId, numericEventId });
+
+            await axios.post(`/api/lottery-events/${numericEventId}/participate`, {
+                userId: userId,
+                couponCount: couponCount
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -138,6 +140,22 @@ export function useEventParticipation() {
         }
     };
 
+    const handleGenerateParticipants = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.post(`/api/lottery-events/${eventId}/generate-random-participants`);
+            console.log("임의의 참여자 생성 응답:", response.data);
+
+            const participantsResponse = await axios.get(`/api/lottery-events/${eventId}/participants/names`);
+            setParticipantNames(participantsResponse.data || []);
+
+        } catch (error) {
+            console.error('임의의 참여자 생성 중 오류가 발생했습니다:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         user,
         userCoupons,
@@ -151,6 +169,7 @@ export function useEventParticipation() {
         handleParticipate,
         handleDrawLottery,
         handleCalculateWinProbability,
+        handleGenerateParticipants,
         userIndex,
         setCouponCount,
         couponCount,
@@ -158,7 +177,7 @@ export function useEventParticipation() {
         winProbability,
         setSpinning,
         setWinner,
-        showParticipants, // 추가: 참여자 목록 표시 상태
-        setShowParticipants // 추가: 참여자 목록 표시 상태 업데이트 함수
+        showParticipants,
+        setShowParticipants
     };
 }

@@ -22,7 +22,7 @@ function Footer() {
                 <a href="#">광고/제휴 문의</a>
             </div>
             <div className="footer-global">
-                <a href="#">CATCHTABLE Global for foreigners</a>
+                {/* <a href="#">CATCHTABLE Global for foreigners</a> */}
             </div>
         </footer>
     );

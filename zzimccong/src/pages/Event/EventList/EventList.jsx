@@ -9,9 +9,18 @@ function EventList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+    const [userRole, setUserRole] = useState(null);  // 유저 역할을 저장할 상태
     const navigate = useNavigate();
 
     useEffect(() => {
+        // 로컬 스토리지에서 유저 역할 가져오기
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser && storedUser.role) {
+            setUserRole(storedUser.role.toLowerCase()); // 소문자로 변환하여 저장
+        } else {
+            console.error('로컬 스토리지에서 유저 정보를 가져오지 못했습니다.');
+        }
+
         axios.get('/api/events/all')
             .then(response => {
                 setEvents(response.data.map(event => ({ ...event, isExpanded: false })));
@@ -128,7 +137,7 @@ function EventList() {
                                 <p className={`event-status ${status.toLowerCase()}`}>{status}</p>
                             </div>
                             <h2 className="event-name">{event.restaurantName}</h2>
-                            <p className="event-category">{event.category}</p>
+                            <p className="event-category mt-[10px]">{event.category}</p>
                             <p className={`event-info ${event.isExpanded ? 'expanded' : ''}`}>
                                 <span className="event-detailInfo">{event.detailInfo}</span>
                                 <span className="event-roadAddress">({event.roadAddress})</span>
@@ -145,12 +154,14 @@ function EventList() {
                             )}
                             {timeLeft && <p className="time-left">{timeLeft}</p>}
                             <div className="event-buttons">
-                                <button 
-                                    className="event-delete-button" 
-                                    onClick={() => handleDeleteEvent(event.id)}
-                                >
-                                    삭제하기
-                                </button>
+                                {userRole === 'admin' && (  // userRole이 admin일 때만 삭제 버튼 표시
+                                    <button 
+                                        className="event-delete-button" 
+                                        onClick={() => handleDeleteEvent(event.id)}
+                                    >
+                                        삭제하기
+                                    </button>
+                                )}
                                 <button 
                                     className="event-button" 
                                     onClick={() => handleDrawClick(status, event.id)}

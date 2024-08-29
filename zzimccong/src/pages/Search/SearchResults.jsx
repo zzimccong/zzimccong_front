@@ -1,3 +1,121 @@
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import axios from '../../utils/axiosConfig';
+// import fiter from '../../assets/icons/fiter.png';
+// import grade from '../../assets/icons/grade.png';
+// import './SearchResults.css';
+// import Modal from 'react-modal';
+// import SearchFilter from './SearchFilter';
+// import SearchDefault from './SearchDefault';
+
+// const SearchResults = ({searchWord, results, loading, error, searchPerformed}) => {
+//   const navigate = useNavigate();
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const [filteredResults, setFilteredResults] = useState(results);
+//   const [selectedFilters, setSelectedFilters] = useState(JSON.parse(localStorage.getItem('selectedFilters')) || {});
+
+//   useEffect(() => {  
+//     setFilteredResults(results);  
+//   }, [results]);
+
+//   const navigateToStoreDetails = (storeId) => {
+//     navigate(`/restaurant/${storeId}`);  
+//   };
+
+//   const getShortAddress = (address) => {
+//     const parts = address.split(' ');  
+//     return parts.slice(0, 2).join(' ');  
+//   };
+
+//   const openModal = () => {
+//     setModalIsOpen(true);
+//   };
+
+//   const closeModal = () => {
+//     setModalIsOpen(false);
+//   };
+
+//   const handleApplyFilters = async (filters) => {
+//     setSelectedFilters(filters); 
+//     localStorage.setItem('selectedFilters', JSON.stringify(filters));  // 필터 상태 저장
+//     closeModal(); 
+
+//     const filtersWithSearchWord = {
+//       ...filters,
+//       searchWord: searchWord, 
+//     };
+
+//     try {
+//       const response = await axios.post(`api/search/filter`, filtersWithSearchWord, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+//       setFilteredResults(response.data);
+//     } catch (err) {
+//       console.error('검색 결과를 가져오는 중 오류 발생:', err);
+//     } 
+//   };
+
+//   const isAnyFilterSelected = () => {
+//     return Object.keys(selectedFilters).some((key) => selectedFilters[key].length > 0);
+//   };
+
+//   if (loading) {
+//     return <p>로딩 중...</p>;
+//   }
+
+//   if (error) {
+//     return <p className="SearchResults-error-message">{error}</p>;
+//   }
+
+//   if (!searchWord) {
+//     return <SearchDefault />;
+//   }
+
+//   if (searchPerformed && results.length === 0) {
+//     return <SearchDefault />;
+//   }
+ 
+//   return (
+//     <div>
+//       {results.length > 0 && (
+//         <img
+//           src={fiter} className={`SearchResults-fiter ${isAnyFilterSelected() ? 'active-filter' : ''}`}  alt="Filter"
+//           onClick={openModal}
+//         />
+//       )}
+//       { filteredResults.map((store) => (
+//         <div key={store.id} className="SearchResults-store-item" onClick={() => navigateToStoreDetails(store.id)}>
+//         <div className="SearchResults-store-item-content">
+//           <img src={store.photo1Url} alt={`${store.name} 사진`} />
+//           <div className="SearchResults-store-details">
+//             <h3>{store.name}</h3>
+//             <p>{store.category} / {getShortAddress(store.roadAddress)}</p>
+//             <p className="SearchResults-store-grade">
+//               <img src={grade} alt="Grade" /> {store.grade.toFixed(1)} / 5.0
+//             </p>
+//           </div>
+//         </div>
+//         <hr className="SearchResults-store-divider" />
+//       </div>
+//       ))}
+//       <Modal
+//         isOpen={modalIsOpen}
+//         onRequestClose={() => setModalIsOpen(false)}
+//         contentLabel="Filter Modal"
+//         className="SearchResults-Modal"
+//         overlayClassName="SearchResults-Overlay"
+//       >
+//         <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters}
+//                       selectedFilters={selectedFilters} />
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default SearchResults;
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axiosConfig';
@@ -8,17 +126,21 @@ import Modal from 'react-modal';
 import SearchFilter from './SearchFilter';
 import SearchDefault from './SearchDefault';
 
-const SearchResults = ({ searchWord, results, loading, error, searchPerformed, onBackClick }) => {
+const SearchResults = ({ searchWord, results, loading, error, searchPerformed }) => {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState(results);
-  const [selectedFilters, setSelectedFilters] = useState(() => {
-    const savedFilters = localStorage.getItem('selectedFilters');
-    return savedFilters ? JSON.parse(savedFilters) : {};
-  });
+  const [selectedFilters, setSelectedFilters] = useState(JSON.parse(localStorage.getItem('selectedFilters')) || {});
 
   useEffect(() => {
-    applyFilters(selectedFilters);
+    // Automatically apply filters stored in localStorage when component mounts
+    if (Object.keys(selectedFilters).length > 0) {
+      handleApplyFilters(selectedFilters);
+    }
+  }, []);
+
+  useEffect(() => {
+    setFilteredResults(results);
   }, [results]);
 
   const navigateToStoreDetails = (storeId) => {
@@ -38,9 +160,10 @@ const SearchResults = ({ searchWord, results, loading, error, searchPerformed, o
     setModalIsOpen(false);
   };
 
-  const applyFilters = async (filters) => {
+  const handleApplyFilters = async (filters) => {
     setSelectedFilters(filters);
-    localStorage.setItem('selectedFilters', JSON.stringify(filters));
+    localStorage.setItem('selectedFilters', JSON.stringify(filters)); // Save filter state to localStorage
+    closeModal();
 
     const filtersWithSearchWord = {
       ...filters,
@@ -48,7 +171,7 @@ const SearchResults = ({ searchWord, results, loading, error, searchPerformed, o
     };
 
     try {
-      const response = await axios.post(`/api/search/filter`, filtersWithSearchWord, {
+      const response = await axios.post(`api/search/filter`, filtersWithSearchWord, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -57,11 +180,6 @@ const SearchResults = ({ searchWord, results, loading, error, searchPerformed, o
     } catch (err) {
       console.error('검색 결과를 가져오는 중 오류 발생:', err);
     }
-  };
-
-  const handleApplyFilters = (filters) => {
-    applyFilters(filters);
-    closeModal();
   };
 
   const isAnyFilterSelected = () => {
@@ -83,11 +201,6 @@ const SearchResults = ({ searchWord, results, loading, error, searchPerformed, o
   if (searchPerformed && results.length === 0) {
     return <SearchDefault />;
   }
-
-  const handleBackAndReset = () => {
-    setSelectedFilters({}); // 필터 상태 초기화
-    onBackClick(); // SearchComponent의 handleBackClick 호출
-  };
 
   return (
     <div>
@@ -116,20 +229,15 @@ const SearchResults = ({ searchWord, results, loading, error, searchPerformed, o
       ))}
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Filter Modal"
         className="SearchResults-Modal"
         overlayClassName="SearchResults-Overlay"
       >
-        <SearchFilter
-          onClose={closeModal}
-          onApplyFilters={handleApplyFilters}
-          selectedFilters={selectedFilters}
-        />
+        <SearchFilter onClose={closeModal} onApplyFilters={handleApplyFilters} selectedFilters={selectedFilters} />
       </Modal>
     </div>
   );
 };
 
 export default SearchResults;
-

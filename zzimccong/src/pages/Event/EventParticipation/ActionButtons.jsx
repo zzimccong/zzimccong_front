@@ -9,11 +9,21 @@ function ActionButtons({
     setCouponCount,
     loading
 }) {
+    const handleParticipateClick = () => {
+        console.log("참여 버튼 클릭됨");
+        handleParticipate(); // 기존 응모 로직 실행
+        window.location.reload(); // 페이지 새로고침
+    };
+
+    const handleGenerateClick = () => {
+        console.log("임의의 참여자 생성 버튼 클릭됨");
+        handleGenerateParticipants();
+    };
+
     return (
         <div className="action-buttons-container">
             <div className="participation-section">
-                <h3>응모하기</h3>
-                <label>사용할 추첨권 수: </label>
+                <label>사용할 추첨권 수: 
                 <select 
                     value={couponCount} 
                     onChange={(e) => setCouponCount(parseInt(e.target.value))} 
@@ -27,17 +37,18 @@ function ActionButtons({
                     ))}
                 </select>
                 <button 
-                    onClick={handleParticipate} 
+                    onClick={handleParticipateClick} 
                     className="participate-button"
                     disabled={spinning}
-                >
-                    응모하기
+                > 
+                     응모하기
                 </button>
+                </label>
             </div>
 
             <div className="generate-participants-section">
                 <button 
-                    onClick={handleGenerateParticipants} 
+                    onClick={handleGenerateClick} 
                     className="generate-button" 
                     disabled={loading || spinning}
                 >

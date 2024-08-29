@@ -6,7 +6,7 @@ function RouletteSection({ participantNames, totalCouponsUsed, spinning, winner,
     return (
         <div className="roulette-section">
             <div className="roulette-wrapper">
-                <h3>현재 응모티켓 {totalCouponsUsed}장</h3>
+                <h3 className='event-h3'>현재 응모티켓 {totalCouponsUsed}장</h3>
                 <RouletteWheel 
                     userNames={participantNames}
                     spinning={spinning}
