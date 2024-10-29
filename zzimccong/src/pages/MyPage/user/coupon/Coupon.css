@@ -1,0 +1,56 @@
+  .Coupon-header {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #f5f5f5 !important; 
+    padding: 10px 15px !important;
+    border-radius: 10px !important; 
+    width: 370px;
+    margin: 0 auto;
+  }
+  
+  .Coupon-title {
+    color: #f55a5a; 
+  }
+  
+  .Coupon-count {
+    color: #f55a5a; 
+  }
+
+  .Coupon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    padding-bottom: 0px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
+  .Coupon-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 8px 0;
+  }
+  
+  .Coupon-text {
+    flex: 1; 
+    /* padding-left: 10px; */
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .Coupon-button_pay  {
+    width: 95px;
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: #f55a5a; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none
+  };

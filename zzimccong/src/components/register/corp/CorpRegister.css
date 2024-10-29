@@ -1,0 +1,154 @@
+/* corp-register */
+.corp-register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.corp-register-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.corp-register-header-button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #979595;
+    padding: 0 10px;
+}
+
+.corp-register-header-button.active {
+    color: hsl(0, 0%, 3%);
+}
+
+.corp-register-separator {
+    color: #cbd5e0;
+    margin: 0 20px;
+}
+
+.corp-register-logo {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.corp-register-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f55a5a;
+    margin-bottom: 20px;
+}
+
+.corp-register-form {
+    width: 100%;
+}
+
+.corp-register-form-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.corp-register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f7fafc;
+}
+
+.corp-register-input[type="text"],
+.corp-register-input[type="password"],
+.corp-register-input[type="email"] {
+    width: calc(100% - 10px);
+    padding: 0.75rem;
+    border: none;
+    border-bottom: 1px solid #cbd5e0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #4a5568;
+    outline: none;
+}
+
+.corp-register-duplicate-check {
+    padding: 0.5rem 1rem;
+    background-color: #f55a5a;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+/* CorpRegister email verification button style */
+.corp-register-email-verification-button {
+    padding: 0.1rem 0.7rem;
+    background-color: #f55a5a !important;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-left: 5px;
+}
+
+/* CorpRegister code verification button style */
+.corp-register-code-verification-button {
+    padding: 0.1rem 0.7rem;
+    background-color: #f55a5a !important;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-left: 5px;
+}
+
+/* CorpRegister button style */
+.corp-register-submit-button {
+    background-color: #f55a5a !important; /* Orange background */
+    color: #ffffff; /* White text */
+    padding: 0.75rem 1.5rem; /* Padding */
+    border-radius: 0.25rem; /* Rounded corners */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 1rem; /* Text size */
+    font-weight: bold; /* Bold text */
+    display: flex; /* Flexbox */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    gap: 10px; /* Space between icon and text */
+    width: 100%; /* Full width */
+}
+
+/* CorpRegister button icon style */
+.corp-register-button-icon {
+    width: 20px;
+    height: 18px;
+}
+
+.corp-register-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.corp-input-group {
+    display: flex;
+    align-items: center;
+}
+
+/* 회원가입 끝 */

@@ -1,0 +1,145 @@
+/* 전체 컨테이너 */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; /* 배경을 약간 어둡게 */
+}
+
+/* 로그인 박스 */
+.login-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* 로고 이미지 */
+.Login-logo {
+    width: 150px;
+    height: 63px;
+    margin: 0px 50px 20px;
+}
+
+/* 입력 필드 스타일 */
+.input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* 오류 메시지 */
+.error-message {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+    margin-top: 20px;
+}
+
+/* 로그인 버튼 */
+.login-button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.2rem; 
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #f55a5a !important; /* 파란색 */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* 버튼 아이콘 이미지 */
+.button-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+/* 링크 컨테이너 */
+.links-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* 링크 스타일 */
+.link {
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #0056b3;
+}
+
+/* 링크 구분선 */
+.separator {
+    margin: 0 5px;
+}
+
+/* 오른쪽 정렬된 링크 */
+.right-links {
+    display: flex;
+}
+
+.modal-overlay-login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content-login {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    width: 90%;
+    max-width: 400px; /* 모달 최대 너비를 400px로 설정 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-close-login {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }

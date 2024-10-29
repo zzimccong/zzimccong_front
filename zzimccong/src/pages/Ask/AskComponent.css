@@ -1,0 +1,147 @@
+.AskComponent-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.AskComponent-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.AskComponent-tabs {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.AskComponent-tab-item {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: gray;
+  position: relative;
+}
+
+.AskComponent-tab-item.active {
+  color: black;
+  font-weight: bold;
+}
+
+.AskComponent-tab-item.active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.AskComponent-tab-content {
+  margin-top: 20px;
+}
+
+.AskComponent-inquiry-button {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  position: fixed;
+  bottom: 80px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; 
+}
+
+.AskComponent-inquiry-button:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.AskComponent-password-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.AskComponent-password-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.AskComponent-password-modal-content h3 {
+  margin-bottom: 20px;
+}
+
+.AskComponent-password-modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.AskComponent-password-modal-content button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #f55a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.AskComponent-password-modal-content button:hover {
+  background-color: #f84747;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.header .logo {
+  height: 30px;
+  width: 30px;
+  padding: 0%;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.AskComponent-title {
+  font-size: 20px;
+  font-weight: bold; 
+  color: #f55a5a;
+  padding-top: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.secret-icon {
+  width: 25px; 
+  height: 25px; 
+  margin-right: 0px; 
+  vertical-align: middle;
+}

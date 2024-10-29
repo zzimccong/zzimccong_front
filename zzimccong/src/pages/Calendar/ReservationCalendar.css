@@ -1,0 +1,71 @@
+h2 {
+  margin-bottom: 20px;
+}
+
+.calendar {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+button.selected {
+  background-color: #f55a5a;
+  color: white;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* 버튼 간격 */
+  margin-top: 20px;
+}
+
+button.reservation {
+  padding: 0px 20px;
+  width: 120px;
+  height: 40px;
+  background-color: #f55a5a;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+button.close-button {
+  padding: 0px 20px;
+  width: 120px;
+  height: 40px;
+  background-color: gray;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+.request-input textarea {
+  border: 1px solid #ccc; 
+  outline: none; 
+  padding: 10px;
+  border-radius: 5px; 
+  transition: border-color 0.3s ease; 
+  width: 100%;
+}
+
+.request-input textarea:focus {
+  border-color: #888; 
+}

@@ -1,0 +1,100 @@
+.RegisterAsk-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .RegisterAsk-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .RegisterAsk-title-textarea{
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+  }
+
+  .RegisterAsk-textarea {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .RegisterAsk-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .RegisterAsk-checkbox-label {
+    font-size: 16px;
+    margin-left: 20px;
+  }
+  
+  .RegisterAsk-checkbox-label input {
+    margin-right: 10px;
+  }
+  
+  .RegisterAsk-password {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 250px;
+    margin-right: 20px;
+  }
+  
+  .RegisterAsk-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff4d4d !important;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .RegisterAsk-submit:hover {
+    background-color: #ff0202 !important;
+  }
+  
+  /* 문의 제목 스타일 */
+.inquiry-title {
+    cursor: pointer;
+    font-size: 18px;
+    margin: 10px 0;
+    margin-left: 10px;
+    color: #444444;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .inquiry-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .inquiry-item:hover {
+    background-color: #dfdfdf; /* 마우스 오버 시 배경색 변경 */
+  }

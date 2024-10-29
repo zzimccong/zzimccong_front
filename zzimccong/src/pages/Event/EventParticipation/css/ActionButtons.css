@@ -1,0 +1,77 @@
+.action-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 20px;
+    width: 100%; /* 전체 너비 차지 */
+}
+
+.participation-section {
+    width: 100%; /* 버튼과 select가 전체 너비를 차지하게 설정 */
+}
+
+.participation-section h3,
+.participation-section label {
+    margin-left: 10px; /* 텍스트를 버튼과 살짝 떨어뜨리기 */
+}
+
+.generate-participants-section {
+    display: flex;
+    justify-content: flex-start; /* 버튼을 왼쪽에 정렬 */
+    width: 100%; /* 전체 너비 차지 */
+}
+
+.orange-button, .draw-button, .participate-button, .generate-button {
+    padding: 10px 20px;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.orange-button, .draw-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.orange-button:hover, .draw-button:hover {
+    background-color: #c0392b;
+}
+
+.participate-button, .generate-button {
+    background-color: #f55a5a;
+    color: white;
+}
+
+.participate-button:hover, .generate-button:hover {
+    background-color: #f55a5a;
+}
+
+.participants-list {
+    display: none;
+    width: 100%;
+    
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.participants-list.open {
+    display: block;
+}
+
+.winner-message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+.win-probability-section {
+    text-align: center;
+    margin-top: 10px;
+}
+
+

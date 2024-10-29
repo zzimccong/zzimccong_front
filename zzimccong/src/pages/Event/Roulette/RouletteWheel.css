@@ -1,0 +1,197 @@
+.roulette-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.roulette-wheel {
+    margin-left: 5px;
+    border: 3px solid #2c3e50;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    height: auto;
+}
+
+.roulette-pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-430%, -600%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid red;
+}
+
+.roulette-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.roulette-buttons button {
+    background-color: #f55a5a;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1;
+    width: 100%;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.spin-button.always-transparent {
+    opacity: 0; /* 투명하게 설정 */
+    background-color: #f55a5a;
+    color: white;
+    border-radius: 5px;
+    transition: opacity 0.5s ease;
+}
+
+.modal-overlay-roulette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-roulette {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+@keyframes slideIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close-roulette {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none !important;
+  
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    z-index: 1001;
+}
+
+.modal-close-roulette::before {
+    content: '✕';
+    font-size: inherit;
+    color: #333;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+
+.participants-list.open {
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.participants-list.open ul {
+    padding-left: 20px;
+}
+
+.participants-list.open li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.participants-list.open::-webkit-scrollbar {
+    width: 6px;
+}
+
+.participants-list.open::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.participants-list.open::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+@media screen and (max-width: 500px) {
+    .modal-content-roulette {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .roulette-buttons button {
+        padding: 8px;
+    }
+}
+
+.winner-announcement {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000; /* 다른 요소들 위에 오도록 설정 */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.winner-announcement.fade-out {
+    opacity: 0;
+}
+
+@media screen and (max-width: 500px) {
+    .roulette-buttons button {
+        padding: 8px;
+    }
+
+    .winner-announcement {
+        font-size: 14px;
+    }
+}

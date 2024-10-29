@@ -1,0 +1,138 @@
+.my-reservations-container {
+  padding: 20px;
+  padding-top: 0px;
+}
+
+.main-tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.main-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-tabs .active {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  font-weight: bold;
+}
+
+.content {
+  min-height: 200px;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.empty-state p {
+  margin: 10px 0;
+}
+
+.explore-restaurants {
+  background-color: #f55a5a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.reservation-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reservation-image {
+  width: 150px; 
+  height: 150px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.reservation-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.reservation-text {
+  font-size: 14px;
+  margin: 5px 0;
+  padding: 0;
+}
+
+.reservation-text-name{
+  font-size: 15px;
+  font-weight: bold;
+  margin: 5px 0;
+  padding: 0;
+}
+
+.cta-section {
+  margin-top: 20px;
+}
+
+.write-review-button {
+  background-color:#f55a5a;
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.write-review-button:hover {
+  background-color: #f95151; /* 호버 시 색상 변경 */
+}
+
+.review-completed-button{
+  background-color:#989898;
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}
